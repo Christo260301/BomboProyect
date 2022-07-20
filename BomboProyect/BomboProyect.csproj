@@ -131,6 +131,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BomboDBContext.cs" />
     <Compile Include="Models\Clientes.cs" />
     <Compile Include="Models\Compras.cs" />

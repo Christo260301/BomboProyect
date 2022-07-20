@@ -17,6 +17,5 @@ namespace BomboProyect.Models
         //Relacion con la tabla DetCompra
         public List<DetCompra> DetCompra { get; set; }
       
-        public Usuarios Usuarios { get; set; }
     }
 }

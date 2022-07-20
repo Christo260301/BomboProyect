@@ -15,13 +15,7 @@ namespace BomboProyect.Models
         public String Ciudad { get; set; }
         public String Estado { get; set; }
         public String Telefono { get; set; }
-
-        //Relacion con tabla cliente
-        public Clientes Cliente { get; set; }
-
-        //Relacion con la tabla empleado
-        public Empleados Empleado { get; set; }
-
+        
 
     }
 }
