@@ -7,12 +7,18 @@ namespace BomboProyect.Models
 {
     public class Productos
     {
-        private int IdProducto { get; set; }
-        private String Nombre { get; set; }
-        private String Descripcipn { get; set; }
-        private double Precio { get; set; }
-        private int Cantidad { get; set; }
-        private String Unidad { get; set; }
-        private bool Status { get; set; }
+        public int ProductoId { get; set; }
+        public String Nombre { get; set; }
+        public String Descripcipn { get; set; }
+        public double Precio { get; set; }
+        public int Cantidad { get; set; }
+        public String Unidad { get; set; }
+        public bool Status { get; set; }
+
+        //Relacion con DetVenta
+        public List<DetVenta> DetVenta { get; set; }
+
+        //Relacion con la tabla Recetas
+        public List<Recetas> Recetas { get; set; }
     }
 }

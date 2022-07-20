@@ -7,11 +7,16 @@ namespace BomboProyect.Models
 {
     public class Insumos
     {
-        private int IdInsumo { get; set; }
-        private String Nombre { get; set; }
-        private String Descripcion { get; set; }
-        private bool Status { get; set;}
-        private String Cantidad { get; set; }
-        private String Unidad { get; set; }
+        public int InsumoId { get; set; }
+        public String Nombre { get; set; }
+        public String Descripcion { get; set; }
+        public bool Status { get; set;}
+        public String Cantidad { get; set; }
+        public String Unidad { get; set; }
+
+        //Relacion con la tabla DetCompra
+        public List<DetCompra> DetCompra { get; set;}
+        //Relacion con la tabla Recetas
+        public List<Recetas> Recetas { get; set; }
     }
 }
