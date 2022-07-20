@@ -10,15 +10,12 @@ namespace BomboProyect.Models
         public int DetVentaId { get; set; }
         public double PrecioVenta { get; set; }
         public int Cantidad { get; set; }
-        public String Unidad { get; set; }
-        public Ventas Ventas { get; set; }
-        public Productos Productos { get; set; }
+        public String Unidad { get; set; }      
 
 
-        //Relacion con Producto y Venta
-        public int IdVenta { get; set; }
+        //Relacion con Producto y Venta        
         public Ventas Venta { get; set; }
-        public int IdProducto { get; set; }
+       
         public  Productos Producto { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -11,13 +12,11 @@ namespace BomboProyect.Models
         public String Fechaventa { get; set; }
         public String HoraVenta { get; set; }
         public bool Status { get; set; }
-        public Clientes Cliente { get; set; }
-
-        //Relacion con detalle venta
-        public List<DetVenta> DetVenta { get; set; }
+        public Clientes Cliente { get; set; }       
         
 
         //Relacion con usuario
+        [Required]
         public Usuarios Usuarios { get; set;}
 
     }

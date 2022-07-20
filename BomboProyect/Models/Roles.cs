@@ -10,9 +10,7 @@ namespace BomboProyect.Models
         public int RolId { get; set; }
         public String NombreRol { get; set; }
         public String Descripcion { get; set; }
-
-        //Relacion con la tabla usuario
-        public Usuarios Usuario { get; set; }
+       
         
     }
 }

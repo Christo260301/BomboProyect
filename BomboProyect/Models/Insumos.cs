@@ -10,6 +10,7 @@ namespace BomboProyect.Models
         public int InsumoId { get; set; }
         public String Nombre { get; set; }
         public String Descripcion { get; set; }
+        public double Precio { get; set; }
         public bool Status { get; set;}
         public String Cantidad { get; set; }
         public String Unidad { get; set; }
