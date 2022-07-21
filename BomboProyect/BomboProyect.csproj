@@ -131,9 +131,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BomboDBContext.cs" />
     <Compile Include="Models\Clientes.cs" />
-    <Compile Include="Models\Compra.cs" />
+    <Compile Include="Models\Compras.cs" />
     <Compile Include="Models\DetCompra.cs" />
     <Compile Include="Models\DetVenta.cs" />
     <Compile Include="Models\Empleados.cs" />
@@ -142,7 +143,7 @@
     <Compile Include="Models\Productos.cs" />
     <Compile Include="Models\Recetas.cs" />
     <Compile Include="Models\Roles.cs" />
-    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Models\Ventas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

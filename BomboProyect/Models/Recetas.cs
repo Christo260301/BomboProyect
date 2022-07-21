@@ -7,9 +7,12 @@ namespace BomboProyect.Models
 {
     public class Recetas
     {
-        private int Cantidad { get; set; }
-        private String Unidad { get; set; }
-        private Productos Productos { get; set; }
-        private List<Insumos> Insumos { get; set; }    
+        public int RecetaId { get; set; }
+        public int Cantidad { get; set; }
+        public String Unidad { get; set; }      
+       
+        
+        public Insumos Insumo { get; set;}
+        public Productos Producto { get; set; }
     }
 }

@@ -7,9 +7,10 @@ namespace BomboProyect.Models
 {
     public class Roles
     {
-        private int IdRol { get; set; }
-        private String NombreRol { get; set; }
-        private String Descripcion { get; set; }
+        public int RolId { get; set; }
+        public String NombreRol { get; set; }
+        public String Descripcion { get; set; }
+       
         
     }
 }

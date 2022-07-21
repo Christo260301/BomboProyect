@@ -7,17 +7,15 @@ namespace BomboProyect.Models
 {
     public class Personas
     {
-        private int IdPersona { get; set; }
-        private String Calle { get; set; }
-        private String NumExt { get; set; }
-        private String Colonia { get; set; }
-        private String CP { get; set; }
-        private String Ciudad { get; set; }
-        private String Estado { get; set; }
-        private String Telefono { get; set; }
-
-
-
+        public int PersonaId { get; set; }
+        public String Calle { get; set; }
+        public String NumExt { get; set; }
+        public String Colonia { get; set; }
+        public String CP { get; set; }
+        public String Ciudad { get; set; }
+        public String Estado { get; set; }
+        public String Telefono { get; set; }
+        
 
     }
 }
