@@ -38,7 +38,7 @@ namespace BomboProyect.Controllers
         // GET: Usuarios/Create
         public ActionResult Create()
         {
-            ViewBag.Roless = new SelectList(db.RolesUsers, "RolId", "NombreRol");
+            ViewBag.Roles = new SelectList(db.RolesUsers, "RolId", "NombreRol");
             return View();
         }
 
