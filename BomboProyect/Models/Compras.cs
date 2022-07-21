@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace BomboProyect.Models
 {
@@ -12,6 +13,8 @@ namespace BomboProyect.Models
         public String Fechaventa { get; set; }
         public String HoraVenta { get; set; }
         public bool Status { get; set; }
+
+        [Required]
         public Usuarios Usuario { get; set; }
 
         //Relacion con la tabla DetCompra

@@ -11,9 +11,7 @@ namespace BomboProyect.Models
         public int VentaId{ get; set; }
         public String Fechaventa { get; set; }
         public String HoraVenta { get; set; }
-        public bool Status { get; set; }
-        public Clientes Cliente { get; set; }       
-        
+        public bool Status { get; set; }    
 
         //Relacion con usuario
         [Required]

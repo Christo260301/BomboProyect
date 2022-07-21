@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace BomboProyect.Models
 {
@@ -13,7 +14,10 @@ namespace BomboProyect.Models
         public String Unidad { get; set; }
 
         //Relacion con las tablas compra e insumos
+        [Required]
         public Compras Compra { get; set; }
+
+        [Required]
         public Insumos Insumos { get; set; }
     }
 }
