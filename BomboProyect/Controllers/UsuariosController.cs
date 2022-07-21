@@ -46,7 +46,6 @@ namespace BomboProyect.Controllers
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //Estructura a seguir
         public ActionResult Create(Usuarios usuarios, string Roles)
         {
             try
