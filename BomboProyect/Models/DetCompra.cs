@@ -10,12 +10,8 @@ namespace BomboProyect.Models
     {
         public int DetCompraId { get; set; }
 
-        [StringLength(50)]
-        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public double PrecioCompra { get; set; }
 
-        [StringLength(50)]
-        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public int Cantidad { get; set; }
 
         [StringLength(50)]

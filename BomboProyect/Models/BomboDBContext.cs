@@ -24,7 +24,7 @@ namespace BomboProyect.Models
         public DbSet<Insumos> Insumos { get; set; }
         public DbSet<DetCompra> DetCompra { get; set; }
         public DbSet<DetVenta> DetVenta { get; set; }
-        public DbSet<Roles> Roles { get; set; }
+        public DbSet<Roles> RolesUsers { get; set; }
 
 
         //MODEL BUILDER

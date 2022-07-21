@@ -70,7 +70,6 @@ namespace BomboProyect.Models
 
 
         //Relacion con la tabla rol
-        [Required]
         public Roles Rol { get; set; }
 
     }
