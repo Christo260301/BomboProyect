@@ -17,30 +17,24 @@ namespace BomboProyect.Models
 
         //DBsets para agregar los modelos a la bd
         public DbSet<Recetas> Recetas { get; set; }
-        public DbSet<Clientes> Clientes { get; set; }
         public DbSet<Compras> Compras { get; set; }
         public DbSet<Productos> Productos { get; set; }
         public DbSet<Usuarios> Usuarios { get; set; }
-        public DbSet<Empleados> Empleados { get; set; }
         public DbSet<Ventas> Ventas { get; set; }
         public DbSet<Insumos> Insumos { get; set; }
-        public DbSet<Personas> Personas { get; set; }
         public DbSet<DetCompra> DetCompra { get; set; }
         public DbSet<DetVenta> DetVenta { get; set; }
-        public DbSet<Roles> DetReceta { get; set; }
+        public DbSet<Roles> RolesUsers { get; set; }
 
 
         //MODEL BUILDER
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("ClienteId")).Configure(p => p.IsKey());
             modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("RecetaId")).Configure(p => p.IsKey());
             modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("DetVentaId")).Configure(p => p.IsKey());
             modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("DetCompraId")).Configure(p => p.IsKey());
             modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("ComprasId")).Configure(p => p.IsKey());
-            modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("EmpleadoId")).Configure(p => p.IsKey());
             modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("InsumoId")).Configure(p => p.IsKey());
-            modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("PersonaId")).Configure(p => p.IsKey());
             modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("ProductoId")).Configure(p => p.IsKey());
             modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("RolId")).Configure(p => p.IsKey());
             modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("UsuarioId")).Configure(p => p.IsKey());
