@@ -35,7 +35,7 @@ namespace BomboProyect.Models
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String NumInt { get; set; }
 
-        [StringLength(25)]
+        [StringLength(30)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String Colonia { get; set; }
 
@@ -43,15 +43,15 @@ namespace BomboProyect.Models
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String CP { get; set; }
 
-        [StringLength(25)]
+        [StringLength(30)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String Ciudad { get; set; }
 
-        [StringLength(25)]
+        [StringLength(30)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String Municipio { get; set; }
 
-        [StringLength(25)]
+        [StringLength(30)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String Estado { get; set; }
 

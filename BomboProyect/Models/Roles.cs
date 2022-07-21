@@ -10,7 +10,7 @@ namespace BomboProyect.Models
     {
         public int RolId { get; set; }
 
-        [StringLength(50)]
+        [StringLength(30)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String NombreRol { get; set; }
     }

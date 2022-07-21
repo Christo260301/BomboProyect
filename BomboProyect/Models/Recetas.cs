@@ -9,7 +9,13 @@ namespace BomboProyect.Models
     public class Recetas
     {
         public int RecetaId { get; set; }
+
+        [StringLength(50)]
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public int Cantidad { get; set; }
+
+        [StringLength(50)]
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String Unidad { get; set; }
 
         [Required]

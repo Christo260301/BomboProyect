@@ -9,8 +9,17 @@ namespace BomboProyect.Models
     public class Compras
     {
         public int ComprasId { get; set; }
+
+        [StringLength(50)]
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String Proveedor { get; set; }
+
+        [StringLength(50)]
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String Fechaventa { get; set; }
+
+        [StringLength(50)]
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String HoraVenta { get; set; }
         public bool Status { get; set; }
 
