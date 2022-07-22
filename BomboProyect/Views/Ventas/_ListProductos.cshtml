@@ -3,7 +3,7 @@
 
 @{ Layout = null; }
 
-<table class="table table-bordered">
+<table class="table table-bordered text-center">
     <tr>
         <th>Nombre</th>
         <th>Descripcion</th>
@@ -20,7 +20,7 @@
             <td>@pr.Precio</td>
             <td>@pr.Cantidad</td>
             <td>@pr.Unidad</td>
-            <td></td>
+            <td><input type="number" name="CantidadV" value="0" min="0" max="@pr.Cantidad"/></td>
 
         </tr>
 

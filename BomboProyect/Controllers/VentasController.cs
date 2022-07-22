@@ -28,11 +28,19 @@ namespace BomboProyect.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Ventas ventas = db.Ventas.Find(id);
-            if (ventas == null)
+
+            if (ventas != null)
+            {
+
+                List<DetVenta> detVen = db.DetVenta.Where(m => m.Venta.VentaId == id).ToList();
+                ViewBag.listV = detVen;
+                return View(ventas);
+            }
+            else
             {
                 return HttpNotFound();
             }
-            return View(ventas);
+
         }
 
         // GET: Ventas/Create
