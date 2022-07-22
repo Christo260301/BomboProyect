@@ -230,3 +230,4 @@ C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\vbc.exe.config
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\vbc.rsp
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\VBCSCompiler.exe
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\VBCSCompiler.exe.config
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\FontAwesome.Sharp.dll
