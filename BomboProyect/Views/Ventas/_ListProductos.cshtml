@@ -1,0 +1,30 @@
+﻿@using BomboProyect.Models;
+
+
+@{ Layout = null; }
+
+<table class="table table-bordered">
+    <tr>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Precio C/U</th>
+        <th>Cantidad Disponible</th>
+        <th>Unidad de Medida</th>
+        <th>Cantidad a Vender</th>
+    </tr>
+    @foreach (Productos pr in Model)
+    {
+        <tr>
+            <td>@pr.Nombre</td>
+            <td>@pr.Descripcipn</td>
+            <td>@pr.Precio</td>
+            <td>@pr.Cantidad</td>
+            <td>@pr.Unidad</td>
+            <td></td>
+
+        </tr>
+
+    }
+
+</table>
+
