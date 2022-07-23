@@ -144,9 +144,16 @@
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Models\Ventas.cs" />
+    <Compile Include="Permisos\PermisosRolAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\img\facebook.png" />
+    <Content Include="app\img\instagram.png" />
+    <Content Include="app\img\LOGO.png" />
+    <Content Include="app\img\logotipo-de-twitter.png" />
+    <Content Include="app\img\mapa.png" />
+    <Content Include="app\img\panaderia.png" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -232,6 +239,7 @@
     <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\Acceso\Index.cshtml" />
+    <Content Include="Views\Home\SinPermisos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

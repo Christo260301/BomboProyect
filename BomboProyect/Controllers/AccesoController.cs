@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 using BomboProyect.Models;
 using BomboProyect.Logica;
+using System.Web.Security;
 
 namespace BomboProyect.Controllers
 {
@@ -24,6 +25,10 @@ namespace BomboProyect.Controllers
 
             if (objeto.Nombre != null)
             {
+
+                FormsAuthentication.SetAuthCookie(objeto.Correo, false);
+
+                Session["Usuario"] = objeto;
 
                 return RedirectToAction("Index", "Home");
             }

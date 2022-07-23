@@ -59,7 +59,7 @@ namespace BomboProyect.Controllers
                     usuarios.Rol = roles;
                     db.Usuarios.Add(usuarios);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Acceso");
                 }
             }
             catch (Exception)
