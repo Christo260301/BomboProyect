@@ -126,7 +126,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccesoController.cs" />
+    <Compile Include="Controllers\DetProductoesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InsumosController.cs" />
+    <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\ProveedorsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
@@ -247,6 +250,21 @@
     <Content Include="Views\Proveedors\Details.cshtml" />
     <Content Include="Views\Proveedors\Edit.cshtml" />
     <Content Include="Views\Proveedors\Index.cshtml" />
+    <Content Include="Views\Insumos\Create.cshtml" />
+    <Content Include="Views\Insumos\Delete.cshtml" />
+    <Content Include="Views\Insumos\Details.cshtml" />
+    <Content Include="Views\Insumos\Edit.cshtml" />
+    <Content Include="Views\Insumos\Index.cshtml" />
+    <Content Include="Views\Productos\Create.cshtml" />
+    <Content Include="Views\Productos\Delete.cshtml" />
+    <Content Include="Views\Productos\Details.cshtml" />
+    <Content Include="Views\Productos\Edit.cshtml" />
+    <Content Include="Views\Productos\Index.cshtml" />
+    <Content Include="Views\DetProductoes\Create.cshtml" />
+    <Content Include="Views\DetProductoes\Delete.cshtml" />
+    <Content Include="Views\DetProductoes\Details.cshtml" />
+    <Content Include="Views\DetProductoes\Edit.cshtml" />
+    <Content Include="Views\DetProductoes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
