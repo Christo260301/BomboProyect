@@ -9,12 +9,11 @@ namespace BomboProyect.Permisos
 {
     public class PermisosRolAttribute : ActionFilterAttribute
     {
-        private Roles idrol;
+        private String idrol;
 
-        public PermisosRolAttribute(Roles _idrol)
+        public PermisosRolAttribute(String _idrol)
         {
-            idrol.RolId = _idrol.RolId;
-            //idrol.RolId = Int32.Parse(_idrol.RolId.ToString());
+            idrol = _idrol;
         }
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
@@ -22,7 +21,23 @@ namespace BomboProyect.Permisos
             {
                 Usuarios usuarios = HttpContext.Current.Session["Usuario"] as Usuarios;
 
-                if(usuarios.Rol.RolId != this.idrol.RolId)
+                int rol_id = 0;
+
+                switch (this.idrol)
+                {
+
+                    case "Administrador":
+                        rol_id = 1;
+                        break;
+                    case "Empleado":
+                        rol_id = 2;
+                        break;
+                    case "Cliente":
+                        rol_id = 3;
+                        break;
+                }
+
+                if(usuarios.Rol.RolId != rol_id)
                 {
                     filterContext.Result = new RedirectResult("~/Home/SinPermiso");
                 }

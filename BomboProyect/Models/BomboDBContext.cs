@@ -16,7 +16,7 @@ namespace BomboProyect.Models
         }
 
         //DBsets para agregar los modelos a la bd
-        public DbSet<Recetas> Recetas { get; set; }
+        public DbSet<DetProducto> DetProductos { get; set; }
         public DbSet<Compras> Compras { get; set; }
         public DbSet<Productos> Productos { get; set; }
         public DbSet<Usuarios> Usuarios { get; set; }
@@ -25,12 +25,12 @@ namespace BomboProyect.Models
         public DbSet<DetCompra> DetCompra { get; set; }
         public DbSet<DetVenta> DetVenta { get; set; }
         public DbSet<Roles> RolesUsers { get; set; }
-
+        public DbSet<Proveedor> Proveedor { get; set; }
 
         //MODEL BUILDER
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("RecetaId")).Configure(p => p.IsKey());
+            modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("DetProductoId")).Configure(p => p.IsKey());
             modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("DetVentaId")).Configure(p => p.IsKey());
             modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("DetCompraId")).Configure(p => p.IsKey());
             modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("ComprasId")).Configure(p => p.IsKey());
@@ -39,6 +39,7 @@ namespace BomboProyect.Models
             modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("RolId")).Configure(p => p.IsKey());
             modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("UsuarioId")).Configure(p => p.IsKey());
             modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("VentaId")).Configure(p => p.IsKey());
+            modelBuilder.Properties<int>().Where(p => p.Name.StartsWith("ProveedorId")).Configure(p => p.IsKey());
 
             base.OnModelCreating(modelBuilder);
         }

@@ -127,6 +127,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccesoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProveedorsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
@@ -137,10 +138,11 @@
     <Compile Include="Models\BomboDBContext.cs" />
     <Compile Include="Models\Compras.cs" />
     <Compile Include="Models\DetCompra.cs" />
+    <Compile Include="Models\DetProducto.cs" />
     <Compile Include="Models\DetVenta.cs" />
     <Compile Include="Models\Insumos.cs" />
     <Compile Include="Models\Productos.cs" />
-    <Compile Include="Models\Recetas.cs" />
+    <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Models\Ventas.cs" />
@@ -240,6 +242,11 @@
     <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\Acceso\Index.cshtml" />
     <Content Include="Views\Home\SinPermisos.cshtml" />
+    <Content Include="Views\Proveedors\Create.cshtml" />
+    <Content Include="Views\Proveedors\Delete.cshtml" />
+    <Content Include="Views\Proveedors\Details.cshtml" />
+    <Content Include="Views\Proveedors\Edit.cshtml" />
+    <Content Include="Views\Proveedors\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

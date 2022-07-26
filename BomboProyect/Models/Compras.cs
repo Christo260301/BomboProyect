@@ -12,11 +12,7 @@ namespace BomboProyect.Models
 
         [StringLength(50)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public String Proveedor { get; set; }
-
-        [StringLength(50)]
-        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public String Fechaventa { get; set; }
+        public String FechaVenta { get; set; }
 
         [StringLength(50)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
@@ -26,8 +22,12 @@ namespace BomboProyect.Models
         [Required]
         public Usuarios Usuario { get; set; }
 
-        //Relacion con la tabla DetCompra
+        [Required]
+        public Proveedor Proveedor { get; set; }
+
         public List<DetCompra> DetCompra { get; set; }
+
+
       
     }
 }

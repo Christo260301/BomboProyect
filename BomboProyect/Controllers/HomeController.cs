@@ -33,7 +33,9 @@ namespace IDGS902_EXAM_BD.Controllers
             return View();
         }
 
-        //[PermisosRol(_idrol: new Roles().RolId]
+        //Roles rol = new Roles();
+
+        [PermisosRol(_idrol: "Cliente")]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
