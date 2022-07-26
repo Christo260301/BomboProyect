@@ -16,21 +16,22 @@ namespace BomboProyect.Models
 
         [StringLength(50)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public String Descripcipn { get; set; }
+        public String Descripcion { get; set; }
 
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public double Precio { get; set; }
 
-        public int Cantidad { get; set; }
-
-        [StringLength(50)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public String Unidad { get; set; }
+        public String Foto { get; set; }
+
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
+        public int Existencias { get; set; }
+
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public bool Status { get; set; }
 
-        //Relacion con DetVenta
         public List<DetVenta> DetVenta { get; set; }
 
-        //Relacion con la tabla Recetas
-        public List<Recetas> Recetas { get; set; }
+        public List<DetProducto> DetProducto { get; set; }
     }
 }

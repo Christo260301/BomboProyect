@@ -68,7 +68,6 @@ namespace BomboProyect.Models
         public String Contrasennia { get; set; }
         public bool Status { get; set; }
 
-
         //Relacion con la tabla rol
         public Roles Rol { get; set; }
 

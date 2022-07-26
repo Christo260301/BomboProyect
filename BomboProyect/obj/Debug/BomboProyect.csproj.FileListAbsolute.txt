@@ -92,31 +92,11 @@ C:\Proyectos C#\BomboProyect\BomboProyect\bin\BomboProyect.dll.config
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\BomboProyect.dll
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\BomboProyect.pdb
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\csc.exe
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\csc.exe.config
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\csc.rsp
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\csi.exe
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\csi.exe.config
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\csi.rsp
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.Managed.Core.targets
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.VisualBasic.Core.targets
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\System.Collections.Immutable.dll
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\System.Reflection.Metadata.dll
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\System.Text.Encoding.CodePages.dll
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\System.Threading.Tasks.Extensions.dll
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\vbc.exe
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\vbc.exe.config
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\vbc.rsp
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\VBCSCompiler.exe
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\VBCSCompiler.exe.config
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\Antlr3.Runtime.dll
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\EntityFramework.dll
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\EntityFramework.SqlServer.dll
@@ -155,7 +135,6 @@ C:\Proyectos C#\BomboProyect\BomboProyect\obj\Debug\BomboProyect.csproj.CoreComp
 C:\Proyectos C#\BomboProyect\BomboProyect\obj\Debug\BomboProyect.csproj.CopyComplete
 C:\Proyectos C#\BomboProyect\BomboProyect\obj\Debug\BomboProyect.dll
 C:\Proyectos C#\BomboProyect\BomboProyect\obj\Debug\BomboProyect.pdb
-C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\System.Buffers.dll
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\System.Memory.dll
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\System.Numerics.Vectors.dll
 C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
@@ -230,3 +209,25 @@ C:\Users\maxro\Documents\Tarea\BomboProyect\BomboProyect\obj\Debug\BomboProyect.
 C:\Users\maxro\Documents\Tarea\BomboProyect\BomboProyect\obj\Debug\BomboProyect.csproj.CopyComplete
 C:\Users\maxro\Documents\Tarea\BomboProyect\BomboProyect\obj\Debug\BomboProyect.dll
 C:\Users\maxro\Documents\Tarea\BomboProyect\BomboProyect\obj\Debug\BomboProyect.pdb
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\csc.exe.config
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\csc.rsp
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\csi.exe
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\csi.exe.config
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\csi.rsp
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\System.Buffers.dll
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\vbc.exe
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\vbc.exe.config
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\vbc.rsp
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\VBCSCompiler.exe
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\roslyn\VBCSCompiler.exe.config
+C:\Proyectos C#\BomboProyect\BomboProyect\bin\FontAwesome.Sharp.dll

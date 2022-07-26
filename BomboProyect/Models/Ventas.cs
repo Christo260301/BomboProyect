@@ -12,14 +12,15 @@ namespace BomboProyect.Models
 
         [StringLength(50)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public String Fechaventa { get; set; }
+        public String FechaVenta { get; set; }
 
         [StringLength(50)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String HoraVenta { get; set; }
+
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public bool Status { get; set; }    
 
-        //Relacion con usuario
         [Required]
         public Usuarios Usuarios { get; set;}
 
