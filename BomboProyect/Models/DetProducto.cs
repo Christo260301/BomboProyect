@@ -6,10 +6,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BomboProyect.Models
 {
-    public class Recetas
+    public class DetProducto
     {
-        public int RecetaId { get; set; }
+        public int DetProductoId { get; set; }
 
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public int Cantidad { get; set; }
 
         [StringLength(50)]
@@ -17,9 +18,9 @@ namespace BomboProyect.Models
         public String Unidad { get; set; }
 
         [Required]
-        public Insumos Insumo { get; set;}
+        public Insumos Insumo { get; set; }
 
         [Required]
-        public Productos Producto { get; set; }
+        public Productos Productos { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace BomboProyect.Models
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String Descripcion { get; set; }
 
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public double Precio { get; set; }
 
         [StringLength(50)]
@@ -30,9 +31,8 @@ namespace BomboProyect.Models
 
         public bool Status { get; set; }
 
-        //Relacion con la tabla DetCompra
         public List<DetCompra> DetCompra { get; set;}
-        //Relacion con la tabla Recetas
-        public List<Recetas> Recetas { get; set; }
+
+        public List<DetProducto> DetProductos { get; set; }
     }
 }

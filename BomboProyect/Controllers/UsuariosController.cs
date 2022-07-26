@@ -46,22 +46,21 @@ namespace BomboProyect.Controllers
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(Usuarios usuarios, string Roles)
+        public ActionResult Create(Usuarios usuarios, string Roless)
         {
             try
             {
                 using (BomboDBContext db = new BomboDBContext())
                 {
                     var roles = new Roles();
-                    roles.RolId = Convert.ToInt32(Roles);
+                    roles.RolId = Convert.ToInt32(Roless);
                     db.RolesUsers.Attach(roles);
 
                     usuarios.Rol = roles;
-                    db.RolesUsers.Add(roles);
+                    db.Usuarios.Add(usuarios);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Acceso");
                 }
-
             }
             catch (Exception)
             {
