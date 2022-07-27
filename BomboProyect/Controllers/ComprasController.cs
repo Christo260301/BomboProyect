@@ -28,11 +28,18 @@ namespace BomboProyect.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Compras compras = db.Compras.Find(id);
-            if (compras == null)
+
+            if (compras != null)
+            {
+
+                List<DetCompra> detCom = db.DetCompra.Where(m => m.Compra.ComprasId == id).ToList();
+                ViewBag.listC = detCom;
+                return View(compras);
+            }
+            else
             {
                 return HttpNotFound();
             }
-            return View(compras);
         }
 
         public ActionResult _ListInsumos()
@@ -55,7 +62,7 @@ namespace BomboProyect.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ComprasId,FechaVenta,HoraVenta,Status")] Compras compras, 
-                                    string usuarioId, string Prov,List<Insumos> insumos)
+                                    string usuarioId, string Prov, List<Insumos> insumos)
         {
             try
             {
@@ -70,12 +77,35 @@ namespace BomboProyect.Controllers
                 compras.Usuario = user;
                 
                 db.Compras.Add(compras);
+                int contador = 0;
+                
                 foreach (var item in insumos)
                 {
-                    DetCompra detCompra = new DetCompra();
-                    detCompra.Compra = compras;
-                    detCompra.Insumos = item;
-                    db.DetCompra.Add(detCompra);
+                    if (Convert.ToInt32(item.Cantidad) > 0)
+                    {
+                        DateTime hoy = DateTime.Now;
+                        contador = contador + 1;
+                        
+                        var detCompra = new DetCompra();
+                        var insumo = new Insumos();
+
+                        insumo.InsumoId = Convert.ToInt32(item.InsumoId);
+                        db.Insumos.Attach(insumo);
+
+                        detCompra.PrecioCompra = Convert.ToInt32(item.Cantidad) * item.Precio;
+                        detCompra.Cantidad = Convert.ToInt32(item.Cantidad);
+                        detCompra.FechaCaduca = hoy.AddMonths(1);
+                        detCompra.Unidad = item.Unidad;
+                        detCompra.Compra = compras;
+                        detCompra.Insumos = insumo;
+                        
+                        db.DetCompra.Add(detCompra);
+
+                    }
+                }
+                if (contador == 0)
+                {
+                    return RedirectToAction("Index");
                 }
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -86,7 +116,7 @@ namespace BomboProyect.Controllers
                 ViewBag.usuario = db.Usuarios.Where(u => u.Rol.RolId == 1).ToList();
                 ViewBag.Prov = new SelectList(db.Proveedor, "ProveedorId", "RazonSocial");
 
-                return View();
+                return View(compras);
             }
         }
 

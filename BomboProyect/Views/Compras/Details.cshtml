@@ -1,4 +1,5 @@
-﻿@model BomboProyect.Models.Compras
+﻿@model BomboProyect.Models.Compras 
+@using BomboProyect.Models
 
 @{
     ViewBag.Title = "Details";
@@ -12,7 +13,23 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FechaVenta)
+            Nombre
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Nombre) @Html.DisplayFor(model => model.Usuario.ApePat)
+        </dd>
+
+        <dt>
+            Proveedor
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Proveedor.RazonSocial)
+        </dd>
+
+        <dt>
+            Fecha Compra
         </dt>
 
         <dd>
@@ -20,7 +37,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.HoraVenta)
+            Hora Compra
         </dt>
 
         <dd>
@@ -36,6 +53,28 @@
         </dd>
 
     </dl>
+    <hr />
+    <h4>Insumos Comprados</h4>
+    <table class="table table-bordered text-center">
+        <tr>
+            <th>Fecha de Caducidad</th>
+            <th>Precio</th>
+            <th>Cantidad Vendida</th>
+            <th>Unidad de Medida</th>
+        </tr>
+        @foreach (DetCompra pr in ViewBag.listC)
+        {
+            <tr>
+                <td>@pr.FechaCaduca</td>
+                <td>@pr.PrecioCompra</td>
+                <td>@pr.Cantidad</td>
+                <td>@pr.Unidad</td>
+
+            </tr>
+
+        }
+
+    </table>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ComprasId }) |

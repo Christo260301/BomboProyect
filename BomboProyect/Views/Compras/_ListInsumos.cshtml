@@ -1,5 +1,4 @@
-﻿@using BomboProyect.Models;
-@model List<BomboProyect.Models.Insumos>
+﻿@model List<BomboProyect.Models.Insumos>
 
 
 @{ Layout = null; }
@@ -16,11 +15,13 @@
     @for (var i = 0; i < Model.Count(); i++)
     {
         <tr>
-            <td hidden><input asp-for="@Model[i].InsumoId" type="hidden" /></td>
+            <td hidden><input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" /></td>
             <td>@Model[i].Nombre</td>
             <td>@Model[i].Descripcion</td>
+            <td hidden><input value="@Model[i].Precio" name="[@i].Precio" type="hidden" /></td>
             <td>@Model[i].Precio</td>
-            <td><input asp-for="@Model[i].Cantidad" type="number" min="0" placeholder="0"/></td>
+            <td><input name="[@i].Cantidad" type="number" min="0" value=0 class="form-control" /></td>
+            <td hidden><input value="@Model[i].Unidad" name="[@i].Unidad" type="hidden" /></td>
             <td>@Model[i].Unidad</td>
         </tr>
     }
