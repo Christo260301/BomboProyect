@@ -126,6 +126,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccesoController.cs" />
+    <Compile Include="Controllers\ComprasController.cs" />
     <Compile Include="Controllers\DetProductoesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InsumosController.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Controllers\ProveedorsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\VentasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -265,6 +267,14 @@
     <Content Include="Views\DetProductoes\Details.cshtml" />
     <Content Include="Views\DetProductoes\Edit.cshtml" />
     <Content Include="Views\DetProductoes\Index.cshtml" />
+    <Content Include="Views\Ventas\Create.cshtml" />
+    <Content Include="Views\Ventas\Details.cshtml" />
+    <Content Include="Views\Ventas\Index.cshtml" />
+    <Content Include="Views\Ventas\_ListProductos.cshtml" />
+    <Content Include="Views\Compras\Create.cshtml" />
+    <Content Include="Views\Compras\Details.cshtml" />
+    <Content Include="Views\Compras\Index.cshtml" />
+    <Content Include="Views\Compras\_ListInsumos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
