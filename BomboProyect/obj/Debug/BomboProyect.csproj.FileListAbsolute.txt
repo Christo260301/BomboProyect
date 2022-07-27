@@ -213,3 +213,4 @@ C:\Users\Isaac\Documents\GitHub\BomboProyect\BomboProyect\bin\roslyn\System.Memo
 C:\Users\Isaac\Documents\GitHub\BomboProyect\BomboProyect\bin\roslyn\System.Numerics.Vectors.dll
 C:\Users\Isaac\Documents\GitHub\BomboProyect\BomboProyect\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\Isaac\Documents\GitHub\BomboProyect\BomboProyect\bin\FontAwesome.Sharp.dll
+C:\Users\maxro\Documents\Tarea\BomboProyect\BomboProyect\bin\FontAwesome.Sharp.dll

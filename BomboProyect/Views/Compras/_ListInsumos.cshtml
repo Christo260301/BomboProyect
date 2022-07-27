@@ -1,0 +1,37 @@
+﻿@using BomboProyect.Models;
+@model List<BomboProyect.Models.Insumos>
+
+
+@{ Layout = null; }
+
+<table class="table table-bordered text-center">
+    <tr>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Precio C/U</th>
+        <th>Cantidad a Comprar </th>
+        <th>Unidad</th>
+    </tr>
+
+    @for (var i = 0; i < Model.Count(); i++)
+    {
+        <tr>
+            <td hidden><input asp-for="@Model[i].InsumoId" type="hidden" /></td>
+            <td>@Model[i].Nombre</td>
+            <td>@Model[i].Descripcion</td>
+            <td>@Model[i].Precio</td>
+            <td><input asp-for="@Model[i].Cantidad" type="number" min="0" placeholder="0"/></td>
+            <td>@Model[i].Unidad</td>
+        </tr>
+    }
+
+</table>
+
+
+@section Scripts {
+    <script>
+        function calcTotal() {
+
+        }
+    </script>
+}
