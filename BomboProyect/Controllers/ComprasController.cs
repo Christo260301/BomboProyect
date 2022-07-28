@@ -31,7 +31,6 @@ namespace BomboProyect.Controllers
 
             if (compras != null)
             {
-
                 List<DetCompra> detCom = db.DetCompra.Where(m => m.Compra.ComprasId == id).ToList();
                 ViewBag.listC = detCom;
                 return View(compras);
@@ -75,21 +74,22 @@ namespace BomboProyect.Controllers
 
                 compras.Proveedor = prov;
                 compras.Usuario = user;
-                
+
                 db.Compras.Add(compras);
                 int contador = 0;
-                
-                foreach (var item in insumos)
+
+                foreach (Insumos item in insumos)
                 {
                     if (Convert.ToInt32(item.Cantidad) > 0)
                     {
                         DateTime hoy = DateTime.Now;
                         contador = contador + 1;
-                        
+
                         var detCompra = new DetCompra();
                         var insumo = new Insumos();
 
                         insumo.InsumoId = Convert.ToInt32(item.InsumoId);
+
                         db.Insumos.Attach(insumo);
 
                         detCompra.PrecioCompra = Convert.ToInt32(item.Cantidad) * item.Precio;
@@ -98,18 +98,29 @@ namespace BomboProyect.Controllers
                         detCompra.Unidad = item.Unidad;
                         detCompra.Compra = compras;
                         detCompra.Insumos = insumo;
-                        
+
                         db.DetCompra.Add(detCompra);
 
+                        using (BomboDBContext du = new BomboDBContext())
+                        {
+                            Insumos insu = du.Insumos.Find(item.InsumoId);
+                            string cant = Convert.ToString(Convert.ToInt32(insu.Cantidad) + Convert.ToInt32(item.Cantidad));
+                            insu.Cantidad = cant;
+                            du.Insumos.Attach(insu);
+                            du.Entry(insu).Property(x => x.Cantidad).IsModified = true;
+                            du.SaveChanges();
+
+                        }
                     }
                 }
                 if (contador == 0)
                 {
                     return RedirectToAction("Index");
                 }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
-                
+
             }
             catch (Exception)
             {
