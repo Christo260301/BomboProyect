@@ -21,13 +21,14 @@ namespace BomboProyect.Models
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public double Precio { get; set; }
 
-        [StringLength(50)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public String Cantidad { get; set; }
+        public double CantidadNeta { get; set; }
 
-        [StringLength(50)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public String Unidad { get; set; }
+        public double ContenidoTot { get; set; }
+
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
+        public double Existencias { get; set; }
 
         public bool Status { get; set; }
 
