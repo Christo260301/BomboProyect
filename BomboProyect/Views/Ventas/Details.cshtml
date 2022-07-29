@@ -1,0 +1,73 @@
+﻿@using BomboProyect.Models
+@model BomboProyect.Models.Ventas
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalles de la venta</h2>
+
+<div>
+    <h4>Ventas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre del Cliente
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuarios.Nombre) @Html.DisplayFor(model => model.Usuarios.ApePat)
+        </dd>
+        
+        <dt>
+            Fecha Venta
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaVenta)
+        </dd>
+
+        <dt>
+            Hora Venta
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoraVenta)
+        </dd>
+
+        <dt>
+            Estatus
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+    </dl>
+    <hr />
+    <h4>Productos de la venta</h4>
+    <table class="table table-bordered text-center">
+        <tr>
+            <th>Nombre del Producto</th>
+            <th>Descripcion</th>
+            <th>Precio C/U</th>
+            <th>Cantidad Vendida</th>
+            <th>Unidad de Medida</th>
+        </tr>
+        @foreach (DetVenta pr in ViewBag.listV)
+        {
+            <tr>
+                <td>@pr.Producto.Nombre</td>
+                <td>@pr.Producto.Descripcipn</td>
+                <td>@pr.PrecioVenta</td>
+                <td>@pr.Cantidad</td>
+                <td>@pr.Unidad</td>
+
+            </tr>
+
+        }
+
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

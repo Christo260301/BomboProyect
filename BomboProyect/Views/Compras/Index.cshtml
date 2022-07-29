@@ -1,0 +1,47 @@
+﻿@model IEnumerable<BomboProyect.Models.Compras>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Compras</h2>
+
+<p>
+    @Html.ActionLink("Realizar Compra de Insumos", "Create", null, null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaCompra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HoraCompra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCompra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraCompra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ComprasId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ComprasId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ComprasId })
+            </td>
+        </tr>
+    }
+
+</table>

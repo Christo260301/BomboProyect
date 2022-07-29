@@ -2,10 +2,9 @@
 
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br /><br />
-<h2>Actualizar</h2>
+
+<h2>Edit</h2>
 
 
 @using (Html.BeginForm())
@@ -43,18 +42,26 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Cantidad, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CantidadNeta, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Cantidad, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cantidad, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.CantidadNeta, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CantidadNeta, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Unidad, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ContenidoTot, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Unidad, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Unidad, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ContenidoTot, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContenidoTot, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Existencias, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Existencias, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Existencias, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -70,15 +77,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Actualizar" class="btn btn-success" />
-                <a class="btn btn-danger" href="~/Insumos/Index">Cancelar</a>
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    
+    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {

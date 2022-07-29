@@ -2,13 +2,12 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br /> <br />
+
 <h2>Index</h2>
 
 <p>
-    <a href="~/Insumos/Create"  class="btn btn-success">Añadir Insumo</a>
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -22,10 +21,13 @@
             @Html.DisplayNameFor(model => model.Precio)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cantidad)
+            @Html.DisplayNameFor(model => model.CantidadNeta)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Unidad)
+            @Html.DisplayNameFor(model => model.ContenidoTot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Existencias)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Status)
@@ -45,10 +47,13 @@
             @Html.DisplayFor(modelItem => item.Precio)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Cantidad)
+            @Html.DisplayFor(modelItem => item.CantidadNeta)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Unidad)
+            @Html.DisplayFor(modelItem => item.ContenidoTot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Existencias)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Status)
