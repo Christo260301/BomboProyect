@@ -22,6 +22,5 @@ namespace BomboProyect.Models
 
         [Required]
         public Productos Productos { get; set; }
-
     }
 }
