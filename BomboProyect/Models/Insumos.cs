@@ -2,22 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace BomboProyect.Models
 {
     public class Insumos
     {
         public int InsumoId { get; set; }
-        public String Nombre { get; set; }
-        public String Descripcion { get; set; }
-        public double Precio { get; set; }
-        public bool Status { get; set;}
-        public String Cantidad { get; set; }
-        public String Unidad { get; set; }
 
-        //Relacion con la tabla DetCompra
+        [StringLength(50)]
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
+        public String Nombre { get; set; }
+
+        [StringLength(50)]
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
+        public String Descripcion { get; set; }
+
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
+        public double Precio { get; set; }
+
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
+        public double CantidadNeta { get; set; }
+
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
+        public double ContenidoTot { get; set; }
+
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
+        public double Existencias { get; set; }
+
+        public bool Status { get; set; }
+
         public List<DetCompra> DetCompra { get; set;}
-        //Relacion con la tabla Recetas
-        public List<Recetas> Recetas { get; set; }
+
+        public List<DetProducto> DetProductos { get; set; }
     }
 }

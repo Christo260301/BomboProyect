@@ -2,20 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace BomboProyect.Models
 {
     public class Compras
     {
         public int ComprasId { get; set; }
-        public String Proveedor { get; set; }
-        public String Fechaventa { get; set; }
-        public String HoraVenta { get; set; }
+
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
+        public DateTime FechaCompra { get; set; }
+
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
+        public DateTime HoraCompra{ get; set; }
         public bool Status { get; set; }
+
+        [Required]
         public Usuarios Usuario { get; set; }
 
-        //Relacion con la tabla DetCompra
+        [Required]
+        public Proveedor Proveedor { get; set; }
+
         public List<DetCompra> DetCompra { get; set; }
-      
     }
 }

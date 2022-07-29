@@ -9,13 +9,15 @@ namespace BomboProyect.Models
     public class Ventas
     {
         public int VentaId{ get; set; }
-        public String Fechaventa { get; set; }
-        public String HoraVenta { get; set; }
-        public bool Status { get; set; }
-        public Clientes Cliente { get; set; }       
-        
 
-        //Relacion con usuario
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
+        public DateTime FechaVenta { get; set; }
+
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
+        public DateTime HoraVenta { get; set; }
+
+        public int Status { get; set; }    
+
         [Required]
         public Usuarios Usuarios { get; set;}
 

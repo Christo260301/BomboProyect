@@ -1,0 +1,30 @@
+﻿@using BomboProyect.Models;
+
+
+@{ Layout = null; }
+
+<table class="table table-bordered text-center">
+    <tr>
+        <th>Foto</th>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Precio C/U</th>
+        <th>Existencias</th>
+        <th>Cantidad a Vender</th>
+    </tr>
+    @foreach (Productos pr in Model)
+    {
+        <tr>
+            <td>@pr.Foto</td>
+            <td>@pr.Nombre</td>
+            <td>@pr.Descripcion</td>
+            <td>@pr.Precio</td>
+            <td>@pr.Existencias</td>
+            <td><input type="number" name="CantidadV" value="0" min="0" max="@pr.Existencias" /></td>
+
+        </tr>
+
+    }
+
+</table>
+
