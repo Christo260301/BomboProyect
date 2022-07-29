@@ -157,7 +157,7 @@
   <ItemGroup>
     <Content Include="app\img\facebook.png" />
     <Content Include="app\img\instagram.png" />
-    <Content Include="app\img\LOGO.png" />
+    <Content Include="app\img\LogoBombo.png" />
     <Content Include="app\img\logotipo-de-twitter.png" />
     <Content Include="app\img\mapa.png" />
     <Content Include="app\img\panaderia.png" />
@@ -235,11 +235,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Roles\Create.cshtml" />
-    <Content Include="Views\Roles\Delete.cshtml" />
-    <Content Include="Views\Roles\Details.cshtml" />
-    <Content Include="Views\Roles\Edit.cshtml" />
-    <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Usuarios\Create.cshtml" />
     <Content Include="Views\Usuarios\Delete.cshtml" />
     <Content Include="Views\Usuarios\Details.cshtml" />
@@ -267,14 +262,11 @@
     <Content Include="Views\DetProductoes\Details.cshtml" />
     <Content Include="Views\DetProductoes\Edit.cshtml" />
     <Content Include="Views\DetProductoes\Index.cshtml" />
-    <Content Include="Views\Ventas\Create.cshtml" />
-    <Content Include="Views\Ventas\Details.cshtml" />
-    <Content Include="Views\Ventas\Index.cshtml" />
-    <Content Include="Views\Ventas\_ListProductos.cshtml" />
-    <Content Include="Views\Compras\Create.cshtml" />
-    <Content Include="Views\Compras\Details.cshtml" />
-    <Content Include="Views\Compras\Index.cshtml" />
-    <Content Include="Views\Compras\_ListInsumos.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -39,7 +39,7 @@ namespace BomboProyect.Permisos
 
                 if(usuarios.Rol.RolId != rol_id)
                 {
-                    filterContext.Result = new RedirectResult("~/Home/SinPermiso");
+                    filterContext.Result = new RedirectResult("~/Home/SinPermisos");
                 }
             }
             base.OnActionExecuted(filterContext);   

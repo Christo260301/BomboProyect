@@ -10,13 +10,11 @@ namespace BomboProyect.Models
     {
         public int ComprasId { get; set; }
 
-        [StringLength(50)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public String FechaVenta { get; set; }
+        public DateTime FechaCompra { get; set; }
 
-        [StringLength(50)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public String HoraVenta { get; set; }
+        public DateTime HoraCompra{ get; set; }
         public bool Status { get; set; }
 
         [Required]
@@ -26,8 +24,5 @@ namespace BomboProyect.Models
         public Proveedor Proveedor { get; set; }
 
         public List<DetCompra> DetCompra { get; set; }
-
-
-      
     }
 }
