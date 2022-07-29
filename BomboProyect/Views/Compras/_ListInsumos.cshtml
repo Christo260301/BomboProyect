@@ -8,7 +8,10 @@
         <th>Nombre</th>
         <th>Descripcion</th>
         <th>Precio C/U</th>
-        <th>Cantidad a Comprar </th>
+        <th>Cantidad Neta</th>
+        <th>Existencias</th>
+        <th>Contenido Total</th>
+        <th>Cantidad de Existencias a Comprar</th>
         <th>Unidad</th>
     </tr>
 
@@ -18,11 +21,13 @@
             <td hidden><input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" /></td>
             <td>@Model[i].Nombre</td>
             <td>@Model[i].Descripcion</td>
-            <td hidden><input value="@Model[i].Precio" name="[@i].Precio" type="hidden" /></td>
             <td>@Model[i].Precio</td>
-            <td><input name="[@i].Cantidad" type="number" min="0" value=0 class="form-control" /></td>
-            <td hidden><input value="@Model[i].Unidad" name="[@i].Unidad" type="hidden" /></td>
-            <td>@Model[i].Unidad</td>
+            <td>@Model[i].CantidadNeta</td>
+            <td>@Model[i].Existencias</td>
+            <td>@Model[i].ContenidoTot</td>
+            <td hidden><input type="hidden" name="[@i].Precio" value="@Model[i].Precio" /></td>
+            <td><input name="[@i].Existencias" type="number" min="0" value=0 class="form-control" /></td>
+            <td><input type="text" name="[@i].Descripcion" value="" /></td>
         </tr>
     }
 

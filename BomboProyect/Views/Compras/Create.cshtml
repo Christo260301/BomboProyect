@@ -41,18 +41,18 @@
             </div>
             <br />
             <div class="form-group">
-                @Html.LabelFor(model => model.FechaVenta, htmlAttributes: new { @class = "form-label col-md-4" })
+                @Html.LabelFor(model => model.FechaCompra, htmlAttributes: new { @class = "form-label col-md-4" })
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.FechaVenta, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FechaVenta, "", new { @class = "text-danger" })
+                    <input type="date" name="FechaCompra" class="form-control" value=""/>
+                    @Html.ValidationMessageFor(model => model.FechaCompra, "", new { @class = "text-danger" })
                 </div>
             </div>
             <br />
             <div class="form-group">
-                @Html.LabelFor(model => model.HoraVenta, htmlAttributes: new { @class = "form-label col-md-4" })
+                @Html.LabelFor(model => model.HoraCompra, htmlAttributes: new { @class = "form-label col-md-4" })
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.HoraVenta, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.HoraVenta, "", new { @class = "text-danger" })
+                    <input type="time" name="HoraCompra" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.HoraCompra, "", new { @class = "text-danger" })
                 </div>
             </div>
             <br />

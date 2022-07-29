@@ -60,7 +60,7 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ComprasId,FechaVenta,HoraVenta,Status")] Compras compras, 
+        public ActionResult Create([Bind(Include = "ComprasId,FechaCompra,HoraCompra,Status")] Compras compras, 
                                     string usuarioId, string Prov, List<Insumos> insumos)
         {
             try
@@ -71,16 +71,16 @@ namespace BomboProyect.Controllers
                 user.UsuarioId = Convert.ToInt32(usuarioId);
                 db.Proveedor.Attach(prov);
                 db.Usuarios.Attach(user);
-
+                
                 compras.Proveedor = prov;
                 compras.Usuario = user;
 
                 db.Compras.Add(compras);
                 int contador = 0;
-
-                foreach (Insumos item in insumos)
+                
+                foreach (var item in insumos)
                 {
-                    if (Convert.ToInt32(item.Cantidad) > 0)
+                    if (Convert.ToInt32(item.Existencias) > 0)
                     {
                         DateTime hoy = DateTime.Now;
                         contador = contador + 1;
@@ -89,13 +89,13 @@ namespace BomboProyect.Controllers
                         var insumo = new Insumos();
 
                         insumo.InsumoId = Convert.ToInt32(item.InsumoId);
-
+                        
                         db.Insumos.Attach(insumo);
-
-                        detCompra.PrecioCompra = Convert.ToInt32(item.Cantidad) * item.Precio;
-                        detCompra.Cantidad = Convert.ToInt32(item.Cantidad);
+                        
+                        detCompra.Costo = Convert.ToInt32(item.Existencias) * item.Precio;
+                        detCompra.Cantidad = Convert.ToInt32(item.Existencias);
                         detCompra.FechaCaduca = hoy.AddMonths(1);
-                        detCompra.Unidad = item.Unidad;
+                        detCompra.Unidad = item.Descripcion;
                         detCompra.Compra = compras;
                         detCompra.Insumos = insumo;
 
@@ -104,15 +104,18 @@ namespace BomboProyect.Controllers
                         using (BomboDBContext du = new BomboDBContext())
                         {
                             Insumos insu = du.Insumos.Find(item.InsumoId);
-                            string cant = Convert.ToString(Convert.ToInt32(insu.Cantidad) + Convert.ToInt32(item.Cantidad));
-                            insu.Cantidad = cant;
+                            double existencia = Convert.ToInt32(insu.Existencias) + Convert.ToInt32(item.Existencias);
+                            insu.Existencias = existencia;
+                            insu.ContenidoTot = insu.ContenidoTot + (Convert.ToInt32(item.Existencias) * insu.CantidadNeta);
                             du.Insumos.Attach(insu);
-                            du.Entry(insu).Property(x => x.Cantidad).IsModified = true;
+                            du.Entry(insu).Property(x => x.Existencias).IsModified = true;
+                            du.Entry(insu).Property(x => x.ContenidoTot).IsModified = true;
                             du.SaveChanges();
 
                         }
                     }
                 }
+
                 if (contador == 0)
                 {
                     return RedirectToAction("Index");

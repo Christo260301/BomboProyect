@@ -2,12 +2,11 @@
 
 @{
     ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br /><br />
-<h2>Eliminar</h2>
 
-<h3>¿Estás seguro que quieres eliminar esto?</h3>
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Insumos</h4>
     <hr />
@@ -37,19 +36,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Cantidad)
+            @Html.DisplayNameFor(model => model.CantidadNeta)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Cantidad)
+            @Html.DisplayFor(model => model.CantidadNeta)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Unidad)
+            @Html.DisplayNameFor(model => model.ContenidoTot)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Unidad)
+            @Html.DisplayFor(model => model.ContenidoTot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Existencias)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Existencias)
         </dd>
 
         <dt>
@@ -66,8 +73,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
-            <a class="btn btn-success" href="/Insumos/Index">Cancelar</a>
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
         </div>
     }
 </div>
