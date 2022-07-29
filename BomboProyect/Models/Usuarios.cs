@@ -39,9 +39,8 @@ namespace BomboProyect.Models
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String Colonia { get; set; }
 
-        [StringLength(5)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public String CP { get; set; }
+        public int CP { get; set; }
 
         [StringLength(30)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
@@ -55,9 +54,8 @@ namespace BomboProyect.Models
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String Estado { get; set; }
 
-        [StringLength(10)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public String Telefono { get; set; }
+        public int Telefono { get; set; }
 
         [StringLength(100)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
