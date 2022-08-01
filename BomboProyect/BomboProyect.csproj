@@ -247,11 +247,6 @@
     <Content Include="Views\Proveedors\Details.cshtml" />
     <Content Include="Views\Proveedors\Edit.cshtml" />
     <Content Include="Views\Proveedors\Index.cshtml" />
-    <Content Include="Views\Insumos\Create.cshtml" />
-    <Content Include="Views\Insumos\Delete.cshtml" />
-    <Content Include="Views\Insumos\Details.cshtml" />
-    <Content Include="Views\Insumos\Edit.cshtml" />
-    <Content Include="Views\Insumos\Index.cshtml" />
     <Content Include="Views\Productos\Create.cshtml" />
     <Content Include="Views\Productos\Delete.cshtml" />
     <Content Include="Views\Productos\Details.cshtml" />
@@ -267,6 +262,19 @@
     <Content Include="Views\Roles\Details.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Compras\Create.cshtml" />
+    <Content Include="Views\Compras\Details.cshtml" />
+    <Content Include="Views\Compras\Index.cshtml" />
+    <Content Include="Views\Compras\_ListInsumos.cshtml" />
+    <Content Include="Views\Ventas\Create.cshtml" />
+    <Content Include="Views\Ventas\Details.cshtml" />
+    <Content Include="Views\Ventas\Index.cshtml" />
+    <Content Include="Views\Ventas\_ListProductos.cshtml" />
+    <Content Include="Views\Insumos\Create.cshtml" />
+    <Content Include="Views\Insumos\Delete.cshtml" />
+    <Content Include="Views\Insumos\Details.cshtml" />
+    <Content Include="Views\Insumos\Edit.cshtml" />
+    <Content Include="Views\Insumos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
