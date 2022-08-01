@@ -38,6 +38,7 @@ namespace BomboProyect.Controllers
         // GET: Productos/Create
         public ActionResult Create()
         {
+            ViewBag.insumos = db.Insumos.ToList();
             return View();
         }
 
