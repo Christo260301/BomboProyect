@@ -54,16 +54,69 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "VentaId,Fechaventa,HoraVenta,Status")] Ventas ventas)
+        public ActionResult Create([Bind(Include = "VentaId,Fechaventa,HoraVenta,Status")] Ventas ventas,List<Productos> productos)
         {
-            if (ModelState.IsValid)
-            {
-                db.Ventas.Add(ventas);
-                db.SaveChanges();
+            try {
+                if (Session["Usuario"] != null)
+                {   //Ventas
+                    Usuarios usuario = Session["Usuario"] as Usuarios;
+                    db.Usuarios.Attach(usuario);
+                    ventas.Usuarios = usuario;
+                    db.Ventas.Add(ventas);
+
+                    int contador = 0;
+                    foreach (var item in productos)
+                    {
+                        if (item.Existencias > 0)
+                        {
+                            contador = contador + 1;
+                            var detVenta = new DetVenta();
+                            var producto = new Productos();
+
+                            producto.ProductoId = item.ProductoId;
+                            db.Productos.Attach(producto);
+
+                            detVenta.PrecioVenta = item.Existencias * item.Precio;
+                            detVenta.Cantidad = item.Existencias;
+                            detVenta.Venta = ventas;
+                            detVenta.Producto = producto;
+
+                            db.DetVenta.Add(detVenta);
+
+                            using (BomboDBContext du = new BomboDBContext())
+                            {
+                                Productos product = du.Productos.Find(item.ProductoId);
+                                int existencia = product.Existencias - item.Existencias;
+                                product.Existencias = existencia;
+                                du.Entry(product).State = EntityState.Modified;
+                                du.SaveChanges();
+
+                                if (contador == 0)
+                                {
+                                    return RedirectToAction("Index");
+                                }
+
+                                db.SaveChanges();
+                                return RedirectToAction("Index");
+
+
+                            }
+                        }
+                    }
+
+                }
                 return RedirectToAction("Index");
+
+            }
+            catch (Exception)
+            {
+                ViewBag.usuario = db.Usuarios.Where(u => u.Rol.RolId == 1).ToList();
+                ViewBag.Prov = new SelectList(db.Proveedor, "ProveedorId", "RazonSocial");
+
+                return View(ventas);
             }
 
-            return View(ventas);
+
         }
 
         public ActionResult _ListProductos() {
