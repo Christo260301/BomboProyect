@@ -45,7 +45,10 @@ namespace BomboProyect.Controllers
 
         // GET: Ventas/Create
         public ActionResult Create()
-        {
+        {   
+            Usuarios user = new Usuarios();
+            user = Session["Usuario"] as Usuarios;
+            ViewBag.Usuario = user.Nombre;
             return View();
         }
 
