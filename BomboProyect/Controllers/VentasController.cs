@@ -69,8 +69,6 @@ namespace BomboProyect.Controllers
         public ActionResult _ListProductos() {
             return View(db.Productos.ToList());
         }
-
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
