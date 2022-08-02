@@ -126,9 +126,7 @@ namespace BomboProyect.Controllers
 
             }
             catch (Exception)
-            {
-                ViewBag.usuario = db.Usuarios.Where(u => u.Rol.RolId == 1).ToList();
-                ViewBag.Prov = new SelectList(db.Proveedor, "ProveedorId", "RazonSocial");
+            {             
 
                 return View(compras);
             }
