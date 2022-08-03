@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BomboProyect.Models
 {
@@ -33,5 +34,8 @@ namespace BomboProyect.Models
         public List<DetVenta> DetVenta { get; set; }
 
         public List<DetProducto> DetProducto { get; set; }
+        [Required]
+        [NotMapped]
+        public HttpPostedFileBase Fotografia { get; set; }
     }
 }
