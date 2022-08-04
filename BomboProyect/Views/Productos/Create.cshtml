@@ -11,137 +11,128 @@
         </div>
         <div class="col-6">
             <div class="d-flex justify-content-end">
-                @Html.ActionLink("Back to List", "Index")
+                <a href="@Url.Action("Index", "Productos")" class="btn btn-secondary">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Back to List</span>
+                </a>
             </div>
         </div>
     </div>
 
-    <div class="row justify-content-between">
-        <div class="col-3 shadow p-3 mb-5 bg-body rounded">
-            @using (Html.BeginForm("Create", "Productos", FormMethod.Post, new {enctype = "multipart/form-data"}))
+    <div class="row justify-content-center">
+        <div class="col-10 shadow p-3 mb-5 bg-body rounded">
+            <h4 class="mb-3">Datos Generales</h4>
+            <!-- FORMULARIO DE PRODUCTO -->
+            @using (Html.BeginForm("Create", "Productos", FormMethod.Post, new { enctype = "multipart/form-data", @class = "row justify-content-between g-4" }))
             {
                 @Html.AntiForgeryToken()
 
-            <div class="">
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-                    </div>
+                @Html.ValidationSummary(true, "", new { @class = "form-text text-danger" })
+                <div class="col-auto">
+                    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "form-text text-danger" })
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-                    </div>
+                <div class="col-auto">
+                    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "form-text text-danger" })
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
-                    </div>
+                <div class="col-auto">
+                    @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "form-text text-danger" })
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Existencias, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Existencias, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Existencias, "", new { @class = "text-danger" })
-                    </div>
+                <div class="col-auto">
+                    @Html.LabelFor(model => model.Existencias, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Existencias, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Existencias, "", new { @class = "form-text text-danger" })
                 </div>
 
-                <input type="hidden" name="Foto" value="Foto"/>
+                <input type="hidden" name="Foto" value="Foto" />
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Fotografia, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <input class="form-control" type="file" name="Fotografia" required />
-                        @Html.ValidationMessageFor(model => model.Fotografia, "", new { @class = "text-danger" })
-                    </div>
+                <div class="col-auto">
+                    @Html.LabelFor(model => model.Fotografia, htmlAttributes: new { @class = "form-label" })
+                    <input class="form-control" type="file" name="Fotografia" id="Fotografia" required />
+                    @Html.ValidationMessageFor(model => model.Fotografia, "", new { @class = "form-text text-danger" })
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <div class="checkbox">
-                            @Html.EditorFor(model => model.Status)
-                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                <div class="col-12 d-flex justify-content-center px-3">
+                    <img id="img-preview">
+                    <i id="i-eliminar-img" class="bi bi-x-circle-fill ms-2 text-danger hidden fs-5"></i>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Registrar" class="btn btn-success" />
+                <!-- SELECCION DE MATERIAS PRIMAS -->
+                <h4 class="mb-3">Materiales</h4>
+                <div class="row justify-content-between">
+                    <div class="col-5">
+                        <h5>Insumos Disponibles</h5>
+                        <table class="table">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Cantidad Total</th>
+                                    <th>Existencias</th>
+                                    <th>Acction</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--
+                        //foreach (var ins in ViewBag.insumos)
+                        {
+                            <tr>
+                                <td>ins.Nombre</td>
+                                <td>ins.ContenidoTot</td>
+                                <td>ins.Existencias</td>
+                                <td><button class="btn btn-secondary">Agregar</button></td>
+                            </tr>
+                        }
+
+                            -->
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-            </div>
+                    <div class="col-5">
+                        <h5>Insumos Seleccionados</h5>
+                        <table class="table">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Cantidad Total</th>
+                                    <th>Existencias</th>
+                                    <th>Acction</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--
+            //foreach (var ins in ViewBag.insumos)
+            {
+                <tr>
+                    <td>ins.Nombre</td>
+                    <td>ins.ContenidoTot</td>
+                    <td>ins.Existencias</td>
+                    <td><button class="btn btn-secondary">Agregar</button></td>
+                </tr>
             }
-        </div>
-        <div class="col-4 shadow p-3 mb-5 bg-body rounded">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Cantidad Total</th>
-                        <th>Existencias</th>
-                        <th>Acction</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!--
-    //foreach (var ins in ViewBag.insumos)
-    {
-        <tr>
-            <td>ins.Nombre</td>
-            <td>ins.ContenidoTot</td>
-            <td>ins.Existencias</td>
-            <td><button class="btn btn-secondary">Agregar</button></td>
-        </tr>
-    }
 
-        -->
-                </tbody>
-            </table>
+                -->
 
-        </div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-        <div class="col-4 shadow p-3 mb-5 bg-body rounded">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Cantidad Total</th>
-                        <th>Existencias</th>
-                        <th>Acction</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!--
-        //foreach (var ins in ViewBag.insumos)
-        {
-            <tr>
-                <td>ins.Nombre</td>
-                <td>ins.ContenidoTot</td>
-                <td>ins.Existencias</td>
-                <td><button class="btn btn-secondary">Agregar</button></td>
-            </tr>
-        }
+                <div class="d-grid">
+                    <button class="btn btn-success" type="submit">Registrar</button>
+                </div>
+            }
 
-            -->
 
-                </tbody>
-            </table>
         </div>
     </div>
-
 </div>
 
 

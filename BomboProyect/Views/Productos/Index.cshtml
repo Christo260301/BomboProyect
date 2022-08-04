@@ -5,60 +5,106 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Productos</h2>
+<div class="container">
+    <h2 class="mt-5">Productos</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Precio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Foto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Existencias)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+    <div class="mt-3">
+        <a href="@Url.Action("Create", "Productos")" class="btn btn-secondary">
+            <i class="fa-solid fa-plus"></i>
+            <span>Nuevo Producto</span>
+        </a>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Precio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Foto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Existencias)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductoId })
-        </td>
-    </tr>
-}
+    <table class="table mt-2">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Precio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Foto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Existencias)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        <img src="@Url.Content(item.Foto)" style="height: 100px; width: 100px" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Existencias)
+                    </td>
+                    <td>
 
-</table>
+                        @if (item.Status)
+                        {
+                            <p><span class="badge bg-success">Activo</span></p>
+                            <span class="text-success"></span>
+                        }
+                        else
+                        {
+                            <p><span class="badge bg-danger">Inactivo</span></p>
+                        }
+
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <div>
+                               <a href="@Url.Action("Edit", "Edit", new { id = item.ProductoId })" class="btn btn-info btn-icon">
+                                   <i class="fa-solid fa-pen"></i>
+                               </a>
+                            </div>
+                            <div>
+                                <a href="@Url.Action("Details", "Details", new { id = item.ProductoId })" class="btn btn-warning btn-icon">
+                                    <i class="fa-solid fa-info"></i>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="@Url.Action("Delete", "Delete", new { id = item.ProductoId })" class="btn btn-danger btn-icon">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        <!--
+                        Html.ActionLink("Edit", "Edit", new { id = item.ProductoId }) |
+                        Html.ActionLink("Details", "Details", new { id = item.ProductoId }) |
+                        Html.ActionLink("Delete", "Delete", new { id = item.ProductoId })
+                        -->
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+        
+
+    </table>
+
+</div>

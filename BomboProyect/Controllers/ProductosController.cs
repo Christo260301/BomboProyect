@@ -60,11 +60,10 @@ namespace BomboProyect.Controllers
                 //Agregar la fecha actual al nombre del archivo
                 NombreArchivo = DateTime.Now.ToString("dd_MM_yyyy") + "-" + NombreArchivo.Trim() + "-" + productos.Nombre + "-" + ExtencionArchivo;
                 //Obtener ruta de almacenamiento de las fotografias
-                string updatePath = ConfigurationManager.AppSettings["ProductosImagePath"].ToString();
-
-                productos.Foto = updatePath + NombreArchivo;
-
-                productos.Fotografia.SaveAs(productos.Foto);
+                //string updatePath = ConfigurationManager.AppSettings["ProductosImagePath"].ToString();
+                productos.Foto = "~/ProductosImages/" + NombreArchivo;
+                NombreArchivo = Path.Combine(Server.MapPath("~/ProductosImages/"), NombreArchivo);
+                productos.Fotografia.SaveAs(NombreArchivo);
 
                 db.Productos.Add(productos);
                 db.SaveChanges();
