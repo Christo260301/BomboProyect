@@ -25,3 +25,7 @@ if (fileInput !== null) {
         reader.readAsDataURL(e.target.files[0]);
     })
 }
+
+const addInsumo = (jsonInsumo) => {
+    console.log(jsonInsumo);
+}

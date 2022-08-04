@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-3">
         <div class="col-10 shadow p-3 mb-5 bg-body rounded">
             <h4 class="mb-3">Datos Generales</h4>
             <!-- FORMULARIO DE PRODUCTO -->
@@ -80,18 +80,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!--
-                        //foreach (var ins in ViewBag.insumos)
-                        {
-                            <tr>
-                                <td>ins.Nombre</td>
-                                <td>ins.ContenidoTot</td>
-                                <td>ins.Existencias</td>
-                                <td><button class="btn btn-secondary">Agregar</button></td>
-                            </tr>
-                        }
-
-                            -->
+                                @foreach (var ins in ViewBag.insumos)
+                                {
+                                    <tr>
+                                        <td>@ins.Nombre</td>
+                                        <td>@ins.ContenidoTot</td>
+                                        <td>@ins.Existencias</td>
+                                        <td>
+                                            <div class="d-flex justify-content-center">
+                                                <button type="button" onclick="addInsumo(@Json.Encode(ins))" class="btn btn-secondary">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -108,17 +111,17 @@
                             </thead>
                             <tbody>
                                 <!--
-            //foreach (var ins in ViewBag.insumos)
-            {
-                <tr>
-                    <td>ins.Nombre</td>
-                    <td>ins.ContenidoTot</td>
-                    <td>ins.Existencias</td>
-                    <td><button class="btn btn-secondary">Agregar</button></td>
-                </tr>
-            }
+                                //foreach (var ins in ViewBag.insumos)
+                                {
+                                    <tr>
+                                        <td>ins.Nombre</td>
+                                        <td>ins.ContenidoTot</td>
+                                        <td>ins.Existencias</td>
+                                        <td><button class="btn btn-secondary">Agregar</button></td>
+                                    </tr>
+                                }
 
-                -->
+                                    -->
 
                             </tbody>
                         </table>

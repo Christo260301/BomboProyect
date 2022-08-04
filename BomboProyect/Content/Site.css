@@ -39,3 +39,17 @@ textarea {
 .hidden {
     display: none;
 }
+
+.footer {
+    position: absolute;
+    bottom: 0;
+}
+.bg-brown {
+    background-color: #6d4c41 !important;
+    color: white !important;
+}
+
+.bg-brick {
+    background-color: #870000 !important;
+    color: white !important;
+}

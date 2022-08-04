@@ -16,99 +16,151 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class=" navbar fixed-top navbar-expand-sm navbar-light" style="background-color: #89760C;">
-        <div class="container-fluid">
-            <ul class="navbar-nav ">
-                <li class="nav-item ">
-                    <a class="navbar-brand" href="#">
-                        <img src="~/app/img/LogoBombo.png" width="300" height="60" />
-                    </a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-light bg-light fixed-top bg-brown">
+        <div class="">
+            <button class="navbar-toggler mx-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="~/app/img/LogoBombo.png" width="300" height="60" />
+            </a>
 
-            <ul class="navbar-nav col-md-4 justify-content-end">
-                <li class="nav-item justify-content-center">
-                    <h5>
-                        <a class="nav-link" aria-current="page" href="#">
-                            @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
-                        </a>
-                    </h5>
-                </li>
-                <li class="nav-item">
-                    <h5>
-                        <a class="nav-link active" aria-current="page" href="#">
-                            @Html.ActionLink("Acerca de", "About", "Home", null, new { @class = "nav-link" })
-                        </a>
-                    </h5>
-                </li>
-                <li class="nav-item">
-                    <h5>
-                        <a class="nav-link active" aria-current="page" href="#">
-                            @Html.ActionLink("Contacto", "Contact", "Home", null, new { @class = "nav-link" })
-                        </a>
-                    </h5>
-                </li>
-                <li class="nav-item">
-                    <h5>
-                        <a class="nav-link px-2 text-muted">
-                            @Html.ActionLink("Cerrar Sesion", "CerrarSesion", "Home", null, new { @class = "nav-link" })
-                        </a>
-                    </h5>
-                </li>
-            </ul>
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header bg-brick">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Usuario</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
+                        <li class="nav-item">
+                            <h5>
+                                <a class="nav-link" aria-current="page" href="#">
+                                    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                                </a>
+                            </h5>
+                        </li>
+                        <li class="nav-item">
+                            <h5>
+                                <a class="nav-link" aria-current="page" href="#">
+                                    @Html.ActionLink("Acerca de", "About", "Home", null, new { @class = "nav-link" })
+                                </a>
+                            </h5>
+                        </li>
+                        <li class="nav-item">
+                            <h5>
+                                <a class="nav-link" aria-current="page" href="#">
+                                    @Html.ActionLink("Contacto", "Contact", "Home", null, new { @class = "nav-link" })
+                                </a>
+                            </h5>
+                        </li>
+                        <li class="nav-item">
+                            <h5>
+                                <a class="nav-link px-2 text-muted">
+                                    @Html.ActionLink("Cerrar Sesion", "CerrarSesion", "Home", null, new { @class = "nav-link" })
+                                </a>
+                            </h5>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </nav>
+    @*<nav class=" navbar fixed-top navbar-expand-sm navbar-light" style="background-color: #89760C;">
+            <div class="container-fluid">
+                <ul class="navbar-nav ">
+                    <li class="nav-item ">
+                        <a class="navbar-brand" href="#">
+                            <img src="~/app/img/LogoBombo.png" width="300" height="60" />
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav col-md-4 justify-content-end">
+                    <li class="nav-item justify-content-center">
+                        <h5>
+                            <a class="nav-link" aria-current="page" href="#">
+                                @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                            </a>
+                        </h5>
+                    </li>
+                    <li class="nav-item">
+                        <h5>
+                            <a class="nav-link active" aria-current="page" href="#">
+                                @Html.ActionLink("Acerca de", "About", "Home", null, new { @class = "nav-link" })
+                            </a>
+                        </h5>
+                    </li>
+                    <li class="nav-item">
+                        <h5>
+                            <a class="nav-link active" aria-current="page" href="#">
+                                @Html.ActionLink("Contacto", "Contact", "Home", null, new { @class = "nav-link" })
+                            </a>
+                        </h5>
+                    </li>
+                    <li class="nav-item">
+                        <h5>
+                            <a class="nav-link px-2 text-muted">
+                                @Html.ActionLink("Cerrar Sesion", "CerrarSesion", "Home", null, new { @class = "nav-link" })
+                            </a>
+                        </h5>
+                    </li>
+                </ul>
+            </div>
+        </nav>*@
     <div class="container-fluid mt-4">
         @RenderBody()
     </div>
 
     <div class="container-fluid">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center border-top";>
-            <br />
+        <div class="row justify-content-center">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center border-top footer">
+                <br />
 
-            <ul class="nav col-md-4 justify-content-around">
-                <li class="nav-item">
-                    <a href="#" class="nav-link text-muted text-center" >
-                        <h5 >© Panadderia Bombo, Inc.</h5>
-                    </a>
-                </li>
-            </ul>
+                <ul class="nav col-md-4 justify-content-around">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link text-muted text-center">
+                            <h5>© Panadderia Bombo, Inc.</h5>
+                        </a>
+                    </li>
+                </ul>
 
-            <ul class="nav col-md-4 justify-content-center">
-                <li class="nav-item">
-                    <a href="#" class="nav-link px-2 text-muted text-center">
-                        <img src="~/app/img/mapa.png" width="50" height="50" />
+                <ul class="nav col-md-4 justify-content-center">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link px-2 text-muted text-center">
+                            <img src="~/app/img/mapa.png" width="50" height="50" />
                             Blvd. Juan Alonso de Torres Pte. 1315, Jardines de Los Naranjos,
                             Santa Rosa de Lima Sur, 37200 León, Gto.
-                    </a>
-                </li>
-            </ul>
+                        </a>
+                    </li>
+                </ul>
 
 
-            <ul class="nav col-md-4 justify-content-end">
-                <li class="nav-item">
-                    <a href="https://www.facebook.com/" class="nav-link px-2 text-muted">
-                        <img src="~/app/img/facebook.png" width="60" height="60" />
-                    </a>
-                </li>
+                <ul class="nav col-md-4 justify-content-end">
+                    <li class="nav-item">
+                        <a href="https://www.facebook.com/" class="nav-link px-2 text-muted">
+                            <img src="~/app/img/facebook.png" width="60" height="60" />
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="https://twitter.com/home?lang=es" class="nav-link px-2 text-muted">
-                        <img src="~/app/img/logotipo-de-twitter.png" width="60" height="60" />
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="https://twitter.com/home?lang=es" class="nav-link px-2 text-muted">
+                            <img src="~/app/img/logotipo-de-twitter.png" width="60" height="60" />
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="https://www.instagram.com/" class="nav-link px-2 text-muted">
-                        <img src="~/app/img/instagram.png" width="60" height="60" />
-                    </a>
-                </li>
-            </ul>
-        </footer>
+                    <li class="nav-item">
+                        <a href="https://www.instagram.com/" class="nav-link px-2 text-muted">
+                            <img src="~/app/img/instagram.png" width="60" height="60" />
+                        </a>
+                    </li>
+                </ul>
+            </footer>
+        </div>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/scripts/core")
+    @Scripts.Render("~/scripts/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
