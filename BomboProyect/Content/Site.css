@@ -40,10 +40,10 @@ textarea {
     display: none;
 }
 
-.footer {
+/*.footer {
     position: absolute;
     bottom: 0;
-}
+}*/
 .bg-brown {
     background-color: #6d4c41 !important;
     color: white !important;
