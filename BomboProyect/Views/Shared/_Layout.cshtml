@@ -27,40 +27,87 @@
 
             <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header bg-brick">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Usuario</h5>
+                    @if (ViewBag.ssUsuario == null)
+                    {
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Bienvenido</h5>
+                    }
+                    else
+                    {
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">@ViewBag.ssUsuario.Nombre</h5>
+                    }
+
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        @if (ViewBag.ssUsuario != null)
+                        {
+                            <li class="nav-item">
+                                <h5>
+                                    <a class="nav-link" aria-current="page" href="#">
+                                        @Html.ActionLink("Productos", "Index", "Productos", null, new { @class = "nav-link" })
+                                    </a>
+                                </h5>
+                            </li>
 
-                        <li class="nav-item">
-                            <h5>
-                                <a class="nav-link" aria-current="page" href="#">
-                                    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
-                                </a>
-                            </h5>
-                        </li>
-                        <li class="nav-item">
-                            <h5>
-                                <a class="nav-link" aria-current="page" href="#">
-                                    @Html.ActionLink("Acerca de", "About", "Home", null, new { @class = "nav-link" })
-                                </a>
-                            </h5>
-                        </li>
-                        <li class="nav-item">
-                            <h5>
-                                <a class="nav-link" aria-current="page" href="#">
-                                    @Html.ActionLink("Contacto", "Contact", "Home", null, new { @class = "nav-link" })
-                                </a>
-                            </h5>
-                        </li>
-                        <li class="nav-item">
-                            <h5>
-                                <a class="nav-link px-2 text-muted">
-                                    @Html.ActionLink("Cerrar Sesion", "CerrarSesion", "Home", null, new { @class = "nav-link" })
-                                </a>
-                            </h5>
-                        </li>
+                            <li class="nav-item">
+                                <h5>
+                                    <a class="nav-link" aria-current="page" href="#">
+                                        @Html.ActionLink("Insumos", "Contact", "Home", null, new { @class = "nav-link" })
+                                    </a>
+                                </h5>
+                            </li>
+
+                            <li class="nav-item">
+                                <h5>
+                                    <a class="nav-link" aria-current="page" href="#">
+                                        @Html.ActionLink("Roles", "Index", "Roles", null, new { @class = "nav-link" })
+                                    </a>
+                                </h5>
+                            </li>
+
+                            <li class="nav-item">
+                                <h5>
+                                    <a class="nav-link" aria-current="page" href="#">
+                                        @Html.ActionLink("Compras", "Index", "Compras", null, new { @class = "nav-link" })
+                                    </a>
+                                </h5>
+                            </li>
+
+                            <li class="nav-item">
+                                <h5>
+                                    <a class="nav-link" aria-current="page" href="#">
+                                        @Html.ActionLink("Ventas", "Index", "Ventas", null, new { @class = "nav-link" })
+                                    </a>
+                                </h5>
+                            </li>
+
+                            <li class="nav-item">
+                                <h5>
+                                    <a class="nav-link" aria-current="page" href="#">
+                                        @Html.ActionLink("Registrar Usuario", "Create", "Usuarios", null, new { @class = "nav-link" })
+                                    </a>
+                                </h5>
+                            </li>
+
+                            <li class="nav-item">
+                                <h5>
+                                    <a class="nav-link px-2 text-muted">
+                                        @Html.ActionLink("Cerrar Sesion", "CerrarSesion", "Home", null, new { @class = "nav-link" })
+                                    </a>
+                                </h5>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <h5>
+                                    <a class="nav-link px-2 text-muted">
+                                        @Html.ActionLink("Iniciar Sesion", "Index", "Acceso", null, new { @class = "nav-link" })
+                                    </a>
+                                </h5>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

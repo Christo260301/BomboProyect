@@ -15,6 +15,7 @@ namespace BomboProyect.Controllers
         // GET: Acceso
         public ActionResult Index()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             return View();
         }
 

@@ -16,6 +16,7 @@ namespace IDGS902_EXAM_BD.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             return View();
         }
          
