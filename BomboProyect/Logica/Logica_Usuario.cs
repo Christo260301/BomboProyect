@@ -14,7 +14,7 @@ namespace BomboProyect.Logica
         {
             
             Usuarios objeto = new Usuarios();
-            using (SqlConnection conexion = new SqlConnection("Data Source=DESKTOP-33Q1FRF\\SQLEXPRESS; Initial Catalog=bombo_app_bd_xd; Integrated Security=true"))
+            using (SqlConnection conexion = new SqlConnection("Data Source=DESKTOP-4DPSMOU; Initial Catalog=bombo_app_bd_xd; Integrated Security=true"))
             {
 
                 string query = "select Nombre,Correo,Contrasennia,Rol_RolId from USUARIOS where Correo = @pcorreo and Contrasennia = @pcontrasennia";
