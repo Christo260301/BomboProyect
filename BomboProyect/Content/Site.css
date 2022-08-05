@@ -28,3 +28,28 @@ textarea {
     background-color: #777;
     border-color: #fff
 }
+
+/* botones de accion para tabular */
+.btn-icon {
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+}
+.bg-brown {
+    background-color: #6d4c41 !important;
+    color: white !important;
+}
+
+.bg-brick {
+    background-color: #870000 !important;
+    color: white !important;
+}

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -38,6 +40,7 @@ namespace BomboProyect.Controllers
         // GET: Productos/Create
         public ActionResult Create()
         {
+            ViewBag.insumos = db.Insumos.ToList();
             return View();
         }
 
@@ -46,10 +49,22 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Foto,Existencias,Status")] Productos productos)
+        public ActionResult Create([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Existencias,Foto,Fotografia,Status")] Productos productos)
         {
             if (ModelState.IsValid)
             {
+                //Almacenamiento de imagenes
+                string NombreArchivo = Path.GetFileNameWithoutExtension(productos.Fotografia.FileName);
+                //Obtener la extencion del archivo
+                string ExtencionArchivo = Path.GetExtension(productos.Fotografia.FileName);
+                //Agregar la fecha actual al nombre del archivo
+                NombreArchivo = DateTime.Now.ToString("dd_MM_yyyy") + "-" + NombreArchivo.Trim() + "-" + productos.Nombre + "-" + ExtencionArchivo;
+                //Obtener ruta de almacenamiento de las fotografias
+                //string updatePath = ConfigurationManager.AppSettings["ProductosImagePath"].ToString();
+                productos.Foto = "~/ProductosImages/" + NombreArchivo;
+                NombreArchivo = Path.Combine(Server.MapPath("~/ProductosImages/"), NombreArchivo);
+                productos.Fotografia.SaveAs(NombreArchivo);
+
                 db.Productos.Add(productos);
                 db.SaveChanges();
                 return RedirectToAction("Index");
