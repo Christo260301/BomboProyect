@@ -32,7 +32,6 @@ namespace BomboProyect.Models
         public String NumExt { get; set; }
 
         [StringLength(10)]
-        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public String NumInt { get; set; }
 
         [StringLength(30)]
