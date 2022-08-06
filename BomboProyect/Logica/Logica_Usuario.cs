@@ -17,7 +17,7 @@ namespace BomboProyect.Logica
 
             {
 
-                string query = "select Nombre,Correo,Contrasennia,Rol_RolId from USUARIOS where Correo = @pcorreo and Contrasennia = @pcontrasennia";
+                string query = "select UsuarioId,Nombre,Correo,Contrasennia,Rol_RolId from USUARIOS where Correo = @pcorreo and Contrasennia = @pcontrasennia";
 
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 cmd.Parameters.AddWithValue("@pcorreo", correo);
@@ -33,7 +33,7 @@ namespace BomboProyect.Logica
                         rol.RolId = Int32.Parse(dr["Rol_RolId"].ToString());
 
                         objeto = new Usuarios()
-                        {
+                        {   UsuarioId = Convert.ToInt32(dr["UsuarioId"]),
                             Nombre = dr["Nombre"].ToString(),
                             Correo = dr["Correo"].ToString(),
                             Contrasennia = dr["Contrasennia"].ToString(),

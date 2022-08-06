@@ -49,6 +49,7 @@ namespace BomboProyect.Controllers
             Usuarios user = new Usuarios();
             user = Session["Usuario"] as Usuarios;
             ViewBag.Usuario = user.Nombre;
+            ViewBag.Id = user.UsuarioId;
             return View();
         }
 
@@ -57,14 +58,17 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "VentaId,Fechaventa,HoraVenta,Status")] Ventas ventas,List<Productos> productos)
+        public ActionResult Create([Bind(Include = "VentaId,Fechaventa,HoraVenta,Status")] Ventas ventas,List<Productos> productos, 
+            string usuarioId)
         {
             try {
                 if (Session["Usuario"] != null)
                 {   //Ventas
                     Usuarios usuario = Session["Usuario"] as Usuarios;
-                    db.Usuarios.Attach(usuario);
-                    ventas.Usuarios = usuario;
+                    var user = new Usuarios();
+                    user.UsuarioId = Convert.ToInt32(usuarioId);
+                    db.Usuarios.Attach(user);
+                    ventas.Usuarios = user;
                     db.Ventas.Add(ventas);
 
                     int contador = 0;
@@ -110,13 +114,13 @@ namespace BomboProyect.Controllers
                 }
                 return RedirectToAction("Index");
 
-            }
-            catch (Exception)
-            {
-                ViewBag.usuario = db.Usuarios.Where(u => u.Rol.RolId == 1).ToList();
-                ViewBag.Prov = new SelectList(db.Proveedor, "ProveedorId", "RazonSocial");
 
-                return View(ventas);
+            }
+            catch (Exception e)
+            {
+                ViewBag.usuario = e.ToString();                
+
+                return View();
             }
 
 

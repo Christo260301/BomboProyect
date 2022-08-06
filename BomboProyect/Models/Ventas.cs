@@ -21,5 +21,7 @@ namespace BomboProyect.Models
         [Required]
         public Usuarios Usuarios { get; set;}
 
+        public List<DetVenta> DetVenta { get; set; }
+
     }
 }

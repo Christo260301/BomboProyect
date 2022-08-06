@@ -1,5 +1,4 @@
-﻿@using BomboProyect.Models;
-
+﻿@model List<BomboProyect.Models.Productos>
 
 @{ Layout = null; }
 
@@ -12,19 +11,21 @@
         <th>Existencias</th>
         <th>Cantidad a Vender</th>
     </tr>
-    @foreach (Productos pr in Model)
+
+    @for (var pr = 0; pr < Model.Count(); pr++)
     {
         <tr>
-            <td>@pr.Foto</td>
-            <td>@pr.Nombre</td>
-            <td>@pr.Descripcion</td>
-            <td>@pr.Precio</td>
-            <td>@pr.Existencias</td>
-            <td><input type="number" name="CantidadV" value="0" min="0" max="@pr.Existencias" /></td>
+            <td hidden><input value="@Model[pr].ProductoId" name="[@pr].ProductoId" type="hidden" /></td>
+            <td>@Model[pr].Foto</td>
+            <td>@Model[pr].Nombre</td>
+            <td>@Model[pr].Descripcion</td>
+            <td>@Model[pr].Precio</td>
+            <td hidden><input value="@Model[pr].Precio" name="[@pr].Precio" type="hidden" /></td>
+            <td>@Model[pr].Existencias</td>
+            <td><input type="number" name="[@pr].Existencias" value="0" min="0" max="@Model[pr].Existencias" /></td>
 
         </tr>
 
     }
 
 </table>
-

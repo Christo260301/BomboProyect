@@ -17,9 +17,14 @@
             <div class="col-md-4">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
+                    <div>
+                        <input type="text" name="UsuarioId" value="@ViewBag.Id"/>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="form-label col-md-4">Usuario</label>
                     <div class="col-md-8">
-                        <input type="text" name="usuario"  readonly placeholder="" class="form-control" value="@ViewBag.Usuario"/>
+                        <input type="text" name="usuarioId"  readonly placeholder="" class="form-control" value="@ViewBag.Usuario"/>
                     </div>
                 </div> <br />
                 <div class="form-group">
