@@ -19,20 +19,20 @@
                 <div class="form-group">
                     <label class="form-label col-md-4">Usuario</label>
                     <div class="col-md-8">
-                        <input type="text" name="usuario" value="" readonly placeholder="TO DO" class="form-control" />
+                        <input type="text" name="usuario"  readonly placeholder="" class="form-control" value="@ViewBag.Usuario"/>
                     </div>
                 </div> <br />
                 <div class="form-group">
                     @Html.LabelFor(model => model.FechaVenta, "Fecha Venta", htmlAttributes: new { @class = "form-label col-md-4" })
                     <div class="col-md-8">
-                        @Html.EditorFor(model => model.FechaVenta, new { htmlAttributes = new { @class = "form-control" } })
+                        <input type="date" name="FechaVenta" class="form-control" value="" />
                         @Html.ValidationMessageFor(model => model.FechaVenta, "", new { @class = "text-danger" })
                     </div>
                 </div> <br />
                 <div class="form-group">
                     @Html.LabelFor(model => model.HoraVenta, "Hora Venta", htmlAttributes: new { @class = "form-label  col-md-4" })
                     <div class="col-md-8">
-                        @Html.EditorFor(model => model.HoraVenta, new { htmlAttributes = new { @class = "form-control" } })
+                        <input type="time" name="HoraVenta" class="form-control" />
                         @Html.ValidationMessageFor(model => model.HoraVenta, "", new { @class = "text-danger" })
                     </div>
                 </div> <br />

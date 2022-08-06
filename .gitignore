@@ -1,6 +1,3 @@
 
-/.vs
-/BomboProyect/bin/BomboProyect.dll
-/BomboProyect/bin/BomboProyect.pdb
-/BomboProyect/obj/Debug
+.vs/BomboProyect/config/applicationhost.config
 BomboProyect/Web.config
