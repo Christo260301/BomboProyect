@@ -5,43 +5,65 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Compras</h2>
+<div class="container">
+    <h2 class="mt-5">Compras</h2>
+    
+    <div class="mt-3">
+        <a href="@Url.Action("Create", "Compras")" class="btn btn-secondary">
+            <i class="fa-solid fa-plus"></i>
+            <span>Nueva Compra</span>
+        </a>
+    </div>
 
-<p>
-    @Html.ActionLink("Realizar Compra de Insumos", "Create", null, null, new { @class = "btn btn-primary" })
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaCompra)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HoraCompra)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+    <table class="table mt-2">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaCompra)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HoraCompra)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaCompra)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HoraCompra)
+                    </td>
+                    <td>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaCompra)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoraCompra)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ComprasId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ComprasId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ComprasId })
-            </td>
-        </tr>
-    }
+                        @if (item.Status)
+                        {
+                            <p><span class="badge bg-success">Activo</span></p>
+                        }
+                        else
+                        {
+                            <p><span class="badge bg-danger">Cancelada</span></p>
+                        }
 
-</table>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <div>
+                                <a href="@Url.Action("Details", "Compras", new { id = item.ComprasId })" class="btn btn-warning btn-icon">
+                                    <i class="fa-solid fa-info"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+        </table>
+</div>
