@@ -17,17 +17,11 @@
     <div class="row" style="padding-right: 20px; padding-left: 20px;">
         <div class="col-md-4">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <input type="hidden" name="usuarioId" value="@ViewBag.Id" readonly />
             <div class="form-group">
                 @Html.Label("Empleado", htmlAttributes: new { @class = "form-label col-md-4" })
                 <div class="col-md-8">
-                    <select class="form-control" name="usuarioId">
-                        @foreach (var item in ViewBag.usuario)
-                        {
-                            var nombre = @item.Nombre + " " + @item.ApePat;
-                            <option value='@item.UsuarioId'>@nombre</option>
-                        }
-                    </select>
-                    @Html.ValidationMessageFor(model => model.Usuario, "", new { @class = "text-danger" })
+                    <input type="text" name="name" value="@ViewBag.Usuario" readonly class="form-control" />
                 </div>
             </div>
             <br />

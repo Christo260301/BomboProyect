@@ -50,7 +50,10 @@ namespace BomboProyect.Controllers
         // GET: Compras/Create
         public ActionResult Create()
         {
-            ViewBag.usuario = db.Usuarios.Where(u => u.Rol.RolId == 1).ToList();
+            Usuarios user = new Usuarios();
+            user = Session["Usuario"] as Usuarios;
+            ViewBag.Usuario = user.Nombre + " " + user.ApePat;
+            ViewBag.Id = user.UsuarioId;
             ViewBag.Prov = new SelectList(db.Proveedor, "ProveedorId", "RazonSocial");
             return View();
         }
@@ -95,7 +98,7 @@ namespace BomboProyect.Controllers
                         detCompra.Costo = Convert.ToInt32(item.Existencias) * item.Precio;
                         detCompra.Cantidad = Convert.ToInt32(item.Existencias);
                         detCompra.FechaCaduca = hoy.AddMonths(1);
-                        detCompra.Unidad = item.Descripcion;
+                        detCompra.Unidad = item.Unidad;
                         detCompra.Compra = compras;
                         detCompra.Insumos = insumo;
 
