@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -37,5 +38,10 @@ namespace BomboProyect.Models
         [Required]
         [NotMapped]
         public HttpPostedFileBase Fotografia { get; set; }
+
+        public void EliminarFoto(string ruta)
+        {
+            File.Delete(ruta);
+        }
     }
 }

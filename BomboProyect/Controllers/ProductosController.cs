@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BomboProyect.Logica;
 using BomboProyect.Models;
 
 namespace BomboProyect.Controllers
@@ -94,12 +95,52 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Foto,Existencias,Status")] Productos productos)
+        public ActionResult Edit([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Existencias,Foto,Fotografia,Status")] Productos productos, string rutaFotoAnterior)
         {
+            ModelState.Remove("Fotografia");
             if (ModelState.IsValid)
             {
+
+                //MODIFICACION DE FOTOGRAFIA
+                if (productos.Fotografia != null)
+                {
+                    string NombreArchivo = Path.GetFileNameWithoutExtension(productos.Fotografia.FileName);
+                    string ExtencionArchivo = Path.GetExtension(productos.Fotografia.FileName);
+                    NombreArchivo = DateTime.Now.ToString("dd_MM_yyyy") + "-" + NombreArchivo.Trim() + "-" + productos.Nombre + "-" + ExtencionArchivo;
+                    string ruta = "~/ProductosImages/" + NombreArchivo;
+
+                    if (!rutaFotoAnterior.Equals(ruta))
+                    {
+                        productos.Foto = ruta;
+                        NombreArchivo = Path.Combine(Server.MapPath("~/ProductosImages/"), NombreArchivo);
+                        productos.Fotografia.SaveAs(NombreArchivo);
+                        try
+                        {
+                            productos.EliminarFoto(Path.Combine(Server.MapPath(rutaFotoAnterior)));
+                        }
+                        catch (IOException d)
+                        {
+                            Console.WriteLine(d.Message);
+                        }
+
+                    }
+                } else
+                {
+                    // ESTO ES NECESARIO PARA CONSERVAR LA MISMA FOTO
+                    string nombre = rutaFotoAnterior.Split('/')[2];
+                    productos.Foto = rutaFotoAnterior;
+                    byte[] bytes = System.IO.File.ReadAllBytes(Server.MapPath(productos.Foto));
+                    var contentTypeFile = "image/jpeg";
+                    var filename = nombre;
+                    productos.Fotografia = (HttpPostedFileBase)new MemoryPostedFile(new MemoryStream(bytes), contentTypeFile, filename);
+                }
+                
+
                 db.Entry(productos).State = EntityState.Modified;
                 db.SaveChanges();
+
+                
+
                 return RedirectToAction("Index");
             }
             return View(productos);

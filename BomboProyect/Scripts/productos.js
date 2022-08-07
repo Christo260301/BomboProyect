@@ -2,6 +2,9 @@
 const iEliminarImg = document.querySelector("#i-eliminar-img")
 
 if (fileInput !== null) {
+
+   
+
     fileInput.addEventListener("change", e => {
         const img = document.querySelector("#img-preview")
         //const input = document.querySelector("#input-imagen")
@@ -26,6 +29,18 @@ if (fileInput !== null) {
     })
 }
 
+
+const removeImage = () => {
+    const img = document.querySelector("#img-preview")
+    img.removeAttribute("src")
+    img.removeAttribute("style")
+    fileInput.value = null
+    fileInput.classList.remove("hidden")
+    iEliminarImg.classList.add("hidden")
+}
+
+
 const addInsumo = (jsonInsumo) => {
     console.log(jsonInsumo);
 }
+

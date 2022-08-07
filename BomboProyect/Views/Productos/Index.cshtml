@@ -63,7 +63,6 @@
                         @if (item.Status)
                         {
                             <p><span class="badge bg-success">Activo</span></p>
-                            <span class="text-success"></span>
                         }
                         else
                         {
@@ -74,17 +73,17 @@
                     <td>
                         <div class="d-flex justify-content-center">
                             <div>
-                               <a href="@Url.Action("Edit", "Edit", new { id = item.ProductoId })" class="btn btn-info btn-icon">
+                               <a href="@Url.Action("Edit", "Productos", new { id = item.ProductoId })" class="btn btn-dark btn-icon">
                                    <i class="fa-solid fa-pen"></i>
                                </a>
                             </div>
                             <div>
-                                <a href="@Url.Action("Details", "Details", new { id = item.ProductoId })" class="btn btn-warning btn-icon">
+                                <a href="@Url.Action("Details", "Productos", new { id = item.ProductoId })" class="btn btn-warning btn-icon">
                                     <i class="fa-solid fa-info"></i>
                                 </a>
                             </div>
                             <div>
-                                <a href="@Url.Action("Delete", "Delete", new { id = item.ProductoId })" class="btn btn-danger btn-icon">
+                                <a href="@Url.Action("Delete", "Productos", new { id = item.ProductoId })" class="btn btn-danger btn-icon">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
                             </div>

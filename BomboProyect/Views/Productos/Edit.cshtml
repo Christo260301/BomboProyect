@@ -1,85 +1,155 @@
 ﻿@model BomboProyect.Models.Productos
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Productos</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ProductoId)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-            </div>
+<div onloadstart="loadURLToInputFiled();" class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-6">
+            <h2>Edicion de Productos</h2>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Foto, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Foto, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Existencias, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Existencias, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Existencias, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Status)
-                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+        <div class="col-6">
+            <div class="d-flex justify-content-end">
+                <a href="@Url.Action("Index", "Productos")" class="btn btn-secondary">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Regresar al listado</span>
+                </a>
             </div>
         </div>
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    <div class="row justify-content-center mt-3">
+        <div class="col-10 shadow p-3 mb-5 bg-body rounded">
+            <h4 class="mb-3">Datos Generales</h4>
+            <!-- FORMULARIO DE PRODUCTO -->
+            @using (Html.BeginForm("Edit", "Productos", FormMethod.Post, new { enctype = "multipart/form-data", @class = "row justify-content-between g-4" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ProductoId)
+
+                <div class="col-auto">
+                    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-auto">
+                    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-auto">
+                    @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-auto">
+                    @Html.LabelFor(model => model.Existencias, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Existencias, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Existencias, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="">
+                    <div class="form-check">
+                        @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-check-input", @id = "Status" } })
+                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "form-check-label", @for = "Status" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+
+
+                <input type="hidden" name="Foto" value="Foto" />
+                <input type="hidden" name="rutaFotoAnterior" value="@Model.Foto" />
+                <input type="hidden" id="notEditFoto" value="@Url.Content(Model.Foto)" />
+
+                <div class="col-auto">
+                    @Html.LabelFor(model => model.Fotografia, htmlAttributes: new { @class = "form-label" })
+                    <input class="form-control hidden" type="file" name="Fotografia" id="Fotografia" required />
+                    @Html.ValidationMessageFor(model => model.Fotografia, "", new { @class = "form-text text-danger" })
+                </div>
+
+                <div class="col-12 d-flex justify-content-center px-3">
+                    <img id="img-preview" style="height: 200px;" src="@Url.Content(Model.Foto)">
+                    <i id="i-eliminar-img" class="bi bi-x-circle-fill ms-2 text-danger fs-5" onclick="removeImage()"></i>
+                </div>
+
+                <h4 class="mb-3">Materiales</h4>
+                <div class="row justify-content-between">
+                    <div class="col-5">
+                        <h5>Insumos Disponibles</h5>
+                        <table class="table">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Cantidad Total</th>
+                                    <th>Existencias</th>
+                                    <th>Acction</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @*@foreach (var ins in ViewBag.insumos)
+                                {
+                                    <tr>
+                                        <td>@ins.Nombre</td>
+                                        <td>@ins.ContenidoTot</td>
+                                        <td>@ins.Existencias</td>
+                                        <td>
+                                            <div class="d-flex justify-content-center">
+                                                <button type="button" onclick="addInsumo(@Json.Encode(ins))" class="btn btn-secondary">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }*@
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-5">
+                        <h5>Insumos Seleccionados</h5>
+                        <table class="table">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Cantidad Total</th>
+                                    <th>Existencias</th>
+                                    <th>Acction</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--
+                        //foreach (var ins in ViewBag.insumos)
+                        {
+                            <tr>
+                                <td>ins.Nombre</td>
+                                <td>ins.ContenidoTot</td>
+                                <td>ins.Existencias</td>
+                                <td><button class="btn btn-secondary">Agregar</button></td>
+                            </tr>
+                        }
+
+                            -->
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="d-grid">
+                    <button class="btn btn-success" type="submit"><i class="fa-solid fa-pen me-2"></i>Editar</button>
+                </div>
+            }
+        </div>
+    </div>
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/scripts/productos")
 }
