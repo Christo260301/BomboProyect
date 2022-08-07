@@ -139,6 +139,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logica\Logica_Usuario.cs" />
+    <Compile Include="Logica\MemoryPostedFile.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BomboDBContext.cs" />
     <Compile Include="Models\Compras.cs" />

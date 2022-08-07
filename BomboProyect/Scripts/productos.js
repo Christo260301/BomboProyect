@@ -2,6 +2,9 @@
 const iEliminarImg = document.querySelector("#i-eliminar-img")
 
 if (fileInput !== null) {
+
+   
+
     fileInput.addEventListener("change", e => {
         const img = document.querySelector("#img-preview")
         //const input = document.querySelector("#input-imagen")
@@ -40,3 +43,4 @@ const removeImage = () => {
 const addInsumo = (jsonInsumo) => {
     console.log(jsonInsumo);
 }
+

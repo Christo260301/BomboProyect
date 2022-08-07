@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container-fluid">
+<div onloadstart="loadURLToInputFiled();" class="container-fluid">
     <div class="row mt-5">
         <div class="col-6">
             <h2>Edicion de Productos</h2>
@@ -65,6 +65,7 @@
 
                 <input type="hidden" name="Foto" value="Foto" />
                 <input type="hidden" name="rutaFotoAnterior" value="@Model.Foto" />
+                <input type="hidden" id="notEditFoto" value="@Url.Content(Model.Foto)" />
 
                 <div class="col-auto">
                     @Html.LabelFor(model => model.Fotografia, htmlAttributes: new { @class = "form-label" })
