@@ -5,69 +5,51 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Productos</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Precio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Precio)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Foto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Foto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Existencias)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Existencias)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+<div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-6">
+            <h2>Eliminar Producto</h2>
+            <h3>¿Estas seguro de elimninar este producto?</h3>
         </div>
-    }
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-6">
+            <div class="row shadow p-3 mb-5 rounded">
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <img src="@Url.Content(Model.Foto)" style="height: 200px" />
+                    </div>
+                    <div class="col-6">
+                        <label class="fw-bold">@Html.DisplayNameFor(model => model.Nombre)</label>
+                        <p>@Html.DisplayFor(model => model.Nombre)</p>
+
+                        <label class="fw-bold">@Html.DisplayNameFor(model => model.Descripcion)</label>
+                        <p>@Html.DisplayFor(model => model.Descripcion)</p>
+
+                        <label class="fw-bold">@Html.DisplayNameFor(model => model.Precio)</label>
+                        <p<span>$</span>@Html.DisplayFor(model => model.Precio)</p>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-danger w-100">Borrar</button>
+                            </div>
+                            <div class="col-6">
+                                <a href="@Url.Action("Index", "Productos")" class="btn btn-secondary w-100">
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                    <span>Regresar al listado</span>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
