@@ -94,12 +94,39 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Foto,Existencias,Status")] Productos productos)
+        public ActionResult Edit([Bind(Include = "ProductoId,Nombre,Descripcion,Existencias,Foto,Fotografia,Status")] Productos productos, string rutaFotoAnterior)
         {
             if (ModelState.IsValid)
             {
+
+                //MODIFICACION DE FOTOGRAFIA
+                string NombreArchivo = Path.GetFileNameWithoutExtension(productos.Fotografia.FileName);
+                string ExtencionArchivo = Path.GetExtension(productos.Fotografia.FileName);
+                NombreArchivo = DateTime.Now.ToString("dd_MM_yyyy") + "-" + NombreArchivo.Trim() + "-" + productos.Nombre + "-" + ExtencionArchivo;
+                string ruta = "~/ProductosImages/" + NombreArchivo;
+
+                if (!rutaFotoAnterior.Equals("rutaFotoAnterior"))
+                {
+                    productos.Foto = ruta;
+                    NombreArchivo = Path.Combine(Server.MapPath("~/ProductosImages/"), NombreArchivo);
+                    productos.Fotografia.SaveAs(NombreArchivo);
+                    try
+                    {
+                        productos.EliminarFoto(Path.Combine(Server.MapPath(rutaFotoAnterior)));
+                    } catch (IOException d)
+                    {
+                        Console.WriteLine(d.Message);
+                    }
+                    
+                }
+                
+                
+
                 db.Entry(productos).State = EntityState.Modified;
                 db.SaveChanges();
+
+                
+
                 return RedirectToAction("Index");
             }
             return View(productos);

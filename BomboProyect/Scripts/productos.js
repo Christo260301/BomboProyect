@@ -26,6 +26,17 @@ if (fileInput !== null) {
     })
 }
 
+
+const removeImage = () => {
+    const img = document.querySelector("#img-preview")
+    img.removeAttribute("src")
+    img.removeAttribute("style")
+    fileInput.value = null
+    fileInput.classList.remove("hidden")
+    iEliminarImg.classList.add("hidden")
+}
+
+
 const addInsumo = (jsonInsumo) => {
     console.log(jsonInsumo);
 }
