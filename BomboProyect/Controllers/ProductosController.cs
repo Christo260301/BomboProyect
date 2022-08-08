@@ -81,7 +81,7 @@ namespace BomboProyect.Controllers
 
                 foreach(var item in insumos)
                 {
-                    if (Convert.ToDouble(item.ContenidoTot) <= 0)
+                    if (Convert.ToDouble(item.ContenidoTot) > -1)
                     {
                         contador++;
                         DetProducto detProducto = new DetProducto();
