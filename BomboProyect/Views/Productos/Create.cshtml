@@ -74,8 +74,8 @@
                             <thead class="table-secondary">
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Cantidad Total</th>
-                                    <th>Existencias</th>
+                                    <th>Cantidad Neta</th>
+                                    <th>Unidad de Medida</th>
                                     <th>Acction</th>
                                 </tr>
                             </thead>
@@ -84,8 +84,8 @@
                                 {
                                     <tr>
                                         <td>@ins.Nombre</td>
-                                        <td>@ins.ContenidoTot</td>
-                                        <td>@ins.Existencias</td>
+                                        <td>@ins.CantidadNeta</td>
+                                        <td>@ins.Unidad</td>
                                         <td>
                                             <div class="d-flex justify-content-center">
                                                 <button type="button" onclick="addInsumo(@Json.Encode(ins))" class="btn btn-secondary">
@@ -98,8 +98,9 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-5">
-                        <h5>Insumos Seleccionados</h5>
+                    
+                    <div class="col-5  table-scroll" id="divInsumos">
+                        <!--<h5>Insumos Seleccionados</h5>
                         <table class="table">
                             <thead class="table-secondary">
                                 <tr>
@@ -109,7 +110,7 @@
                                     <th>Acction</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody>-->
                                 <!--
                                 //foreach (var ins in ViewBag.insumos)
                                 {
@@ -123,8 +124,8 @@
 
                                     -->
 
-                            </tbody>
-                        </table>
+                            <!--</tbody>
+                        </table>-->
                     </div>
                 </div>
 
@@ -144,4 +145,10 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/scripts/productos")
+
+    <script>
+        $(document).ready(function () {
+            $("#divInsumos").load("_ListaInsumoProducto")
+        })
+    </script>
 }

@@ -1,0 +1,22 @@
+﻿@model List<BomboProyect.Models.Insumos>
+
+@{ Layout = null; }
+
+<input type="hidden" value="0" name="ContElement" id="ContElement" />
+<input type="hidden" value="" name="ContElmeJson" id="ContElmeJson" />
+<h5>Insumos Seleccionados</h5>
+<table class="table">
+    <thead class="table-secondary">
+        <tr>
+            <th>Nombre</th>
+            <th>Cantidad Total</th>
+            <th>Acction</th>
+        </tr>
+    </thead>
+    <tbody id="tbContainer">
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+
+        }
+    </tbody>
+</table>

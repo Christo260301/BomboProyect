@@ -27,6 +27,8 @@ namespace BomboProyect.Controllers
         // GET: Productos/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,9 +41,15 @@ namespace BomboProyect.Controllers
             return View(productos);
         }
 
+        public ActionResult _ListaInsumoProducto()
+        {
+            return View(new List<Insumos>());
+        }
+
         // GET: Productos/Create
         public ActionResult Create()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             ViewBag.insumos = db.Insumos.ToList();
             return View();
         }
@@ -51,8 +59,9 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Existencias,Foto,Fotografia,Status")] Productos productos)
+        public ActionResult Create([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Existencias,Foto,Fotografia,Status")] Productos productos, List<Insumos> insumos)
         {
+            ViewBag.insumos = db.Insumos.ToList();
             if (ModelState.IsValid)
             {
                 //Almacenamiento de imagenes
@@ -68,6 +77,29 @@ namespace BomboProyect.Controllers
                 productos.Fotografia.SaveAs(NombreArchivo);
 
                 db.Productos.Add(productos);
+                int contador = 0;
+
+                foreach(var item in insumos)
+                {
+                    if (Convert.ToDouble(item.ContenidoTot) <= 0)
+                    {
+                        contador++;
+                        DetProducto detProducto = new DetProducto();
+                        detProducto.Insumo = item;
+                        detProducto.Cantidad = Convert.ToDouble(item.ContenidoTot);
+                        detProducto.Unidad = item.Unidad;
+                        detProducto.Productos = productos;
+
+                        db.DetProductos.Add(detProducto);
+
+                    }
+                }
+
+                if (contador == 0)
+                {
+                    return RedirectToAction("Index");
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -78,6 +110,7 @@ namespace BomboProyect.Controllers
         // GET: Productos/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -149,6 +182,7 @@ namespace BomboProyect.Controllers
         // GET: Productos/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

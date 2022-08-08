@@ -53,3 +53,8 @@ textarea {
     background-color: #870000 !important;
     color: white !important;
 }
+
+.table-scroll {
+    max-height: 320px;
+    overflow-y: scroll;
+}
