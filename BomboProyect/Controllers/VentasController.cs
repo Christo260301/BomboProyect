@@ -17,7 +17,16 @@ namespace BomboProyect.Controllers
         // GET: Ventas
         public ActionResult Index()
         {
-            return View(db.Ventas.ToList());
+            Usuarios usr = new Usuarios();
+            usr = Session["Usuario"] as Usuarios;
+            if (usr.Rol.Equals("Administrador") || usr.Rol.Equals("Vendedor"))
+            {
+                return View(db.Ventas.ToList());
+            }
+            else {
+                return View(db.Ventas.Where(v => v.Usuarios.UsuarioId == usr.UsuarioId));
+            }
+            
         }
 
         // GET: Ventas/Details/5
@@ -33,7 +42,11 @@ namespace BomboProyect.Controllers
             {
 
                 List<DetVenta> detVen = db.DetVenta.Where(m => m.Venta.VentaId == id).ToList();
+                List<Productos> prods = db.Productos.SqlQuery("SELECT * FROM Productos INNER JOIN DetVentas ON Productos.ProductoId = DetVentas.Producto_ProductoId").ToList();
                 ViewBag.listV = detVen;
+                ViewBag.listP = prods;
+                Usuarios usr = db.Usuarios.SqlQuery("SELECT * FROM Usuarios INNER JOIN Ventas ON Usuarios.UsuarioId = Ventas.Usuarios_UsuarioId").First();                
+                ViewBag.nombreUser = usr.Nombre;
                 return View(ventas);
             }
             else
@@ -58,15 +71,14 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "VentaId,Fechaventa,HoraVenta,Status")] Ventas ventas,List<Productos> productos, 
-            string usuarioId)
+        public ActionResult Create([Bind(Include = "VentaId,Fechaventa,HoraVenta,Status")] Ventas ventas,List<Productos> productos)
         {
             try {
                 if (Session["Usuario"] != null)
                 {   //Ventas
                     Usuarios usuario = Session["Usuario"] as Usuarios;
                     var user = new Usuarios();
-                    user.UsuarioId = Convert.ToInt32(usuarioId);
+                    user.UsuarioId = usuario.UsuarioId;
                     db.Usuarios.Attach(user);
                     ventas.Usuarios = user;
                     db.Ventas.Add(ventas);
@@ -74,7 +86,7 @@ namespace BomboProyect.Controllers
                     int contador = 0;
                     foreach (var item in productos)
                     {
-                        if (item.Existencias > 0)
+                        if (Convert.ToInt32(item.Existencias) > 0)
                         {
                             contador = contador + 1;
                             var detVenta = new DetVenta();
@@ -90,31 +102,29 @@ namespace BomboProyect.Controllers
 
                             db.DetVenta.Add(detVenta);
 
-                            using (BomboDBContext du = new BomboDBContext())
+                            using (BomboDBContext dp = new BomboDBContext())
                             {
-                                Productos product = du.Productos.Find(item.ProductoId);
-                                int existencia = product.Existencias - item.Existencias;
-                                product.Existencias = existencia;
-                                du.Entry(product).State = EntityState.Modified;
-                                du.SaveChanges();
-
-                                if (contador == 0)
-                                {
-                                    return RedirectToAction("Index");
-                                }
-
-                                db.SaveChanges();
-                                return RedirectToAction("Index");
-
-
+                                Productos prod = dp.Productos.Find(item.ProductoId);
+                                int exist = prod.Existencias - item.Existencias;
+                                prod.Existencias = exist;
+                                dp.Productos.Attach(prod);
+                                dp.Entry(prod).Property(x => x.Existencias).IsModified = true;
+                                dp.SaveChanges();
                             }
                         }
                     }
 
+
+                    if (contador == 0)
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
+                
                 return RedirectToAction("Index");
-
-
             }
             catch (Exception e)
             {

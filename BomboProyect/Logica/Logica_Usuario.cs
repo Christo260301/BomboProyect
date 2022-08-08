@@ -13,7 +13,7 @@ namespace BomboProyect.Logica
         public Usuarios EncontrarUsuario(string correo, string contrasennia)
         {
             Usuarios objeto = new Usuarios();
-            using (SqlConnection conexion = new SqlConnection("Data Source=DESKTOP-4DPSMOU; Initial Catalog=bombo_app_bd_xd; Integrated Security=true"))
+            using (SqlConnection conexion = new SqlConnection("Data Source=DESKTOP-7VMD7TP; Initial Catalog=bombo_app_bd_xd; Integrated Security=true"))
 
             {
 
