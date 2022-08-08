@@ -19,7 +19,7 @@ namespace BomboProyect.Controllers
         {
             Usuarios usr = new Usuarios();
             usr = Session["Usuario"] as Usuarios;
-            if (usr.Rol.Equals("Administrador") || usr.Rol.Equals("Vendedor"))
+            if (usr.Rol.RolId==3|| usr.Rol.RolId==2)
             {
                 return View(db.Ventas.ToList());
             }
