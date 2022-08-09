@@ -16,7 +16,25 @@
     <tbody id="tbContainer">
         @for (var i = 0; i < Model.Count(); i++)
         {
-
+            @*<tr>
+                <td hidden>
+                    <input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" />
+                    <input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" />
+                    <input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" />
+                    <input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" />
+                    <input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" />
+                    <input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" />
+                </td>
+                <td>@Model[i].Nombre</td>
+                <td>@Model[i].Descripcion</td>
+                <td>@Model[i].Precio</td>
+                <td>@Model[i].CantidadNeta</td>
+                <td>@Model[i].Existencias</td>
+                <td>@Model[i].ContenidoTot</td>
+                <td hidden><input type="hidden" name="[@i].Precio" value="@Model[i].Precio" /></td>
+                <td><input name="[@i].Existencias" type="number" min="0" value=0 class="form-control" /></td>
+                <td><input type="text" name="[@i].Descripcion" value="" /></td>
+            </tr>*@
         }
     </tbody>
 </table>

@@ -38,6 +38,9 @@ namespace BomboProyect.Controllers
             {
                 return HttpNotFound();
             }
+
+            List<DetProducto> detPr = db.DetProductos.Where(m => m.Productos.ProductoId == id).Include(nameof(DetProducto.Insumo)).ToList();
+            ViewBag.listP = detPr;
             return View(productos);
         }
 
@@ -84,8 +87,12 @@ namespace BomboProyect.Controllers
                     if (Convert.ToDouble(item.ContenidoTot) > -1)
                     {
                         contador++;
-                        DetProducto detProducto = new DetProducto();
-                        detProducto.Insumo = item;
+                        var detProducto = new DetProducto();
+                        var insumo = new Insumos();
+                        insumo.InsumoId = Convert.ToInt32(item.InsumoId);
+                        db.Insumos.Attach(insumo);
+
+                        detProducto.Insumo = insumo;
                         detProducto.Cantidad = Convert.ToDouble(item.ContenidoTot);
                         detProducto.Unidad = item.Unidad;
                         detProducto.Productos = productos;

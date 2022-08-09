@@ -56,22 +56,7 @@ const addInsumo = (jsonInsumo) => {
         const trow = document.createElement("tr")
         // Campos completos de insumo
         const tdDataIsumo = document.createElement("td")
-        const tdNombre = document.createElement("td")
-        const tdDescripcion = document.createElement("td")
-        const tdPrecio = document.createElement("td")
-        const tdUnidad = document.createElement("td")
-        const tdCantidadNeta = document.createElement("td")
-        const tdExistencias = document.createElement("td")
-        const tdStatus = document.createElement("td")
-
         tdDataIsumo.setAttribute("hidden", true)
-        tdNombre.setAttribute("hidden", true)
-        tdDescripcion.setAttribute("hidden", true)
-        tdPrecio.setAttribute("hidden", true)
-        tdUnidad.setAttribute("hidden", true)
-        tdCantidadNeta.setAttribute("hidden", true)
-        tdExistencias.setAttribute("hidden", true)
-        tdStatus.setAttribute("hidden", true)
         
         const intId = document.createElement("input")
         const intNombre = document.createElement("input")
@@ -79,50 +64,9 @@ const addInsumo = (jsonInsumo) => {
         const intPrecio = document.createElement("input")
         const intUnidad = document.createElement("input")
         const intCantidadNeta = document.createElement("input")
+        const intContenidoTot = document.createElement("input")
         const intExistencias = document.createElement("input")
         const intStatus = document.createElement("input")
-
-        // ID DE INSUMO
-        intId.setAttribute("name", `[${NumRow}].InsumoId`)
-        intId.setAttribute("value", jsonInsumo.InsumoId)
-        intId.setAttribute("type", "hidden")
-        tdDataIsumo.insertAdjacentElement("afterbegin", intId)
-
-        // NOMBRE DE INSUMO
-        intNombre.setAttribute("name", `[${NumRow}].Nombre`)
-        intNombre.setAttribute("value", jsonInsumo.Nombre)
-        intNombre.setAttribute("type", "hidden")
-        tdDataIsumo.insertAdjacentElement("afterbegin", intNombre)
-
-        // DESCRIPCION DE INSUMO 
-        intDescripcion.setAttribute("name", `[${NumRow}].Descripcion`)
-        intDescripcion.setAttribute("value", jsonInsumo.Descripcion)
-        intDescripcion.setAttribute("type", "hidden")
-        tdDataIsumo.insertAdjacentElement("afterbegin", intDescripcion)
-
-        // PRECION DE INSUMO
-        intPrecio.setAttribute("name", `[${NumRow}].Precio`)
-        intPrecio.setAttribute("value", jsonInsumo.Precio)
-        intPrecio.setAttribute("type", "hidden")
-        tdDataIsumo.insertAdjacentElement("afterbegin", intPrecio)
-
-        // UNIDAD DE INSUMO
-        intUnidad.setAttribute("name", `[${NumRow}].Unidad`)
-        intUnidad.setAttribute("value", jsonInsumo.Unidad)
-        intUnidad.setAttribute("type", "hidden")
-        tdDataIsumo.insertAdjacentElement("afterbegin", intUnidad)
-
-        // CANTIDAD NETA DEL INSUMO
-        intCantidadNeta.setAttribute("name", `[${NumRow}].CantidadNeta`)
-        intCantidadNeta.setAttribute("value", jsonInsumo.CantidadNeta)
-        intCantidadNeta.setAttribute("type", "hidden")
-        tdDataIsumo.insertAdjacentElement("afterbegin", intCantidadNeta)
-
-        // EXISTENCIAS DEL INSUMO
-        intExistencias.setAttribute("name", `[${NumRow}].Existencias`)
-        intExistencias.setAttribute("value", jsonInsumo.Existencias)
-        intExistencias.setAttribute("type", "hidden")
-        tdDataIsumo.insertAdjacentElement("afterbegin", intExistencias)
 
         // STATUS DEL INSUMO
         intStatus.setAttribute("name", `[${NumRow}].Status`)
@@ -130,14 +74,64 @@ const addInsumo = (jsonInsumo) => {
         intStatus.setAttribute("type", "hidden")
         tdDataIsumo.insertAdjacentElement("afterbegin", intStatus)
 
+        // CANTIDADTOT DEL INSUMO
+        intContenidoTot.setAttribute("name", `[${NumRow}].ContenidoTot`)
+        intContenidoTot.setAttribute("value", jsonInsumo.ContenidoTot)
+        intContenidoTot.setAttribute("type", "hidden")
+        tdDataIsumo.insertAdjacentElement("afterbegin", intContenidoTot)
+
+        // EXISTENCIAS DEL INSUMO
+        intExistencias.setAttribute("name", `[${NumRow}].Existencias`)
+        intExistencias.setAttribute("value", jsonInsumo.Existencias)
+        intExistencias.setAttribute("type", "hidden")
+        tdDataIsumo.insertAdjacentElement("afterbegin", intExistencias)
+
+        // CANTIDAD NETA DEL INSUMO
+        intCantidadNeta.setAttribute("name", `[${NumRow}].CantidadNeta`)
+        intCantidadNeta.setAttribute("value", jsonInsumo.CantidadNeta)
+        intCantidadNeta.setAttribute("type", "hidden")
+        tdDataIsumo.insertAdjacentElement("afterbegin", intCantidadNeta)
+
+        // UNIDAD DE INSUMO
+        intUnidad.setAttribute("name", `[${NumRow}].Unidad`)
+        intUnidad.setAttribute("value", jsonInsumo.Unidad)
+        intUnidad.setAttribute("type", "hidden")
+        tdDataIsumo.insertAdjacentElement("afterbegin", intUnidad)
+
+        // PRECION DE INSUMO
+        intPrecio.setAttribute("name", `[${NumRow}].Precio`)
+        intPrecio.setAttribute("value", jsonInsumo.Precio)
+        intPrecio.setAttribute("type", "hidden")
+        tdDataIsumo.insertAdjacentElement("afterbegin", intPrecio)
+
+        // DESCRIPCION DE INSUMO 
+        intDescripcion.setAttribute("name", `[${NumRow}].Descripcion`)
+        intDescripcion.setAttribute("value", jsonInsumo.Descripcion)
+        intDescripcion.setAttribute("type", "hidden")
+        tdDataIsumo.insertAdjacentElement("afterbegin", intDescripcion)
+
+        // NOMBRE DE INSUMO
+        intNombre.setAttribute("name", `[${NumRow}].Nombre`)
+        intNombre.setAttribute("value", jsonInsumo.Nombre)
+        intNombre.setAttribute("type", "hidden")
+        tdDataIsumo.insertAdjacentElement("afterbegin", intNombre)
+
+        // ID DE INSUMO
+        intId.setAttribute("name", `[${NumRow}].InsumoId`)
+        intId.setAttribute("value", jsonInsumo.InsumoId)
+        intId.setAttribute("type", "hidden")
+        tdDataIsumo.insertAdjacentElement("afterbegin", intId)
+
         const tdNom = document.createElement("td")
         tdNom.innerText = jsonInsumo.Nombre
         const tdCant = document.createElement("td")
         const intCant = document.createElement("input")
         intCant.setAttribute("type", "number")
-        intCant.setAttribute("name", `[${NumRow}].ContenidoTot`)
-        intCant.setAttribute("value", "0.0")
+        intCant.setAttribute("name", `[${NumRow}].CantProduc`)
+        intCant.setAttribute("min", "0")
+        intCant.setAttribute("value", 0.123)
         intCant.setAttribute("step", "any")
+        intCant.setAttribute("class", "form-control")
         tdCant.insertAdjacentElement("afterbegin", intCant)
         const tdAccion = document.createElement("td")
         tdAccion.innerHTML = `

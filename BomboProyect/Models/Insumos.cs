@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BomboProyect.Models
 {
@@ -29,6 +30,7 @@ namespace BomboProyect.Models
         public double CantidadNeta { get; set; }
 
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
+        [Range(0.0, 9999.0, ErrorMessage = "Valor numerico")]
         public double ContenidoTot { get; set; }
 
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
@@ -39,5 +41,8 @@ namespace BomboProyect.Models
         public List<DetCompra> DetCompra { get; set;}
 
         public List<DetProducto> DetProductos { get; set; }
+
+        [NotMapped]
+        public double CantProduc { get; set; }
     }
 }
