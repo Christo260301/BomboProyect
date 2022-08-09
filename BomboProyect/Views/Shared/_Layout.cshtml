@@ -29,11 +29,11 @@
                 <div class="offcanvas-header bg-brick">
                     @if (ViewBag.ssUsuario == null)
                     {
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Bienvenido</h5>
+                        <h4 class="offcanvas-title" id="offcanvasNavbarLabel">Bienvenido</h4>
                     }
                     else
                     {
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">@ViewBag.ssUsuario.Nombre</h5>
+                        <h4 class="offcanvas-title" id="offcanvasNavbarLabel">@ViewBag.ssUsuario.Nombre</h4>
                     }
 
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -43,85 +43,142 @@
 
                         @if (ViewBag.ssUsuario != null)
                         {
-                            if (ViewBag.ssUsuario.Rol.RolId == 1 && ViewBag.ssUsuario.Rol.RolId == 2)
-                            {
-                                <li class="nav-item">
-                                    <h5>
-                                        <a class="nav-link" aria-current="page" href="#">
-                                            @Html.ActionLink("Productos", "Index", "Productos", null, new { @class = "nav-link" })
-                                        </a>
-                                    </h5>
-                                </li>
-                            }
-
-
+                            <!---------------------------------------------------------------------->
                             <li class="nav-item">
                                 <h5>
-                                    <a class="nav-link" aria-current="page" href="#">
-                                        @Html.ActionLink("Insumos", "Contact", "Home", null, new { @class = "nav-link" })
+                                    <a class="nav-link px-1 text-muted" href="@Url.Action("Index", "Home")">
+                                        <i class="fa-solid fa-house-chimney"></i>
+                                        <span>Inicio</span>
                                     </a>
                                 </h5>
                             </li>
 
+                            <!---------------------------------------------------------------------->
+                            <li class="nav-item">
+                                <h5>
+                                    <a class="nav-link px-1 text-muted" href="@Url.Action("Contact", "Home")">
+                                        <i class="fa-solid fa-address-book"></i>
+                                        <span>Contactanos</span>
+                                    </a>
+                                </h5>
+                            </li>
 
+                            <!---------------------------------------------------------------------->
                             if (ViewBag.ssUsuario.Rol.RolId == 1)
                             {
                                 <li class="nav-item">
                                     <h5>
-                                        <a class="nav-link" aria-current="page" href="#">
-                                            @Html.ActionLink("Roles", "Index", "Roles", null, new { @class = "nav-link" })
+                                        <a class="nav-link px-1 text-muted" href="@Url.Action("Index", "Productos")">
+                                            <i class="fa-solid fa-bread-slice"></i>
+                                            <span>Productos</span>
                                         </a>
                                     </h5>
                                 </li>
                             }
 
-                            if (ViewBag.ssUsuario.Rol.RolId == 1 && ViewBag.ssUsuario.Rol.RolId == 2)
+                            if (ViewBag.ssUsuario.Rol.RolId == 3)
                             {
                                 <li class="nav-item">
                                     <h5>
-                                        <a class="nav-link" aria-current="page" href="#">
-                                            @Html.ActionLink("Compras", "Index", "Compras", null, new { @class = "nav-link" })
+                                        <a class="nav-link px-1 text-muted" href="@Url.Action("Index", "Productos")">
+                                            <i class="fa-solid fa-bread-slice"></i>
+                                            <span>Productos</span>
+                                        </a>
+                                    </h5>
+                                </li>
+                            }
+                            <!---------------------------------------------------------------------->
+                            if (ViewBag.ssUsuario.Rol.RolId == 1)
+                            {
+                                <li class="nav-item">
+                                    <h5>
+                                        <a class="nav-link px-1 text-muted" href="@Url.Action("Index", "Insumos")">
+                                            <i class="fa-solid fa-truck-field"></i>
+                                            <span>Insumos</span>
                                         </a>
                                     </h5>
                                 </li>
                             }
 
-                            <li class="nav-item">
-                                <h5>
-                                    <a class="nav-link" aria-current="page" href="#">
-                                        @Html.ActionLink("Ventas", "Index", "Ventas", null, new { @class = "nav-link" })
-                                    </a>
-                                </h5>
-                            </li>
+                            if (ViewBag.ssUsuario.Rol.RolId == 2)
+                            {
+                                <li class="nav-item">
+                                    <h5>
+                                        <a class="nav-link px-1 text-muted" href="@Url.Action("Index", "Insumos")">
+                                            <i class="fa-solid fa-truck-field"></i>
+                                            <span>Insumos</span>
+                                        </a>
+                                    </h5>
+                                </li>
+                            }
 
-                            <li class="nav-item">
-                                <h5>
-                                    <a class="nav-link" aria-current="page" href="#">
-                                        @Html.ActionLink("Registrar Usuario", "Create", "Usuarios", null, new { @class = "nav-link" })
-                                    </a>
-                                </h5>
-                            </li>
+                            <!---------------------------------------------------------------------->
+                            if (ViewBag.ssUsuario.Rol.RolId == 1)
+                            {
+                                <li class="nav-item">
+                                    <h5>
+                                        <a class="nav-link px-1 text-muted" href="@Url.Action("Index", "Compras")">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                            <span>Compras</span>
+                                        </a>
+                                    </h5>
+                                </li>
+                            }
 
-                            <li class="nav-item">
-                                <h5>
-                                    <a class="nav-link px-2 text-muted">
-                                        @Html.ActionLink("Inicio", "Index", "Home", null, new { @class = "nav-link" })
-                                    </a>
-                                </h5>
-                            </li>
+                            if (ViewBag.ssUsuario.Rol.RolId == 2)
+                            {
+                                <li class="nav-item">
+                                    <h5>
+                                        <a class="nav-link px-1 text-muted" href="@Url.Action("Index", "Compras")">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                            <span>Compras</span>
+                                        </a>
+                                    </h5>
+                                </li>
+                            }
+                            <!---------------------------------------------------------------------->
+                            if (ViewBag.ssUsuario.Rol.RolId == 1)
+                            {
+                                <li class="nav-item">
+                                    <h5>
+                                        <a class="nav-link px-1 text-muted" href="@Url.Action("Index", "Ventas")">
+                                            <i class="fa-solid fa-tag"></i>
+                                            <span>Ventas</span>
+                                        </a>
+                                    </h5>
+                                </li>
+                            }
 
-                            <li class="nav-item">
-                                <h5>
-                                    <a class="nav-link px-2 text-muted">
-                                        @Html.ActionLink("Contactanos", "Contact", "Home", null, new { @class = "nav-link" })
-                                    </a>
-                                </h5>
-                            </li>
+                            if (ViewBag.ssUsuario.Rol.RolId == 3)
+                            {
+                                <li class="nav-item">
+                                    <h5>
+                                        <a class="nav-link px-1 text-muted" href="@Url.Action("Index", "Ventas")">
+                                            <i class="fa-solid fa-tag"></i>
+                                            <span>Ventas</span>
+                                        </a>
+                                    </h5>
+                                </li>
+                            }
 
+                            <!---------------------------------------------------------------------->
+                            if (ViewBag.ssUsuario.Rol.RolId == 1)
+                            {
+                                <li class="nav-item">
+                                    <h5>
+                                        <a class="nav-link px-1 text-muted" href="@Url.Action("Index", "Usuarios")">
+                                            <i class="fa-solid fa-users"></i>
+                                            <span>Usuarios</span>
+                                        </a>
+                                    </h5>
+                                </li>
+                            }
+                            <!---------------------------------------------------------------------->
                             <li class="nav-item">
                                 <h5>
-                                    <a class="nav-link px-2 text-muted">
-                                        @Html.ActionLink("Cerrar Sesion", "CerrarSesion", "Home", null, new { @class = "nav-link" })
+                                    <a class="nav-link px-1 text-muted" href="@Url.Action("CerrarSesion", "Home")">
+                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                        <span>Cerrar Sesión</span>
                                     </a>
                                 </h5>
                             </li>
@@ -130,8 +187,9 @@
                         {
                             <li class="nav-item">
                                 <h5>
-                                    <a class="nav-link px-2 text-muted">
-                                        @Html.ActionLink("Iniciar Sesion", "Index", "Acceso", null, new { @class = "nav-link" })
+                                    <a class="nav-link px-1 text-muted" href="@Url.Action("Index", "Acceso")">
+                                        <i class="fa-solid fa-right-to-bracket"></i>
+                                        <span>Iniciar Sesión</span>
                                     </a>
                                 </h5>
                             </li>

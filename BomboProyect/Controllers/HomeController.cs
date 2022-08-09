@@ -35,11 +35,11 @@ namespace IDGS902_EXAM_BD.Controllers
             return View();
         }
 
-        [PermisosRol(_idrol: "Empleado")]
+        [PermisosRol(_idrol: "Administrador")]
         public ActionResult Contact()
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Escribe tus datos y cuéntanos tu inquietud.";
 
             return View();
         }
