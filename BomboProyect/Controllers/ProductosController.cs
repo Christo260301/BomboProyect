@@ -99,7 +99,6 @@ namespace BomboProyect.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Foto,Existencias,Status")] Productos productos)
         {
-            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (ModelState.IsValid)
             {
                 db.Entry(productos).State = EntityState.Modified;
