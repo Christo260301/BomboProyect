@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,6 +10,7 @@ namespace BomboProyect.Models
 {
     public class Productos
     {
+        [Key]
         public int ProductoId { get; set; }
 
         [StringLength(50)]
@@ -37,5 +39,10 @@ namespace BomboProyect.Models
         
         [NotMapped]
         public HttpPostedFileBase Fotografia { get; set; }
+
+        public void EliminarFoto(string ruta)
+        {
+            File.Delete(ruta);
+        }
     }
 }

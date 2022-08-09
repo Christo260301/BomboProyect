@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BomboProyect.Logica;
 using BomboProyect.Models;
 
 namespace BomboProyect.Controllers
@@ -26,6 +27,8 @@ namespace BomboProyect.Controllers
         // GET: Productos/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -35,7 +38,15 @@ namespace BomboProyect.Controllers
             {
                 return HttpNotFound();
             }
+
+            List<DetProducto> detPr = db.DetProductos.Where(m => m.Productos.ProductoId == id).Include(nameof(DetProducto.Insumo)).ToList();
+            ViewBag.listP = detPr;
             return View(productos);
+        }
+        public ActionResult _ListaInsumoProducto()
+        {
+            //List<DetProducto> detPr = db.DetProductos.Where(m => m.Productos.ProductoId == id).Include(nameof(DetProducto.Insumo)).ToList();
+            return View(new List<Insumos>());
         }
 
         // GET: Productos/Create
@@ -51,9 +62,9 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Existencias,Foto,Fotografia,Status")] Productos productos)
+        public ActionResult Create([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Existencias,Foto,Fotografia,Status")] Productos productos, List<Insumos> insumos)
         {
-            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+
             if (ModelState.IsValid)
             {
                 //Almacenamiento de imagenes
@@ -68,7 +79,37 @@ namespace BomboProyect.Controllers
                 NombreArchivo = Path.Combine(Server.MapPath("~/ProductosImages/"), NombreArchivo);
                 productos.Fotografia.SaveAs(NombreArchivo);
 
+                // SET STATUS TRUE
+                productos.Status = true;
+
                 db.Productos.Add(productos);
+                int contador = 0;
+
+                foreach(var item in insumos)
+                {
+                    if (Convert.ToDouble(item.CantProduc) > -1)
+                    {
+                        contador++;
+                        var detProducto = new DetProducto();
+                        var insumo = new Insumos();
+                        insumo.InsumoId = Convert.ToInt32(item.InsumoId);
+                        db.Insumos.Attach(insumo);
+
+                        detProducto.Insumo = insumo;
+                        detProducto.Cantidad = Convert.ToDouble(item.CantProduc);
+                        detProducto.Unidad = item.Unidad;
+                        detProducto.Productos = productos;
+
+                        db.DetProductos.Add(detProducto);
+
+                    }
+                }
+
+                if (contador == 0)
+                {
+                    return RedirectToAction("Index");
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -80,15 +121,20 @@ namespace BomboProyect.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+            ViewBag.insumos = db.Insumos.ToList();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Productos productos = db.Productos.Find(id);
+            ViewBag.detPro = db.DetProductos.Where(m => m.Productos.ProductoId == id).Include(nameof(DetProducto.Insumo)).ToList();
+            //Productos productos = db.Productos.Where(m => m.ProductoId == id).Include(nameof(Productos.DetProducto)).Include(nameof(DetProducto.Insumo)).First();
             if (productos == null)
             {
                 return HttpNotFound();
             }
+
+           
             return View(productos);
         }
 
@@ -97,12 +143,52 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Foto,Existencias,Status")] Productos productos)
+        public ActionResult Edit([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Existencias,Foto,Fotografia,Status")] Productos productos, string rutaFotoAnterior)
         {
+            ModelState.Remove("Fotografia");
             if (ModelState.IsValid)
             {
+
+                //MODIFICACION DE FOTOGRAFIA
+                if (productos.Fotografia != null)
+                {
+                    string NombreArchivo = Path.GetFileNameWithoutExtension(productos.Fotografia.FileName);
+                    string ExtencionArchivo = Path.GetExtension(productos.Fotografia.FileName);
+                    NombreArchivo = DateTime.Now.ToString("dd_MM_yyyy") + "-" + NombreArchivo.Trim() + "-" + productos.Nombre + "-" + ExtencionArchivo;
+                    string ruta = "~/ProductosImages/" + NombreArchivo;
+
+                    if (!rutaFotoAnterior.Equals(ruta))
+                    {
+                        productos.Foto = ruta;
+                        NombreArchivo = Path.Combine(Server.MapPath("~/ProductosImages/"), NombreArchivo);
+                        productos.Fotografia.SaveAs(NombreArchivo);
+                        try
+                        {
+                            productos.EliminarFoto(Path.Combine(Server.MapPath(rutaFotoAnterior)));
+                        }
+                        catch (IOException d)
+                        {
+                            Console.WriteLine(d.Message);
+                        }
+
+                    }
+                } else
+                {
+                    // ESTO ES NECESARIO PARA CONSERVAR LA MISMA FOTO
+                    string nombre = rutaFotoAnterior.Split('/')[2];
+                    productos.Foto = rutaFotoAnterior;
+                    byte[] bytes = System.IO.File.ReadAllBytes(Server.MapPath(productos.Foto));
+                    var contentTypeFile = "image/jpeg";
+                    var filename = nombre;
+                    productos.Fotografia = (HttpPostedFileBase)new MemoryPostedFile(new MemoryStream(bytes), contentTypeFile, filename);
+                }
+                
+
                 db.Entry(productos).State = EntityState.Modified;
                 db.SaveChanges();
+
+                
+
                 return RedirectToAction("Index");
             }
             return View(productos);
@@ -129,7 +215,6 @@ namespace BomboProyect.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             Productos productos = db.Productos.Find(id);
             db.Productos.Remove(productos);
             db.SaveChanges();

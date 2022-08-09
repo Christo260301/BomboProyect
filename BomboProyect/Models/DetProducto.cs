@@ -8,6 +8,7 @@ namespace BomboProyect.Models
 {
     public class DetProducto
     {
+        [Key]
         public int DetProductoId { get; set; }
 
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]

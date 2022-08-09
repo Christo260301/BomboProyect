@@ -139,6 +139,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logica\Logica_Usuario.cs" />
+    <Compile Include="Logica\MemoryPostedFile.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BomboDBContext.cs" />
     <Compile Include="Models\Compras.cs" />
@@ -288,6 +289,7 @@
     <Content Include="Views\Insumos\Details.cshtml" />
     <Content Include="Views\Insumos\Edit.cshtml" />
     <Content Include="Views\Insumos\Index.cshtml" />
+    <Content Include="Views\Productos\_ListaInsumoProducto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
