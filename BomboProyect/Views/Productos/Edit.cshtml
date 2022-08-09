@@ -1,4 +1,5 @@
 ﻿@model BomboProyect.Models.Productos
+@using BomboProyect.Models
 
 @{
     ViewBag.Title = "Editar";
@@ -92,7 +93,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @*@foreach (var ins in ViewBag.insumos)
+                                @foreach (var ins in ViewBag.insumos)
                                 {
                                     <tr>
                                         <td>@ins.Nombre</td>
@@ -106,37 +107,12 @@
                                             </div>
                                         </td>
                                     </tr>
-                                }*@
+                                }
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-5">
-                        <h5>Insumos Seleccionados</h5>
-                        <table class="table">
-                            <thead class="table-secondary">
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Cantidad Total</th>
-                                    <th>Existencias</th>
-                                    <th>Acction</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!--
-                        //foreach (var ins in ViewBag.insumos)
-                        {
-                            <tr>
-                                <td>ins.Nombre</td>
-                                <td>ins.ContenidoTot</td>
-                                <td>ins.Existencias</td>
-                                <td><button class="btn btn-secondary">Agregar</button></td>
-                            </tr>
-                        }
-
-                            -->
-
-                            </tbody>
-                        </table>
+                    <div class="col-5 table-scroll" id="divInsumos">
+                        @Html.Partial("_ListaInsumoProducto", (List<DetProducto>) ViewBag.detPro)
                     </div>
                 </div>
 
@@ -152,4 +128,10 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/scripts/productos")
+
+<script>
+       @*$(document).ready(function () {
+            $("#divInsumos").load(`$@Model.ProductoId}_ListaInsumoProducto`)
+        })*@
+</script>
 }

@@ -1,4 +1,4 @@
-﻿@model List<BomboProyect.Models.Insumos>
+﻿@model List<BomboProyect.Models.DetProducto>
 
 @{ Layout = null; }
 
@@ -16,25 +16,27 @@
     <tbody id="tbContainer">
         @for (var i = 0; i < Model.Count(); i++)
         {
-            @*<tr>
+            <tr>
                 <td hidden>
-                    <input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" />
-                    <input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" />
-                    <input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" />
-                    <input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" />
-                    <input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" />
-                    <input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" />
+                    <input value="@Model[i].Insumo.InsumoId" name="[@i].Insumo.InsumoId" type="hidden" />
+                    <input value="@Model[i].Insumo.Nombre" name="[@i].Insumo.Nombre" type="hidden" />
+                    <input value="@Model[i].Insumo.Descripcion" name="[@i].Insumo.Descripcion" type="hidden" />
+                    <input value="@Model[i].Insumo.Precio" name="[@i].Insumo.Precio" type="hidden" />
+                    <input value="@Model[i].Insumo.CantidadNeta" name="[@i].Insumo.CantidadNeta" type="hidden" />
+                    <input value="@Model[i].Insumo.Existencias" name="[@i].Insumo.Existencias" type="hidden" />
+                    <input value="@Model[i].Insumo.ContenidoTot" name="[@i].Insumo.ContenidoTot" type="hidden" />
+                    <input value="@Model[i].Insumo.Status" name="[@i].Insumo.Status" type="hidden" />
                 </td>
-                <td>@Model[i].Nombre</td>
-                <td>@Model[i].Descripcion</td>
-                <td>@Model[i].Precio</td>
-                <td>@Model[i].CantidadNeta</td>
-                <td>@Model[i].Existencias</td>
-                <td>@Model[i].ContenidoTot</td>
-                <td hidden><input type="hidden" name="[@i].Precio" value="@Model[i].Precio" /></td>
-                <td><input name="[@i].Existencias" type="number" min="0" value=0 class="form-control" /></td>
-                <td><input type="text" name="[@i].Descripcion" value="" /></td>
-            </tr>*@
+                <td>@Model[i].Insumo.Nombre</td>
+                <td><input name="[@i].Cantidad" type="number" min="0" value=@Model[i].Cantidad class="form-control" /></td>
+                <td>
+                    <div class="d-flex justify-content-start">
+                        <button type="button" onclick="removeInsumo(Json.Enconde(Model[i]))" class="btn btn-danger">
+                            <i class="fa-solid fa-minus"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

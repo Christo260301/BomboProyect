@@ -9,6 +9,7 @@ namespace BomboProyect.Models
 {
     public class Insumos
     {
+        [Key]
         public int InsumoId { get; set; }
 
         [StringLength(50)]

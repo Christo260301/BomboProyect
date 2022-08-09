@@ -43,11 +43,11 @@ namespace BomboProyect.Controllers
             ViewBag.listP = detPr;
             return View(productos);
         }
-
-        public ActionResult _ListaInsumoProducto()
-        {
-            return View(new List<Insumos>());
-        }
+        //public ActionResult _ListaInsumoProducto(int id)
+        //{
+        //    List<DetProducto> detPr = db.DetProductos.Where(m => m.Productos.ProductoId == id).Include(nameof(DetProducto.Insumo)).ToList();
+        //    return View(db.Insumos.ToList());
+        //}
 
         // GET: Productos/Create
         public ActionResult Create()
@@ -78,6 +78,9 @@ namespace BomboProyect.Controllers
                 productos.Foto = "~/ProductosImages/" + NombreArchivo;
                 NombreArchivo = Path.Combine(Server.MapPath("~/ProductosImages/"), NombreArchivo);
                 productos.Fotografia.SaveAs(NombreArchivo);
+
+                // SET STATUS TRUE
+                productos.Status = true;
 
                 db.Productos.Add(productos);
                 int contador = 0;
@@ -118,15 +121,20 @@ namespace BomboProyect.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+            ViewBag.insumos = db.Insumos.ToList();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Productos productos = db.Productos.Find(id);
+            ViewBag.detPro = db.DetProductos.Where(m => m.Productos.ProductoId == id).Include(nameof(DetProducto.Insumo)).ToList();
+            //Productos productos = db.Productos.Where(m => m.ProductoId == id).Include(nameof(Productos.DetProducto)).Include(nameof(DetProducto.Insumo)).First();
             if (productos == null)
             {
                 return HttpNotFound();
             }
+
+           
             return View(productos);
         }
 

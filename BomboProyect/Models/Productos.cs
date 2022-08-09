@@ -10,6 +10,7 @@ namespace BomboProyect.Models
 {
     public class Productos
     {
+        [Key]
         public int ProductoId { get; set; }
 
         [StringLength(50)]
