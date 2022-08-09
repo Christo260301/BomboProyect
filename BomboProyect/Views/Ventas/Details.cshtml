@@ -16,7 +16,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Usuarios.Nombre) @Html.DisplayFor(model => model.Usuarios.ApePat)
+            @ViewBag.nombreUser
         </dd>
         
         <dt>
@@ -40,7 +40,11 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Status)
+           @if (Model.Status == 1)
+           {
+              <div style="background-color:green; width:70px; text-align:center; border-radius:10px;">Activo</div>
+           }
+           else {<div style="background-color:red; width:70px; text-align:center;">Inactivo</div>}
         </dd>
     </dl>
     <hr />
@@ -51,23 +55,27 @@
             <th>Descripcion</th>
             <th>Precio C/U</th>
             <th>Cantidad Vendida</th>
-            <th>Unidad de Medida</th>
+            <th>Sub Total</th>
         </tr>
+        @{int cont = 1;}
         @foreach (DetVenta pr in ViewBag.listV)
-        {
+        {   
             <tr>
-                <td>@pr.Producto.Nombre</td>
-                <td>@pr.Producto.Descripcipn</td>
-                <td>@pr.PrecioVenta</td>
+
+
+                <td>@ViewBag.listP[cont].Nombre</td>
+                <td>@ViewBag.listP[cont].Descripcion</td>
+                <td>@ViewBag.listP[cont].Precio</td>
+
+
                 <td>@pr.Cantidad</td>
-                <td>@pr.Unidad</td>
-
+                <td>@pr.PrecioVenta</td>
             </tr>
-
+            cont=cont+1;
         }
 
     </table>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
+<p>    
+    <a href="/Ventas/Index" class="btn btn-info">Regresar a la lista</a>
 </p>

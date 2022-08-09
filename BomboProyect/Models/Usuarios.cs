@@ -54,7 +54,10 @@ namespace BomboProyect.Models
         public String Estado { get; set; }
 
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public int Telefono { get; set; }
+        [Display(Name = "Home Phone")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        public string Telefono { get; set; }
 
         [StringLength(100)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]

@@ -17,12 +17,14 @@ namespace BomboProyect.Controllers
         // GET: Compras
         public ActionResult Index()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             return View(db.Compras.ToList());
         }
 
         // GET: Compras/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -43,6 +45,7 @@ namespace BomboProyect.Controllers
 
         public ActionResult _ListInsumos()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             return View(db.Insumos.ToList());
         }
 
@@ -50,6 +53,7 @@ namespace BomboProyect.Controllers
         // GET: Compras/Create
         public ActionResult Create()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             ViewBag.usuario = db.Usuarios.Where(u => u.Rol.RolId == 1).ToList();
             ViewBag.Prov = new SelectList(db.Proveedor, "ProveedorId", "RazonSocial");
             return View();
@@ -63,6 +67,7 @@ namespace BomboProyect.Controllers
         public ActionResult Create([Bind(Include = "ComprasId,FechaCompra,HoraCompra,Status")] Compras compras, 
                                     string usuarioId, string Prov, List<Insumos> insumos)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             try
             {
                 var user = new Usuarios();
