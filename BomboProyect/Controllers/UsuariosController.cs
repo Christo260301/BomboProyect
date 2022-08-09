@@ -17,12 +17,14 @@ namespace BomboProyect.Controllers
         // GET: Usuarios
         public ActionResult Index()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             return View(db.Usuarios.ToList());
         }
 
         // GET: Usuarios/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +40,7 @@ namespace BomboProyect.Controllers
         // GET: Usuarios/Create
         public ActionResult Create()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             ViewBag.Roless = new SelectList(db.RolesUsers, "RolId", "NombreRol");
             return View();
         }
@@ -48,6 +51,7 @@ namespace BomboProyect.Controllers
         [HttpPost]
         public ActionResult Create(Usuarios usuarios, string Roless)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             try
             {
                 using (BomboDBContext db = new BomboDBContext())
@@ -72,6 +76,7 @@ namespace BomboProyect.Controllers
         // GET: Usuarios/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -91,6 +96,7 @@ namespace BomboProyect.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UsuarioId,Nombre,ApePat,ApeMat,Calle,NumExt,NumInt,Colonia,CP,Ciudad,Municipio,Estado,Telefono,Correo,Contrasennia,Status")] Usuarios usuarios)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (ModelState.IsValid)
             {
                 db.Entry(usuarios).State = EntityState.Modified;
@@ -103,6 +109,7 @@ namespace BomboProyect.Controllers
         // GET: Usuarios/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -120,6 +127,7 @@ namespace BomboProyect.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             Usuarios usuarios = db.Usuarios.Find(id);
             db.Usuarios.Remove(usuarios);
             db.SaveChanges();

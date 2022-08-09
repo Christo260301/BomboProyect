@@ -7,8 +7,7 @@ using System.Web.Security;
 
 using BomboProyect.Models;
 using BomboProyect.Permisos;
-using Roles = BomboProyect.Models.Roles;
-
+    
 namespace IDGS902_EXAM_BD.Controllers
 {
     [Authorize]
@@ -22,6 +21,7 @@ namespace IDGS902_EXAM_BD.Controllers
          
         public ActionResult About()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             ViewBag.Message = "Your application description page.";
 
             return View();
@@ -29,16 +29,16 @@ namespace IDGS902_EXAM_BD.Controllers
 
         public ActionResult SinPermisos()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             ViewBag.Message = "Usted no cuenta con permisos para visualizar esta pagina";
 
             return View();
         }
 
-        //Roles rol = new Roles();
-
-        [PermisosRol(_idrol: "Cliente")]
+        [PermisosRol(_idrol: "Empleado")]
         public ActionResult Contact()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             ViewBag.Message = "Your contact page.";
 
             return View();
@@ -46,6 +46,7 @@ namespace IDGS902_EXAM_BD.Controllers
 
         public ActionResult CerrarSesion()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             FormsAuthentication.SignOut();
             Session["Usuario"] = null;
 

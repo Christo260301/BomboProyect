@@ -40,15 +40,20 @@
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
                         @if (ViewBag.ssUsuario != null)
                         {
-                            <li class="nav-item">
-                                <h5>
-                                    <a class="nav-link" aria-current="page" href="#">
-                                        @Html.ActionLink("Productos", "Index", "Productos", null, new { @class = "nav-link" })
-                                    </a>
-                                </h5>
-                            </li>
+                            if (ViewBag.ssUsuario.Rol.RolId == 1 && ViewBag.ssUsuario.Rol.RolId == 2)
+                            {
+                                <li class="nav-item">
+                                    <h5>
+                                        <a class="nav-link" aria-current="page" href="#">
+                                            @Html.ActionLink("Productos", "Index", "Productos", null, new { @class = "nav-link" })
+                                        </a>
+                                    </h5>
+                                </li>
+                            }
+
 
                             <li class="nav-item">
                                 <h5>
@@ -58,21 +63,28 @@
                                 </h5>
                             </li>
 
-                            <li class="nav-item">
-                                <h5>
-                                    <a class="nav-link" aria-current="page" href="#">
-                                        @Html.ActionLink("Roles", "Index", "Roles", null, new { @class = "nav-link" })
-                                    </a>
-                                </h5>
-                            </li>
 
-                            <li class="nav-item">
-                                <h5>
-                                    <a class="nav-link" aria-current="page" href="#">
-                                        @Html.ActionLink("Compras", "Index", "Compras", null, new { @class = "nav-link" })
-                                    </a>
-                                </h5>
-                            </li>
+                            if (ViewBag.ssUsuario.Rol.RolId == 1)
+                            {
+                                <li class="nav-item">
+                                    <h5>
+                                        <a class="nav-link" aria-current="page" href="#">
+                                            @Html.ActionLink("Roles", "Index", "Roles", null, new { @class = "nav-link" })
+                                        </a>
+                                    </h5>
+                                </li>
+                            }
+
+                            if (ViewBag.ssUsuario.Rol.RolId == 1 && ViewBag.ssUsuario.Rol.RolId == 2)
+                            {
+                                <li class="nav-item">
+                                    <h5>
+                                        <a class="nav-link" aria-current="page" href="#">
+                                            @Html.ActionLink("Compras", "Index", "Compras", null, new { @class = "nav-link" })
+                                        </a>
+                                    </h5>
+                                </li>
+                            }
 
                             <li class="nav-item">
                                 <h5>
@@ -86,6 +98,22 @@
                                 <h5>
                                     <a class="nav-link" aria-current="page" href="#">
                                         @Html.ActionLink("Registrar Usuario", "Create", "Usuarios", null, new { @class = "nav-link" })
+                                    </a>
+                                </h5>
+                            </li>
+
+                            <li class="nav-item">
+                                <h5>
+                                    <a class="nav-link px-2 text-muted">
+                                        @Html.ActionLink("Inicio", "Index", "Home", null, new { @class = "nav-link" })
+                                    </a>
+                                </h5>
+                            </li>
+
+                            <li class="nav-item">
+                                <h5>
+                                    <a class="nav-link px-2 text-muted">
+                                        @Html.ActionLink("Contactanos", "Contact", "Home", null, new { @class = "nav-link" })
                                     </a>
                                 </h5>
                             </li>

@@ -11,7 +11,7 @@ namespace BomboProyect.Models
         public int DetProductoId { get; set; }
 
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        public int Cantidad { get; set; }
+        public double Cantidad { get; set; }
 
         [StringLength(50)]
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]

@@ -17,6 +17,7 @@ namespace BomboProyect.Controllers
         // GET: Ventas
         public ActionResult Index()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             Usuarios usr = new Usuarios();
             usr = Session["Usuario"] as Usuarios;
             if (usr.Rol.RolId==3|| usr.Rol.RolId==2)
@@ -32,6 +33,7 @@ namespace BomboProyect.Controllers
         // GET: Ventas/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -58,7 +60,8 @@ namespace BomboProyect.Controllers
 
         // GET: Ventas/Create
         public ActionResult Create()
-        {   
+        {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             Usuarios user = new Usuarios();
             user = Session["Usuario"] as Usuarios;
             ViewBag.Usuario = user.Nombre;
@@ -73,6 +76,7 @@ namespace BomboProyect.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "VentaId,Fechaventa,HoraVenta,Status")] Ventas ventas,List<Productos> productos)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             try {
                 if (Session["Usuario"] != null)
                 {   //Ventas
@@ -136,7 +140,9 @@ namespace BomboProyect.Controllers
 
         }
 
-        public ActionResult _ListProductos() {
+        public ActionResult _ListProductos() 
+        {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             return View(db.Productos.ToList());
         }
         protected override void Dispose(bool disposing)
