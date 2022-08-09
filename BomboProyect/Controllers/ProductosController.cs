@@ -64,7 +64,7 @@ namespace BomboProyect.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Existencias,Foto,Fotografia,Status")] Productos productos, List<Insumos> insumos)
         {
-            ViewBag.insumos = db.Insumos.ToList();
+
             if (ModelState.IsValid)
             {
                 //Almacenamiento de imagenes
@@ -84,7 +84,7 @@ namespace BomboProyect.Controllers
 
                 foreach(var item in insumos)
                 {
-                    if (Convert.ToDouble(item.ContenidoTot) > -1)
+                    if (Convert.ToDouble(item.CantProduc) > -1)
                     {
                         contador++;
                         var detProducto = new DetProducto();
@@ -93,7 +93,7 @@ namespace BomboProyect.Controllers
                         db.Insumos.Attach(insumo);
 
                         detProducto.Insumo = insumo;
-                        detProducto.Cantidad = Convert.ToDouble(item.ContenidoTot);
+                        detProducto.Cantidad = Convert.ToDouble(item.CantProduc);
                         detProducto.Unidad = item.Unidad;
                         detProducto.Productos = productos;
 

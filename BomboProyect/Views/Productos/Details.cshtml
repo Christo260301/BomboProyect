@@ -60,19 +60,19 @@
             </div>
             <div class="row">
                 <h4>Insumos</h4>
-                <table class="table table-dark">
-                    <thead>
+                <table class="table">
+                    <thead class="table-secondary">
                         <tr>
-                            <th>Fecha de Caducidad</th>
-                            <th>Precio</th>
-                            <th>Cantidad Vendida</th>
-                            <th>Unidad de Medida</th>
+                            <th>Nombre</th>
+                            <th>Unidad</th>
+                            <th>Cantidad</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (DetProducto pr in ViewBag.listP)
                         {
                             <tr>
+                                <td>@pr.Insumo.Nombre</td>
                                 <td>@pr.Unidad</td>
                                 <td>@pr.Cantidad</td>
                             </tr>
