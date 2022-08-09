@@ -43,11 +43,11 @@ namespace BomboProyect.Controllers
             ViewBag.listP = detPr;
             return View(productos);
         }
-        //public ActionResult _ListaInsumoProducto(int id)
-        //{
-        //    List<DetProducto> detPr = db.DetProductos.Where(m => m.Productos.ProductoId == id).Include(nameof(DetProducto.Insumo)).ToList();
-        //    return View(db.Insumos.ToList());
-        //}
+        public ActionResult _ListaInsumoProducto()
+        {
+            //List<DetProducto> detPr = db.DetProductos.Where(m => m.Productos.ProductoId == id).Include(nameof(DetProducto.Insumo)).ToList();
+            return View(new List<Insumos>());
+        }
 
         // GET: Productos/Create
         public ActionResult Create()

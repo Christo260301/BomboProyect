@@ -41,7 +41,7 @@ namespace BomboProyect.Models
 
         public List<DetCompra> DetCompra { get; set;}
 
-        public List<DetProducto> DetProductos { get; set; }
+        //public List<DetProducto> DetProductos { get; set; }
 
         [NotMapped]
         public double CantProduc { get; set; }
