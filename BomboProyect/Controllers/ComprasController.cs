@@ -36,7 +36,7 @@ namespace BomboProyect.Controllers
 
             if (compra != null)
             {
-                List<DetCompra> detCom = db.DetCompra.Where(m => m.Compra.ComprasId == id).ToList();
+                List<DetCompra> detCom = db.DetCompra.Include(m => m.Insumos).Where(m => m.Compra.ComprasId == id).ToList();
                 ViewBag.listC = detCom;
                 return View(compra);
             }
@@ -84,10 +84,15 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ComprasId,FechaCompra,HoraCompra,Status")] Compras compras, 
+        public ActionResult Create([Bind(Include = "ComprasId,FechaCompra,HoraCompra,Status")] Compras compras,
                                     string usuarioId, string Prov, List<Insumos> insumos)
         {
-            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+            var sess = HttpContext.Session["Usuario"] as Usuarios;
+            ViewBag.ssUsuario = sess;
+            ViewBag.Usuario = sess.Nombre + " " + sess.ApePat;
+            ViewBag.Id = sess.UsuarioId;
+            ViewBag.Prov = new SelectList(db.Proveedor, "ProveedorId", "RazonSocial");
+
             try
             {
                 var user = new Usuarios();
@@ -100,59 +105,68 @@ namespace BomboProyect.Controllers
                 compras.Proveedor = prov;
                 compras.Usuario = user;
 
-                db.Compras.Add(compras);
-                int contador = 0;
-
-                using (BomboDBContext du = new BomboDBContext())
+                if (insumos != null)
                 {
-                    foreach (var item in insumos)
+                    db.Compras.Add(compras);
+                    int contador = 0;
+                    using (BomboDBContext du = new BomboDBContext())
                     {
-                        if (Convert.ToInt32(item.Existencias) > 0)
+                        foreach (var item in insumos)
                         {
-                            DateTime hoy = DateTime.Now;
-                            contador = contador + 1;
+                            if (Convert.ToInt32(item.CantProduc) > 0)
+                            {
+                                contador = contador + 1;
 
-                            var detCompra = new DetCompra();
-                            var insumo = new Insumos();
+                                var detCompra = new DetCompra();
+                                //var insumo = new Insumos();
+                                var insumo = item;
 
-                            insumo.InsumoId = Convert.ToInt32(item.InsumoId);
+                                //insumo.InsumoId = Convert.ToInt32(item.InsumoId);
 
-                            db.Insumos.Attach(insumo);
+                                db.Insumos.Attach(insumo);
 
-                            detCompra.Costo = Convert.ToInt32(item.Existencias) * item.Precio;
-                            detCompra.Cantidad = Convert.ToInt32(item.Existencias);
-                            detCompra.FechaCaduca = hoy.AddMonths(1);
-                            detCompra.Unidad = item.Unidad;
-                            detCompra.Compra = compras;
-                            detCompra.Insumos = insumo;
+                                detCompra.Costo = Convert.ToInt32(item.CantProduc) * item.Precio;
+                                detCompra.Cantidad = Convert.ToInt32(item.CantProduc);
+                                detCompra.FechaCaduca = item.FechaCad;
+                                detCompra.Unidad = item.Unidad;
+                                detCompra.Compra = compras;
+                                detCompra.Insumos = insumo;
 
-                            db.DetCompra.Add(detCompra);
+                                db.DetCompra.Add(detCompra);
 
-                            Insumos insu = du.Insumos.Find(item.InsumoId);
-                            double existencia = Convert.ToInt32(insu.Existencias) + Convert.ToInt32(item.Existencias);
-                            insu.Existencias = existencia;
-                            insu.ContenidoTot = insu.ContenidoTot + (Convert.ToInt32(item.Existencias) * insu.CantidadNeta);
-                            du.Insumos.Attach(insu);
-                            du.Entry(insu).Property(x => x.Existencias).IsModified = true;
-                            du.Entry(insu).Property(x => x.ContenidoTot).IsModified = true;
+                                Insumos insu = du.Insumos.Find(item.InsumoId);
+                                double existencia = Convert.ToInt32(insu.Existencias) + Convert.ToInt32(item.CantProduc);
+                                insu.Existencias = existencia;
+                                insu.ContenidoTot = insu.ContenidoTot + (Convert.ToInt32(item.CantProduc) * insu.CantidadNeta);
+                                du.Insumos.Attach(insu);
+                                du.Entry(insu).Property(x => x.Existencias).IsModified = true;
+                                du.Entry(insu).Property(x => x.ContenidoTot).IsModified = true;
 
+                            }
                         }
+                        if (contador == 0)
+                        {
+                            ViewBag.notif = "No se puede registrar una compra sin insumos";
+                            return View(compras);
+                        }
+
+                        db.SaveChanges();
+                        du.SaveChanges();
+                        return RedirectToAction("Index");
                     }
-                    du.SaveChanges();
                 }
-
-                if (contador == 0)
+                else
                 {
-                    return RedirectToAction("Index");
-                }
+                    ViewBag.notif = "No se puede registrar una compra sin insumos";
+                    return View(compras);
 
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 ViewBag.Prov = new SelectList(db.Proveedor, "ProveedorId", "RazonSocial");
+                ViewBag.notif = "Error";
                 return View(compras);
             }
         }

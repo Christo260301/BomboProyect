@@ -94,6 +94,7 @@ const addInsumo = (jsonInsumo, isEdit) => {
 
         const tdNom = document.createElement("td")
         tdNom.innerText = jsonInsumo.Nombre
+    
         const tdCant = document.createElement("td")
         const intCant = document.createElement("input")
         intCant.setAttribute("type", "number")
@@ -103,6 +104,15 @@ const addInsumo = (jsonInsumo, isEdit) => {
         intCant.setAttribute("step", "any")
         intCant.setAttribute("class", "form-control")
         tdCant.insertAdjacentElement("afterbegin", intCant)
+
+        const tdFecha = document.createElement("td")
+        const intFecha = document.createElement("input")
+        intFecha.setAttribute("type", "date")
+        intFecha.setAttribute("name", `[${NumRow}].FechaCad`)
+        intFecha.setAttribute("value", "")
+        intFecha.setAttribute("class", "form-control")
+        tdFecha.insertAdjacentElement("afterbegin", intFecha)
+
         const tdAccion = document.createElement("td")
         tdAccion.innerHTML = `
         <div class="d-flex justify-content-start">
@@ -116,6 +126,7 @@ const addInsumo = (jsonInsumo, isEdit) => {
 
         trow.insertAdjacentElement("afterbegin", tdAccion)
         trow.insertAdjacentElement("afterbegin", tdCant)
+        trow.insertAdjacentElement("afterbegin", tdFecha)
         trow.insertAdjacentElement("afterbegin", tdNom)
         trow.insertAdjacentElement("afterbegin", tdDataIsumo)
 
