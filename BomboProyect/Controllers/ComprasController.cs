@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -48,6 +48,7 @@ namespace BomboProyect.Controllers
 
         public ActionResult _ListInsumos()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             return View(db.Insumos.ToList());
         }
 

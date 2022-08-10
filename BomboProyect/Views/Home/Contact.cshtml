@@ -1,17 +1,67 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<section class="">
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+        <div class="container">
+            <div class="row gx-lg-9 align-items-center">
+                <center>
+                    <div class="col-lg-6 mb-5 mb-lg-5">
+                        <div class="card">
+                            <div class="card-body py-10 px-md-5">
+                                <center>
+                                    <form>
+                                        <div class="row mb-4">
+                                            <h3 >@ViewBag.Message</h3>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" id="form6Example1" class="form-control" />
+                                                    <label class="form-label" for="form6Example1">Nombre</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" id="form6Example2" class="form-control" />
+                                                    <label class="form-label" for="form6Example2">Apellido</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="email" id="form6Example5" class="form-control" />
+                                            <label class="form-label" for="form6Example5">Correo</label>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="number" id="form6Example6" class="form-control" />
+                                            <label class="form-label" for="form6Example6">Teléfono</label>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="form6Example5" class="form-control" />
+                                            <label class="form-label" for="form6Example5">Asunto</label>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <textarea class="form-control" id="form6Example7" rows="6"></textarea>
+                                            <label class="form-label" for="form6Example7">Descripción del asunto</label>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary btn-block mb-4">Enviar</button>
+                                    </form>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

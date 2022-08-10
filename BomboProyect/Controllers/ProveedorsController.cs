@@ -17,12 +17,14 @@ namespace BomboProyect.Controllers
         // GET: Proveedors
         public ActionResult Index()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             return View(db.Proveedor.ToList());
         }
 
         // GET: Proveedors/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +40,7 @@ namespace BomboProyect.Controllers
         // GET: Proveedors/Create
         public ActionResult Create()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             return View();
         }
 
@@ -48,6 +51,7 @@ namespace BomboProyect.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProveedorId,RazonSocial")] Proveedor proveedor)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (ModelState.IsValid)
             {
                 db.Proveedor.Add(proveedor);
@@ -61,6 +65,7 @@ namespace BomboProyect.Controllers
         // GET: Proveedors/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,6 +85,7 @@ namespace BomboProyect.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProveedorId,RazonSocial")] Proveedor proveedor)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (ModelState.IsValid)
             {
                 db.Entry(proveedor).State = EntityState.Modified;
@@ -92,6 +98,7 @@ namespace BomboProyect.Controllers
         // GET: Proveedors/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -109,6 +116,7 @@ namespace BomboProyect.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             Proveedor proveedor = db.Proveedor.Find(id);
             db.Proveedor.Remove(proveedor);
             db.SaveChanges();
