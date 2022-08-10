@@ -289,6 +289,7 @@
     <Content Include="Views\Insumos\Details.cshtml" />
     <Content Include="Views\Insumos\Edit.cshtml" />
     <Content Include="Views\Insumos\Index.cshtml" />
+    <Content Include="Views\Compras\Cancelar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

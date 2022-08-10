@@ -51,15 +51,23 @@ namespace BomboProyect.Controllers
         [HttpPost]
         public ActionResult Create(Usuarios usuarios, string Roless)
         {
+            var correoU = db.Usuarios.Where(m => m.Correo == usuarios.Correo).ToList();
+            if (correoU != null)
+            {
+                ViewBag.error = "Ese correo ya existe";
+                ViewBag.Roless = new SelectList(db.RolesUsers, "RolId", "NombreRol");
+                return View();
+            }
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             try
             {
+
+
                 using (BomboDBContext db = new BomboDBContext())
                 {
                     var roles = new Roles();
                     roles.RolId = Convert.ToInt32(Roless);
                     db.RolesUsers.Attach(roles);
-
                     usuarios.Rol = roles;
                     db.Usuarios.Add(usuarios);
                     db.SaveChanges();
