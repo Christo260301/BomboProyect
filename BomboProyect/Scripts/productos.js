@@ -1,6 +1,9 @@
 ﻿const fileInput = document.querySelector("#Fotografia")
 const iEliminarImg = document.querySelector("#i-eliminar-img")
 
+let listJsonInsumos = []
+let listJsonDetRemove = []
+
 if (fileInput !== null) {
     fileInput.addEventListener("change", e => {
         const img = document.querySelector("#img-preview")
@@ -26,6 +29,7 @@ if (fileInput !== null) {
     })
 }
 
+// ------------------ * CREATE PRODUCTO * ---------------------- //
 
 const removeImage = () => {
     const img = document.querySelector("#img-preview")
@@ -36,13 +40,19 @@ const removeImage = () => {
     iEliminarImg.classList.add("hidden")
 }
 
-let listJsonInsumos = []
-
-const addInsumo = (jsonInsumo) => {
+const addInsumo = (jsonInsumo, isEdit) => {
     console.log(jsonInsumo)
     //VALIDAR INSUMO YA SELECCIONADO
-    if (listJsonInsumos.find(x => x.InsumoId == jsonInsumo.InsumoId) == undefined) {
-        listJsonInsumos.push(jsonInsumo)
+    if (listJsonInsumos.find(x => x == jsonInsumo.InsumoId) == undefined) {
+        listJsonInsumos.push(jsonInsumo.InsumoId)
+
+        // VALIDACION DE LISTA DE REMOVIDOS
+        const idxR = listJsonDetRemove.findIndex(x => x == jsonInsumo.InsumoId)
+        if (idxR != -1) {
+            listJsonDetRemove.splice(idxR, 1)
+            const InsumosRemovidos = document.querySelector("#InsumosRemovidos")
+            InsumosRemovidos.value = JSON.stringify(listJsonDetRemove)
+        }
 
         console.log(jsonInsumo);
         const ContElement = document.querySelector("#ContElement")
@@ -68,56 +78,65 @@ const addInsumo = (jsonInsumo) => {
         const intExistencias = document.createElement("input")
         const intStatus = document.createElement("input")
 
+        //DET PRODUCTO ID
+        //if (isEdit) {
+        //    const intDetProducto = document.createElement("input")
+        //    intDetProducto.setAttribute("name", `[${0}].Insumo.Status`)
+        //    intDetProducto.setAttribute("value", jsonInsumo.Status)
+        //    intDetProducto.setAttribute("type", "hidden")
+        //    tdDataIsumo.insertAdjacentElement("afterbegin", intStatus)
+        //}
+
         // STATUS DEL INSUMO
-        intStatus.setAttribute("name", `[${NumRow}].Status`)
+        intStatus.setAttribute("name", !isEdit ? `[${NumRow}].Status` : `[${NumRow}].Insumo.Status`)
         intStatus.setAttribute("value", jsonInsumo.Status)
         intStatus.setAttribute("type", "hidden")
         tdDataIsumo.insertAdjacentElement("afterbegin", intStatus)
 
         // CANTIDADTOT DEL INSUMO
-        intContenidoTot.setAttribute("name", `[${NumRow}].ContenidoTot`)
+        intContenidoTot.setAttribute("name", !isEdit ? `[${NumRow}].ContenidoTot` : `[${NumRow}].Insumo.ContenidoTot`)
         intContenidoTot.setAttribute("value", jsonInsumo.ContenidoTot)
         intContenidoTot.setAttribute("type", "hidden")
         tdDataIsumo.insertAdjacentElement("afterbegin", intContenidoTot)
 
         // EXISTENCIAS DEL INSUMO
-        intExistencias.setAttribute("name", `[${NumRow}].Existencias`)
+        intExistencias.setAttribute("name", !isEdit ? `[${NumRow}].Existencias` : `[${NumRow}].Insumo.Existencias`)
         intExistencias.setAttribute("value", jsonInsumo.Existencias)
         intExistencias.setAttribute("type", "hidden")
         tdDataIsumo.insertAdjacentElement("afterbegin", intExistencias)
 
         // CANTIDAD NETA DEL INSUMO
-        intCantidadNeta.setAttribute("name", `[${NumRow}].CantidadNeta`)
+        intCantidadNeta.setAttribute("name", !isEdit ? `[${NumRow}].CantidadNeta` : `[${NumRow}].Insumo.CantidadNeta`)
         intCantidadNeta.setAttribute("value", jsonInsumo.CantidadNeta)
         intCantidadNeta.setAttribute("type", "hidden")
         tdDataIsumo.insertAdjacentElement("afterbegin", intCantidadNeta)
 
         // UNIDAD DE INSUMO
-        intUnidad.setAttribute("name", `[${NumRow}].Unidad`)
+        intUnidad.setAttribute("name", !isEdit ? `[${NumRow}].Unidad` : `[${NumRow}].Insumo.Unidad`)
         intUnidad.setAttribute("value", jsonInsumo.Unidad)
         intUnidad.setAttribute("type", "hidden")
         tdDataIsumo.insertAdjacentElement("afterbegin", intUnidad)
 
         // PRECION DE INSUMO
-        intPrecio.setAttribute("name", `[${NumRow}].Precio`)
+        intPrecio.setAttribute("name", !isEdit ? `[${NumRow}].Precio` : `[${NumRow}].Insumo.Precio`)
         intPrecio.setAttribute("value", jsonInsumo.Precio)
         intPrecio.setAttribute("type", "hidden")
         tdDataIsumo.insertAdjacentElement("afterbegin", intPrecio)
 
         // DESCRIPCION DE INSUMO 
-        intDescripcion.setAttribute("name", `[${NumRow}].Descripcion`)
+        intDescripcion.setAttribute("name", !isEdit ? `[${NumRow}].Descripcion` : `[${NumRow}].Insumo.Descripcion`)
         intDescripcion.setAttribute("value", jsonInsumo.Descripcion)
         intDescripcion.setAttribute("type", "hidden")
         tdDataIsumo.insertAdjacentElement("afterbegin", intDescripcion)
 
         // NOMBRE DE INSUMO
-        intNombre.setAttribute("name", `[${NumRow}].Nombre`)
+        intNombre.setAttribute("name", !isEdit ? `[${NumRow}].Nombre` : `[${NumRow}].Insumo.Nombre`)
         intNombre.setAttribute("value", jsonInsumo.Nombre)
         intNombre.setAttribute("type", "hidden")
         tdDataIsumo.insertAdjacentElement("afterbegin", intNombre)
 
         // ID DE INSUMO
-        intId.setAttribute("name", `[${NumRow}].InsumoId`)
+        intId.setAttribute("name", !isEdit ? `[${NumRow}].InsumoId` : `[${NumRow}].Insumo.InsumoId`)
         intId.setAttribute("value", jsonInsumo.InsumoId)
         intId.setAttribute("type", "hidden")
         tdDataIsumo.insertAdjacentElement("afterbegin", intId)
@@ -127,9 +146,9 @@ const addInsumo = (jsonInsumo) => {
         const tdCant = document.createElement("td")
         const intCant = document.createElement("input")
         intCant.setAttribute("type", "number")
-        intCant.setAttribute("name", `[${NumRow}].CantProduc`)
+        intCant.setAttribute("name", !isEdit ? `[${NumRow}].CantProduc` : `[${NumRow}].Insumo.CantProduc`)
         intCant.setAttribute("min", "0")
-        intCant.setAttribute("value", 0.123)
+        intCant.setAttribute("value", 0.0)
         intCant.setAttribute("step", "any")
         intCant.setAttribute("class", "form-control")
         tdCant.insertAdjacentElement("afterbegin", intCant)
@@ -154,12 +173,25 @@ const addInsumo = (jsonInsumo) => {
     }
 }
 
-const removeInsumo = (jsonInsumo) => {
+const removeInsumo = (jsonInsumo, isEdit) => {
     // ELIMINACION DEL INSUMO DE LA LISTA JSON
-    console.log(JSON.parse(jsonInsumo.replace(/#/g, '\"')))
-    jsInsu = JSON.parse(jsonInsumo.replace(/#/g, '\"'))
-    const idx = listJsonInsumos.findIndex(x => x.InsumoId == jsInsu.InsumoId);
+    // console.log(JSON.parse(jsonInsumo.replace(/#/g, '\"')))
+    let jsInsu = {}
+    try {
+        jsInsu = JSON.parse(jsonInsumo.replace(/#/g, '\"'))
+    } catch (e) {
+        console.log("ERR => ", e)
+        jsInsu = jsonInsumo
+    }
+    
+    const idx = listJsonInsumos.findIndex(x => x == jsInsu.InsumoId);
     if (idx != -1) {
+
+        // AGREGA DETALLE A LA LISTA DE REMOVIDOS
+        listJsonDetRemove.push(jsonInsumo.InsumoId)
+        const InsumosRemovidos = document.querySelector("#InsumosRemovidos")
+        InsumosRemovidos.value = JSON.stringify(listJsonDetRemove)
+
         listJsonInsumos.splice(idx, 1)
         const row = document.querySelector(`#ID_${jsInsu.InsumoId}_${jsInsu.Nombre}`)
         row.remove()
@@ -171,11 +203,69 @@ const removeInsumo = (jsonInsumo) => {
         const listRow = tBodyContainer.children
         console.log(listRow)
         console.log(listRow.length)
+        if (!isEdit) {
+            for (let i = 0; i < listRow.length; i++) {
+                console.log('ITEM => ', listRow[i])
+                listRow[i].children[0].children[0].setAttribute("name", `[${i}].InsumoId`)
+                listRow[i].children[0].children[1].setAttribute("name", `[${i}].Nombre`)
+                listRow[i].children[0].children[2].setAttribute("name", `[${i}].Descripcion`)
+                listRow[i].children[0].children[3].setAttribute("name", `[${i}].Precio`)
+                listRow[i].children[0].children[4].setAttribute("name", `[${i}].Unidad`)
+                listRow[i].children[0].children[5].setAttribute("name", `[${i}].CantidadNeta`)
+                listRow[i].children[0].children[6].setAttribute("name", `[${i}].Existencias`)
+                listRow[i].children[0].children[7].setAttribute("name", `[${i}].ContenidoTot`)
+                listRow[i].children[0].children[8].setAttribute("name", `[${i}].Status`)
 
-        for (let i = 0; i < listRow.length; i++) {
-            console.log('ITEM => ', listRow[i])
-            listRow[i].children[0].children[0].setAttribute("name", `[${i}].InsumoId`)
-            listRow[i].children[2].children[0].setAttribute("name", `[${i}].ContenidoTot`)
+                listRow[i].children[2].children[0].setAttribute("name", `[${i}].CantProduc`)
+            }
+        } else {
+            for (let i = 0; i < listRow.length; i++) {
+                console.log('ITEM => ', listRow[i])
+                listRow[i].children[0].children[0].setAttribute("name", `[${i}].Insumo.InsumoId`)
+                listRow[i].children[0].children[1].setAttribute("name", `[${i}].Insumo.Nombre`)
+                listRow[i].children[0].children[2].setAttribute("name", `[${i}].Insumo.Descripcion`)
+                listRow[i].children[0].children[3].setAttribute("name", `[${i}].Insumo.Precio`)
+                listRow[i].children[0].children[4].setAttribute("name", `[${i}].Insumo.Unidad`)
+                listRow[i].children[0].children[5].setAttribute("name", `[${i}].Insumo.CantidadNeta`)
+                listRow[i].children[0].children[6].setAttribute("name", `[${i}].Insumo.Existencias`)
+                listRow[i].children[0].children[7].setAttribute("name", `[${i}].Insumo.ContenidoTot`)
+                listRow[i].children[0].children[8].setAttribute("name", `[${i}].Insumo.Status`)
+
+                listRow[i].children[2].children[0].setAttribute("name", `[${i}].Insumo.CantProduc`)
+            }
         }
+        
+
+        const ContElementNum = document.querySelector("#ContElement")
+        ContElementNum.value = listRow.length
+
+        const CntElementJson = document.querySelector("#ContElmeJson")
+        CntElementJson.value = JSON.stringify(listJsonInsumos)
     }
+}
+
+// ------------------ * FIN CREATE PRODUCTO * ---------------------- //
+
+// ------------------ * EDIT PRODUCTO * ---------------------- //
+
+const DataElement = document.querySelector("#tbContainer")
+
+if (DataElement !== null) {
+    const DataTr = DataElement.children
+    console.log('DATATR => ', DataTr)
+    const ContElementNum = document.querySelector("#ContElement")
+    ContElementNum.value = DataTr.length
+    for (let i = 0; i < DataTr.length; i++) {
+        let td = DataTr[i].children
+        let infoTd = td[0].children
+        let inputId = infoTd[0].value
+        listJsonInsumos.push(parseInt(inputId))
+    }
+}
+
+
+const ContElmeJson = document.querySelector("#ContElmeJson")
+
+if (ContElmeJson !== null) {
+    ContElmeJson.value = JSON.stringify(listJsonInsumos)
 }

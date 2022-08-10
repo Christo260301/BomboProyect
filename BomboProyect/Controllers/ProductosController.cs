@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using BomboProyect.Logica;
 using BomboProyect.Models;
 
@@ -64,6 +65,7 @@ namespace BomboProyect.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Existencias,Foto,Fotografia,Status")] Productos productos, List<Insumos> insumos)
         {
+            ViewBag.insumos = db.Insumos.ToList();
 
             if (ModelState.IsValid)
             {
@@ -143,8 +145,23 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Existencias,Foto,Fotografia,Status")] Productos productos, string rutaFotoAnterior)
+        public ActionResult Edit([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Existencias,Foto,Fotografia,Status")] Productos productos, string rutaFotoAnterior, string InsumosRemovidos, List<DetProducto> insumos)
         {
+            ViewBag.insumos = db.Insumos.ToList();
+            ViewBag.detPro = db.DetProductos.Where(m => m.Productos.ProductoId == productos.ProductoId).Include(nameof(DetProducto.Insumo)).ToList();
+
+            // REMOVEDOR DE CAMPOS NO OBLIGATORIOS
+            if (insumos != null)
+            {
+                for (int i = 0; i < insumos.Count; i++)
+                {
+                    ModelState.Remove($"[{i}].Unidad");
+                    ModelState.Remove($"[{i}].Productos");
+
+                }
+            }
+            
+
             ModelState.Remove("Fotografia");
             if (ModelState.IsValid)
             {
@@ -185,9 +202,66 @@ namespace BomboProyect.Controllers
                 
 
                 db.Entry(productos).State = EntityState.Modified;
-                db.SaveChanges();
 
-                
+                // ############ MODIFICACION DE DETALLE DE PRODUCTOS
+                // Insumos removidos del producto
+                if (InsumosRemovidos != null)
+                {
+                    string idInsumosRemoved = InsumosRemovidos.Substring(1, InsumosRemovidos.Length - 2);
+                    string[] lstIdInsumosRemoved = idInsumosRemoved.Split(',');
+
+                    foreach (var id in lstIdInsumosRemoved)
+                    {
+                        DetProducto detProducto = db.DetProductos.Where(
+                            m => m.Productos.ProductoId == productos.ProductoId && m.Insumo.InsumoId == Convert.ToInt32(id)).First();
+
+                        if (detProducto != null)
+                        {
+                            db.DetProductos.Remove(detProducto);
+                        }
+                    }
+                }
+
+                // ############ MODIFICACION Y REGISTRO DE NUEVOS DETPRODUCTOS
+                int contador = 0;
+
+                foreach (var item in insumos)
+                {
+                    if (Convert.ToDouble(item.Insumo.CantProduc) > -1)
+                    {
+
+                        DetProducto detPro = db.DetProductos.Where(
+                            m => m.Productos.ProductoId == productos.ProductoId && m.Insumo.InsumoId == Convert.ToInt32(item.Insumo.InsumoId)).First();
+
+                        if (detPro == null)
+                        {
+                            contador++;
+                            var detProducto = new DetProducto();
+                            var insumo = new Insumos();
+                            insumo.InsumoId = Convert.ToInt32(item.Insumo.InsumoId);
+                            db.Insumos.Attach(insumo);
+
+                            detProducto.Insumo = insumo;
+                            detProducto.Cantidad = Convert.ToDouble(item.Insumo.CantProduc);
+                            detProducto.Unidad = item.Unidad;
+                            detProducto.Productos = productos;
+
+                            db.DetProductos.Add(detProducto);
+                        } else
+                        {
+                            detPro.Cantidad = item.Insumo.CantProduc;
+                            db.Entry(detPro).State = EntityState.Modified;
+                        }
+
+                    }
+                }
+
+                if (contador == 0)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
