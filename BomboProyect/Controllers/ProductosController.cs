@@ -94,8 +94,9 @@ namespace BomboProyect.Controllers
                         contador++;
                         var detProducto = new DetProducto();
                         var insumo = new Insumos();
-                        insumo.InsumoId = Convert.ToInt32(item.InsumoId);
-                        db.Insumos.Attach(insumo);
+                        //insumo.InsumoId = Convert.ToInt32(item.InsumoId);
+                        insumo = db.Insumos.Find(item.InsumoId);
+                        // db.Insumos.Attach(insumo);
 
                         detProducto.Insumo = insumo;
                         detProducto.Cantidad = Convert.ToDouble(item.CantProduc);
