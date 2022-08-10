@@ -214,12 +214,14 @@ namespace BomboProyect.Controllers
 
                     foreach (var id in lstIdInsumosRemoved)
                     {
-                        DetProducto detProducto = db.DetProductos.Where(
-                            m => m.Productos.ProductoId == productos.ProductoId && m.Insumo.InsumoId == Convert.ToInt32(id)).First();
+                        int idInsumos = Convert.ToInt32(id);
 
-                        if (detProducto != null)
+                        List<DetProducto> detProducto = db.DetProductos.Where(
+                            m => m.Productos.ProductoId == productos.ProductoId && m.Insumo.InsumoId == idInsumos).ToList();
+
+                        if (detProducto.Count > 0)
                         {
-                            db.DetProductos.Remove(detProducto);
+                            db.DetProductos.Remove(detProducto[0]);
                         }
                     }
                 }
@@ -231,28 +233,29 @@ namespace BomboProyect.Controllers
                 {
                     if (Convert.ToDouble(item.Insumo.CantProduc) > -1)
                     {
+                        int idInsu = Convert.ToInt32(item.Insumo.InsumoId);
 
-                        DetProducto detPro = db.DetProductos.Where(
-                            m => m.Productos.ProductoId == productos.ProductoId && m.Insumo.InsumoId == Convert.ToInt32(item.Insumo.InsumoId)).First();
+                        List<DetProducto> detPro = db.DetProductos.Where(
+                            m => m.Productos.ProductoId == productos.ProductoId && m.Insumo.InsumoId == idInsu).ToList();
 
-                        if (detPro == null)
+                        if (detPro.Count <= 0)
                         {
                             contador++;
                             var detProducto = new DetProducto();
                             var insumo = new Insumos();
-                            insumo.InsumoId = Convert.ToInt32(item.Insumo.InsumoId);
-                            db.Insumos.Attach(insumo);
+                            insumo = db.Insumos.Find(item.Insumo.InsumoId);
 
                             detProducto.Insumo = insumo;
                             detProducto.Cantidad = Convert.ToDouble(item.Insumo.CantProduc);
-                            detProducto.Unidad = item.Unidad;
+                            detProducto.Unidad = item.Insumo.Unidad;
                             detProducto.Productos = productos;
 
                             db.DetProductos.Add(detProducto);
                         } else
                         {
-                            detPro.Cantidad = item.Insumo.CantProduc;
-                            db.Entry(detPro).State = EntityState.Modified;
+
+                            detPro[0].Cantidad = item.Insumo.CantProduc;
+                            db.Entry(detPro[0]).State = EntityState.Modified;
                         }
 
                     }
