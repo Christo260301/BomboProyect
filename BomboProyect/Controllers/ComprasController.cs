@@ -102,32 +102,32 @@ namespace BomboProyect.Controllers
 
                 db.Compras.Add(compras);
                 int contador = 0;
-                
-                foreach (var item in insumos)
+
+                using (BomboDBContext du = new BomboDBContext())
                 {
-                    if (Convert.ToInt32(item.Existencias) > 0)
+                    foreach (var item in insumos)
                     {
-                        DateTime hoy = DateTime.Now;
-                        contador = contador + 1;
-
-                        var detCompra = new DetCompra();
-                        var insumo = new Insumos();
-
-                        insumo.InsumoId = Convert.ToInt32(item.InsumoId);
-                        
-                        db.Insumos.Attach(insumo);
-                        
-                        detCompra.Costo = Convert.ToInt32(item.Existencias) * item.Precio;
-                        detCompra.Cantidad = Convert.ToInt32(item.Existencias);
-                        detCompra.FechaCaduca = hoy.AddMonths(1);
-                        detCompra.Unidad = item.Unidad;
-                        detCompra.Compra = compras;
-                        detCompra.Insumos = insumo;
-
-                        db.DetCompra.Add(detCompra);
-
-                        using (BomboDBContext du = new BomboDBContext())
+                        if (Convert.ToInt32(item.Existencias) > 0)
                         {
+                            DateTime hoy = DateTime.Now;
+                            contador = contador + 1;
+
+                            var detCompra = new DetCompra();
+                            var insumo = new Insumos();
+
+                            insumo.InsumoId = Convert.ToInt32(item.InsumoId);
+
+                            db.Insumos.Attach(insumo);
+
+                            detCompra.Costo = Convert.ToInt32(item.Existencias) * item.Precio;
+                            detCompra.Cantidad = Convert.ToInt32(item.Existencias);
+                            detCompra.FechaCaduca = hoy.AddMonths(1);
+                            detCompra.Unidad = item.Unidad;
+                            detCompra.Compra = compras;
+                            detCompra.Insumos = insumo;
+
+                            db.DetCompra.Add(detCompra);
+
                             Insumos insu = du.Insumos.Find(item.InsumoId);
                             double existencia = Convert.ToInt32(insu.Existencias) + Convert.ToInt32(item.Existencias);
                             insu.Existencias = existencia;
@@ -135,10 +135,10 @@ namespace BomboProyect.Controllers
                             du.Insumos.Attach(insu);
                             du.Entry(insu).Property(x => x.Existencias).IsModified = true;
                             du.Entry(insu).Property(x => x.ContenidoTot).IsModified = true;
-                            du.SaveChanges();
 
                         }
                     }
+                    du.SaveChanges();
                 }
 
                 if (contador == 0)
