@@ -51,13 +51,7 @@
             </div>
             <br />
             <div class="form-group">
-                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "form-label col-md-4" })
-                <div class="col-md-8">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.Status)
-                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                <input type="hidden" name="Status" value="true" />
             </div>
             <br />
         </div>

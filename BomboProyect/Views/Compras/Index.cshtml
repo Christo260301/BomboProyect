@@ -68,11 +68,15 @@
                                     <i class="fa-solid fa-info"></i>
                                 </a>
                             </div>
-                            <div>
-                                <a href="@Url.Action("Cancelar", "Compras", new { id = item.ComprasId })" class="btn btn-danger btn-icon">
-                                    <i class="fa-solid fa-ban"></i>
-                                </a>
-                            </div>
+                            @if (item.Status)
+                            {
+                                <div>
+                                    <a href="@Url.Action("Cancelar", "Compras", new { id = item.ComprasId })" class="btn btn-danger btn-icon">
+                                        <i class="fa-solid fa-ban"></i>
+                                    </a>
+                                </div>
+                            }
+                            else { }
                         </div>
                     </td>
                 </tr>
