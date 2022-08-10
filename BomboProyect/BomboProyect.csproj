@@ -289,6 +289,8 @@
     <Content Include="Views\Insumos\Details.cshtml" />
     <Content Include="Views\Insumos\Edit.cshtml" />
     <Content Include="Views\Insumos\Index.cshtml" />
+    <Content Include="Views\Productos\_ListaInsumoProducto.cshtml" />
+    <Content Include="Views\Productos\_ListaInsumoProductoEdit.cshtml" />
     <Content Include="Views\Compras\Cancelar.cshtml" />
   </ItemGroup>
   <ItemGroup>

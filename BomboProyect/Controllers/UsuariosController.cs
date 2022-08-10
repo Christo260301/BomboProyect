@@ -52,7 +52,7 @@ namespace BomboProyect.Controllers
         public ActionResult Create(Usuarios usuarios, string Roless)
         {
             var correoU = db.Usuarios.Where(m => m.Correo == usuarios.Correo).ToList();
-            if (correoU != null)
+            if (correoU.Count > 0)
             {
                 ViewBag.error = "Ese correo ya existe";
                 ViewBag.Roless = new SelectList(db.RolesUsers, "RolId", "NombreRol");

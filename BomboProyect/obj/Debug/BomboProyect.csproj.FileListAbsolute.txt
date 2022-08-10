@@ -214,3 +214,147 @@ C:\Proyectos C#\BomboProyect\BomboProyect\obj\Debug\BomboProyect.csproj.CoreComp
 C:\Proyectos C#\BomboProyect\BomboProyect\obj\Debug\BomboProyect.csproj.CopyComplete
 C:\Proyectos C#\BomboProyect\BomboProyect\obj\Debug\BomboProyect.dll
 C:\Proyectos C#\BomboProyect\BomboProyect\obj\Debug\BomboProyect.pdb
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\BomboProyect.dll.config
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\BomboProyect.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\BomboProyect.pdb
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\csc.exe
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\csc.exe.config
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\csc.rsp
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\csi.exe
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\csi.exe.config
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\csi.rsp
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.Managed.Core.targets
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\System.Buffers.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\System.Collections.Immutable.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\System.Memory.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\System.Numerics.Vectors.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\System.Reflection.Metadata.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\vbc.exe
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\vbc.exe.config
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\vbc.rsp
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\VBCSCompiler.exe
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\roslyn\VBCSCompiler.exe.config
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\Antlr3.Runtime.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\EntityFramework.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\EntityFramework.SqlServer.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\FontAwesome.Sharp.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\Microsoft.Web.Infrastructure.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\Newtonsoft.Json.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\System.Web.Helpers.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\System.Web.Mvc.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\System.Web.Optimization.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\System.Web.Razor.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\System.Web.WebPages.Deployment.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\System.Web.WebPages.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\System.Web.WebPages.Razor.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\WebGrease.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\EntityFramework.xml
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\EntityFramework.SqlServer.xml
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\Newtonsoft.Json.xml
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\System.Web.Helpers.xml
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\System.Web.Mvc.xml
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\System.Web.Razor.xml
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\System.Web.WebPages.xml
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\System.Web.WebPages.Deployment.xml
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\System.Web.WebPages.Razor.xml
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\System.Web.Optimization.xml
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\Antlr3.Runtime.pdb
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\es\System.Web.Helpers.resources.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\es\System.Web.Mvc.resources.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\es\System.Web.Razor.resources.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\es\System.Web.WebPages.resources.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\es\System.Web.WebPages.Deployment.resources.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\es\System.Web.WebPages.Razor.resources.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\bin\es\System.Web.Optimization.resources.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\obj\Debug\BomboProyect.csproj.AssemblyReference.cache
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\obj\Debug\BomboProyect.csproj.CoreCompileInputs.cache
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\obj\Debug\BomboProyect.csproj.CopyComplete
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\obj\Debug\BomboProyect.dll
+D:\_ITS_Jonathan\C#\BomboProyect\BomboProyect\obj\Debug\BomboProyect.pdb
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\obj\Debug\BomboProyect.csproj.AssemblyReference.cache
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\obj\Debug\BomboProyect.csproj.CoreCompileInputs.cache
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\obj\Debug\BomboProyect.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\obj\Debug\BomboProyect.pdb
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\BomboProyect.dll.config
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\BomboProyect.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\BomboProyect.pdb
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\csc.exe
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\csc.exe.config
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\csc.rsp
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\csi.exe
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\csi.exe.config
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\csi.rsp
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\Microsoft.CSharp.Core.targets
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\Microsoft.Managed.Core.targets
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\Microsoft.VisualBasic.Core.targets
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\System.Buffers.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\System.Collections.Immutable.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\System.Memory.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\System.Numerics.Vectors.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\System.Reflection.Metadata.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\System.Text.Encoding.CodePages.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\System.Threading.Tasks.Extensions.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\vbc.exe
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\vbc.exe.config
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\vbc.rsp
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\VBCSCompiler.exe
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\roslyn\VBCSCompiler.exe.config
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\Antlr3.Runtime.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\EntityFramework.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\EntityFramework.SqlServer.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\FontAwesome.Sharp.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\Microsoft.Web.Infrastructure.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\Newtonsoft.Json.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\System.Web.Helpers.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\System.Web.Mvc.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\System.Web.Optimization.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\System.Web.Razor.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\System.Web.WebPages.Deployment.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\System.Web.WebPages.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\System.Web.WebPages.Razor.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\WebGrease.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\EntityFramework.xml
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\EntityFramework.SqlServer.xml
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\Newtonsoft.Json.xml
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\System.Web.Helpers.xml
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\System.Web.Mvc.xml
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\System.Web.Razor.xml
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\System.Web.WebPages.xml
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\System.Web.WebPages.Deployment.xml
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\System.Web.WebPages.Razor.xml
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\System.Web.Optimization.xml
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\Antlr3.Runtime.pdb
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\es\System.Web.Helpers.resources.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\es\System.Web.Mvc.resources.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\es\System.Web.Razor.resources.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\es\System.Web.WebPages.resources.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\es\System.Web.WebPages.Deployment.resources.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\es\System.Web.WebPages.Razor.resources.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\bin\es\System.Web.Optimization.resources.dll
+B:\Nueva Carpeta de Documentos\INGENIERIA\Programacion WEB\BomboProyect\BomboProyect\obj\Debug\BomboProyect.csproj.CopyComplete

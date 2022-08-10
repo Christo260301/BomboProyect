@@ -16,7 +16,7 @@
     {
         <tr>
             <td hidden><input value="@Model[pr].ProductoId" name="[@pr].ProductoId" type="hidden" /></td>
-            <td>@Model[pr].Foto</td>
+            <td><img src="@Url.Content(@Model[pr].Foto)" style="height: 200px;"/></td>
             <td>@Model[pr].Nombre</td>
             <td>@Model[pr].Descripcion</td>
             <td>@Model[pr].Precio</td>
