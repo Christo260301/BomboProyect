@@ -16,9 +16,10 @@ namespace BomboProyect.Logica
             // using (SqlConnection conexion = new SqlConnection("Data Source=DESKTOP-4DPSMOU; Initial Catalog=bombo_app_bd_xd; Integrated Security=true"))
             //using (SqlConnection conexion = new SqlConnection("Data Source=LAPTOP-VIB4ASD2; Initial Catalog=bombo_app_bd_xd; Integrated Security=true"))
             using (SqlConnection conexion = new SqlConnection("Data Source=DESKTOP-33Q1FRF\\SQLEXPRESS; Initial Catalog=bombo_app_bd_xd; Integrated Security=true"))
+            // using (SqlConnection conexion = new SqlConnection("Data Source=DESKTOP-TKTAIIK; Initial Catalog=bombo_app_bd_xd; Integrated Security=true"))
             {
 
-                string query = "select UsuarioId,Nombre,Correo,Contrasennia,Rol_RolId from USUARIOS where Correo = @pcorreo and Contrasennia = @pcontrasennia";
+                string query = "select UsuarioId,Nombre,ApePat,Correo,Contrasennia,Rol_RolId from USUARIOS where Correo = @pcorreo and Contrasennia = @pcontrasennia";
 
                 SqlCommand cmd = new SqlCommand(query, conexion);
                 cmd.Parameters.AddWithValue("@pcorreo", correo);
@@ -36,6 +37,7 @@ namespace BomboProyect.Logica
                         objeto = new Usuarios()
                         {   UsuarioId = Convert.ToInt32(dr["UsuarioId"]),
                             Nombre = dr["Nombre"].ToString(),
+                            ApePat = dr["ApePat"].ToString(),
                             Correo = dr["Correo"].ToString(),
                             Contrasennia = dr["Contrasennia"].ToString(),
                             Rol = rol

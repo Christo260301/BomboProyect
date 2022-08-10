@@ -17,12 +17,14 @@ namespace BomboProyect.Controllers
         // GET: Insumos
         public ActionResult Index()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             return View(db.Insumos.ToList());
         }
 
         // GET: Insumos/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +40,7 @@ namespace BomboProyect.Controllers
         // GET: Insumos/Create
         public ActionResult Create()
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             return View();
         }
 
@@ -46,8 +49,9 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "InsumoId,Nombre,Descripcion,Precio,CantidadNeta,ContenidoTot,Existencias,Status")] Insumos insumos)
+        public ActionResult Create([Bind(Include = "InsumoId,Nombre,Descripcion,Precio,Unidad,CantidadNeta,ContenidoTot,Existencias,Status")] Insumos insumos)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (ModelState.IsValid)
             {
                 db.Insumos.Add(insumos);
@@ -61,6 +65,7 @@ namespace BomboProyect.Controllers
         // GET: Insumos/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,6 +85,7 @@ namespace BomboProyect.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "InsumoId,Nombre,Descripcion,Precio,CantidadNeta,ContenidoTot,Existencias,Status")] Insumos insumos)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (ModelState.IsValid)
             {
                 db.Entry(insumos).State = EntityState.Modified;
@@ -92,6 +98,7 @@ namespace BomboProyect.Controllers
         // GET: Insumos/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -109,6 +116,7 @@ namespace BomboProyect.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             Insumos insumos = db.Insumos.Find(id);
             db.Insumos.Remove(insumos);
             db.SaveChanges();

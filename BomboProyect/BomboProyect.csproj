@@ -156,12 +156,24 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\img\account.png" />
+    <Content Include="app\img\bakery.png" />
+    <Content Include="app\img\check-out.png" />
+    <Content Include="app\img\communicate.png" />
     <Content Include="app\img\facebook.png" />
+    <Content Include="app\img\gestion-web.png" />
+    <Content Include="app\img\home.png" />
     <Content Include="app\img\instagram.png" />
     <Content Include="app\img\LogoBombo.png" />
     <Content Include="app\img\logotipo-de-twitter.png" />
     <Content Include="app\img\mapa.png" />
     <Content Include="app\img\panaderia.png" />
+    <Content Include="app\img\panaderiaBonbo.png" />
+    <Content Include="app\img\sale.png" />
+    <Content Include="app\img\shopping-cart.png" />
+    <Content Include="app\img\supply.png" />
+    <Content Include="app\img\teamwork.png" />
+    <Content Include="app\img\user.png" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -279,6 +291,7 @@
     <Content Include="Views\Insumos\Index.cshtml" />
     <Content Include="Views\Productos\_ListaInsumoProducto.cshtml" />
     <Content Include="Views\Productos\_ListaInsumoProductoEdit.cshtml" />
+    <Content Include="Views\Compras\Cancelar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

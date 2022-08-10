@@ -7,7 +7,7 @@
 <h2>Ventas</h2>
 
 <p>
-    @Html.ActionLink("Registrar Nueva Venta", "Create", null, null, new { @class = "btn btn-primary"})
+    @Html.ActionLink("Registrar Nueva Venta", "Create", null, null, new { @class = "btn btn-primary" })
 </p>
 <table class="table" style="padding-left: 25px; padding-right: 25px">
     <tr>
@@ -32,10 +32,13 @@
             @Html.DisplayFor(modelItem => item.HoraVenta)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Status)
+            @if (item.Status == 1)
+            {
+               <div style="background-color:green; width:70px; text-align:center; border-radius:10px;">Activo</div>              }
+            else {<div style="background-color:red; width:70px; text-align:center;">Inactivo</div>}
         </td>
-        <td>
-            @Html.ActionLink("Detalles", "Details", new { id = item.VentaId})
+        <td>            
+            <a href="/Ventas/Details/@item.VentaId" class="btn btn-info">Detalle de Venta</a>
         </td>
     </tr>
 }
