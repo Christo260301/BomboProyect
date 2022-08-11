@@ -44,7 +44,7 @@ namespace BomboProyect.Models
         //public List<DetProducto> DetProductos { get; set; }
 
         [NotMapped]
-        [Range(0.0, Double.MaxValue, ErrorMessage = "El campo debe ser mayor a 0")]
+        [Range(0, Int32.MaxValue, ErrorMessage = "El campo debe ser mayor a 0")]
         public double CantProduc { get; set; }
     }
 }

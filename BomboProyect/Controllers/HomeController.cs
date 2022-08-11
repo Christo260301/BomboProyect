@@ -13,10 +13,13 @@ namespace IDGS902_EXAM_BD.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        private BomboDBContext db = new BomboDBContext();
+
         public ActionResult Index()
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
-            return View();
+            ViewBag.productos = db.Productos.ToList();
+            return View(db.Productos.ToList());
         }
          
         public ActionResult About()
@@ -51,6 +54,15 @@ namespace IDGS902_EXAM_BD.Controllers
             Session["Usuario"] = null;
 
             return RedirectToAction("Index", "Acceso");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

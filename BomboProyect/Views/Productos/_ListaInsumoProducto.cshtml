@@ -5,6 +5,7 @@
 <input type="hidden" value="0" name="ContElement" id="ContElement" />
 <input type="hidden" value="" name="ContElmeJson" id="ContElmeJson" />
 <h5>Insumos Seleccionados</h5>
+<input type="hidden" name="InsumosRemovidos" id="InsumosRemovidos" value="" />
 <table class="table">
     <thead class="table-secondary">
         <tr>
@@ -16,14 +17,3 @@
     <tbody id="tbContainer">
     </tbody>
 </table>
-
-@if (ViewBag.validInsumoList != null)
-{
-    if (ViewBag.validInsumoList)
-    {
-        <div>
-            <span class="text-danger">La cantidad de los insumos debe ser mayor a 0</span>
-        </div>
-    }
-
-}

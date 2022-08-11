@@ -63,75 +63,93 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Existencias,Foto,Fotografia,Status")] Productos productos, List<Insumos> insumos)
+        public ActionResult Create([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Foto,Fotografia,Status")] Productos productos, List<Insumos> insumos)
         {
+
+            var validImageTypes = new string[]
+            {
+                "image/jpeg",
+                "image/pjpeg",
+                "image/png"
+            };
+
+
             ViewBag.insumos = db.Insumos.ToList();
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
-            if (ModelState.IsValid)
+
+            
+            if (insumos != null)
             {
-                //Almacenamiento de imagenes
-                string NombreArchivo = Path.GetFileNameWithoutExtension(productos.Fotografia.FileName);
-                //Obtener la extencion del archivo
-                string ExtencionArchivo = Path.GetExtension(productos.Fotografia.FileName);
-                //Agregar la fecha actual al nombre del archivo
-                NombreArchivo = DateTime.Now.ToString("dd_MM_yyyy") + "-" + NombreArchivo.Trim() + "-" + productos.Nombre + "-" + ExtencionArchivo;
-                //Obtener ruta de almacenamiento de las fotografias
-                //string updatePath = ConfigurationManager.AppSettings["ProductosImagePath"].ToString();
-                productos.Foto = "~/ProductosImages/" + NombreArchivo;
-                NombreArchivo = Path.Combine(Server.MapPath("~/ProductosImages/"), NombreArchivo);
-                productos.Fotografia.SaveAs(NombreArchivo);
-
-                // SET STATUS TRUE
-                productos.Status = true;
-
-                db.Productos.Add(productos);
-                int contador = 0;
-
-                foreach(var item in insumos)
+                if (ModelState.IsValid)
                 {
-                    if (Convert.ToDouble(item.CantProduc) > -1)
+                    //Validacion de fotografia
+                    if (validImageTypes.Any(productos.Fotografia.ContentType.Contains))
                     {
-                        contador++;
-                        var detProducto = new DetProducto();
-                        var insumo = new Insumos();
-                        //insumo.InsumoId = Convert.ToInt32(item.InsumoId);
-                        insumo = db.Insumos.Find(item.InsumoId);
-                        // db.Insumos.Attach(insumo);
+                        //Almacenamiento de imagenes
+                        string NombreArchivo = Path.GetFileNameWithoutExtension(productos.Fotografia.FileName);
+                        //Obtener la extencion del archivo
+                        string ExtencionArchivo = Path.GetExtension(productos.Fotografia.FileName);
+                        //Agregar la fecha actual al nombre del archivo
+                        NombreArchivo = DateTime.Now.ToString("dd_MM_yyyy") + "-" + NombreArchivo.Trim() + "-" + productos.Nombre + "-" + ExtencionArchivo;
+                        //Obtener ruta de almacenamiento de las fotografias
+                        //string updatePath = ConfigurationManager.AppSettings["ProductosImagePath"].ToString();
+                        productos.Foto = "~/ProductosImages/" + NombreArchivo;
+                        NombreArchivo = Path.Combine(Server.MapPath("~/ProductosImages/"), NombreArchivo);
+                        productos.Fotografia.SaveAs(NombreArchivo);
 
-                        detProducto.Insumo = insumo;
-                        detProducto.Cantidad = Convert.ToDouble(item.CantProduc);
-                        detProducto.Unidad = item.Unidad;
-                        detProducto.Productos = productos;
+                        // SET STATUS TRUE | Existencias 0
+                        productos.Status = true;
+                        productos.Existencias = 0;
 
-                        db.DetProductos.Add(detProducto);
+                        db.Productos.Add(productos);
+                        int contador = 0;
 
+                        foreach (var item in insumos)
+                        {
+                            if (Convert.ToDouble(item.CantProduc) > -1)
+                            {
+                                contador++;
+                                var detProducto = new DetProducto();
+                                var insumo = new Insumos();
+                                //insumo.InsumoId = Convert.ToInt32(item.InsumoId);
+                                insumo = db.Insumos.Find(item.InsumoId);
+                                // db.Insumos.Attach(insumo);
+
+                                detProducto.Insumo = insumo;
+                                detProducto.Cantidad = Convert.ToDouble(item.CantProduc);
+                                detProducto.Unidad = item.Unidad;
+                                detProducto.Productos = productos;
+
+                                db.DetProductos.Add(detProducto);
+
+                            }
+                        }
+
+                        if (contador == 0)
+                        {
+                            return RedirectToAction("Index");
+                        }
+
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Fotografia", "El formato de imagen debe ser jpeg o png");
+
+                        return View(productos);
                     }
                 }
-
-                if (contador == 0)
+                else
                 {
-                    return RedirectToAction("Index");
+                    if (insumos.Count <= 0)
+                    {
+                        ViewBag.validInsumoList = true;
+                    }
                 }
-
-                db.SaveChanges();
-                return RedirectToAction("Index");
             } else
             {
-                if (insumos.Count > 0)
-                {
-                    for (int i = 0; i < insumos.Count; i++)
-                    {
-                        if (ModelState.IsValidField($"[{i}].CantProduc"))
-                        {
-                            ViewBag.validInsumoList = false;
-                            break;
-                        }
-                    }
-                } else
-                {
-                    ViewBag.validInsumoList = false;
-                }
-                
+                ViewBag.validInsumoList = true;
             }
 
             return View(productos);
@@ -155,7 +173,7 @@ namespace BomboProyect.Controllers
                 return HttpNotFound();
             }
 
-           
+
             return View(productos);
         }
 
@@ -179,7 +197,7 @@ namespace BomboProyect.Controllers
 
                 }
             }
-            
+
 
             ModelState.Remove("Fotografia");
             if (ModelState.IsValid)
@@ -208,7 +226,8 @@ namespace BomboProyect.Controllers
                         }
 
                     }
-                } else
+                }
+                else
                 {
                     // ESTO ES NECESARIO PARA CONSERVAR LA MISMA FOTO
                     string nombre = rutaFotoAnterior.Split('/')[2];
@@ -218,7 +237,7 @@ namespace BomboProyect.Controllers
                     var filename = nombre;
                     productos.Fotografia = (HttpPostedFileBase)new MemoryPostedFile(new MemoryStream(bytes), contentTypeFile, filename);
                 }
-                
+
 
                 db.Entry(productos).State = EntityState.Modified;
 
@@ -268,7 +287,8 @@ namespace BomboProyect.Controllers
                             detProducto.Productos = productos;
 
                             db.DetProductos.Add(detProducto);
-                        } else
+                        }
+                        else
                         {
 
                             detPro[0].Cantidad = item.Insumo.CantProduc;
@@ -325,6 +345,18 @@ namespace BomboProyect.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        protected bool validateCantProduc(List<Insumos> insumos)
+        {
+            foreach (var i in insumos)
+            {
+                if (i.CantProduc <= 0)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
