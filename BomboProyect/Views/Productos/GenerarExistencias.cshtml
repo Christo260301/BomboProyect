@@ -1,0 +1,115 @@
+﻿@model BomboProyect.Models.Productos
+@using BomboProyect.Models
+
+@{
+    ViewBag.Title = "GenerarExistencias";
+}
+
+<div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-6">
+            <h2>Generar Existencias de Producto</h2>
+        </div>
+        <div class="col-6">
+            <div class="d-flex justify-content-end">
+                <a href="@Url.Action("Index", "Productos")" class="btn btn-secondary">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Regresar al listado</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row justify-content-center mt-3">
+        <div class="col-8 shadow p-4 mb-5 rounded">
+            <div class="row">
+                <div class="col-3">
+                    <label class="fw-bold">@Html.DisplayNameFor(model => model.Nombre)</label>
+                    <p>@Html.DisplayFor(model => model.Nombre)</p>
+                </div>
+                <div class="col-3">
+                    <label class="fw-bold">@Html.DisplayNameFor(model => model.Nombre)</label>
+                    <p>@Html.DisplayFor(model => model.Nombre)</p>
+                </div>
+                <div class="col-3">
+                    <label class="fw-bold">@Html.DisplayNameFor(model => model.Descripcion)</label>
+                    <p>@Html.DisplayFor(model => model.Descripcion)</p>
+                </div>
+                <div class="col-3">
+                    <label class="fw-bold">@Html.DisplayNameFor(model => model.Precio)</label>
+                    <p><span>$</span>@Html.DisplayFor(model => model.Precio)</p>
+                </div>
+                <div class="col-3">
+                    <label class="fw-bold">@Html.DisplayNameFor(model => model.Existencias)</label>
+                    <p>@Html.DisplayFor(model => model.Existencias)</p>
+                </div>
+                <div class="col-3">
+                    <label class="fw-bold">@Html.DisplayNameFor(model => model.Status)</label>
+                    @if (Model.Status)
+                    {
+                        <p><span class="badge bg-success">Activo</span></p>
+                    }
+                    else
+                    {
+                        <p><span class="badge bg-danger">Inactivo</span></p>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <h4>Insumos</h4>
+                <table class="table">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Unidad</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (DetProducto pr in ViewBag.listP)
+                        {
+                            <tr>
+                                <td>@pr.Insumo.Nombre</td>
+                                <td>@pr.Unidad</td>
+                                <td>@pr.Cantidad</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-3">
+                    <label class="fw-bold">@Html.DisplayNameFor(model => model.Foto)</label>
+                    <img src="@Url.Content(Model.Foto)" alt="Alternate Text" style="height: 200px;" />
+                </div>
+            </div>
+            <div class="row justify-content-center mt-3">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.ProductoId)
+
+                    <div class="col-2">
+                        <div class="col-auto">
+                            @{ Model.Existencias = 0;}
+                            @Html.LabelFor(model => model.Existencias, htmlAttributes: new { @class = "form-label" })
+                            @Html.EditorFor(model => model.Existencias, new { htmlAttributes = new { @class = "form-control" }, @Value = "0" })
+                            @Html.ValidationMessageFor(model => model.Existencias, "", new { @class = "form-text text-danger" })
+                        </div>
+                        <div class="d-grid mt-3">
+                            <button class="btn btn-success" type="submit">Generar</button>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="row justify-content-center mt-3">
+                <div class="col-4">
+                    <!-- MENSAJE DE ERRORES -->
+
+                    <span>Solo puedes generar las existencias laslaslaslaslalalalalaslaslasl</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

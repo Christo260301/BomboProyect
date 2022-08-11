@@ -338,6 +338,104 @@ namespace BomboProyect.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Productos/GenerarExistencias/5
+        public ActionResult GenerarExistencias(int? id)
+        {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Productos productos = db.Productos.Find(id);
+            if (productos == null)
+            {
+                return HttpNotFound();
+            }
+
+            List<DetProducto> detPr = db.DetProductos.Where(m => m.Productos.ProductoId == id).Include(nameof(DetProducto.Insumo)).ToList();
+            ViewBag.listP = detPr;
+            return View(productos);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GenerarExistencias([Bind(Include = "ProductoId,Existencias")] Productos productos)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                int id = productos.ProductoId;
+                List<String> lstMensajes = new List<String>();
+
+                Productos prod = db.Productos.Find(id);
+
+                List<DetProducto> detProductos = db.DetProductos.Where(m => m.Productos.ProductoId == id).ToList();
+
+                if (detProductos.Count < 0)
+                {
+                    int existToGenerate = productos.Existencias;
+
+                    List<DetProducto> insumoNecesario = new List<DetProducto>();
+
+                    int contParaGenerar = 0;
+                    int contNoGenerados = 0;
+
+                    foreach (DetProducto dtp in detProductos)
+                    {
+                        dtp.Cantidad = dtp.Cantidad * existToGenerate;
+                        if (dtp.Cantidad > dtp.Insumo.ContenidoTot)
+                        {
+                            contParaGenerar++;
+                        } else
+                        {
+                            contNoGenerados++;
+                            insumoNecesario.Add(dtp)
+                        }
+                    }
+
+                    if (contParaGenerar < existToGenerate)
+                    {
+                        List<Dictionary<String, String>> data = new List<Dictionary<string, string>>();
+                        foreach(DetProducto d in insumoNecesario)
+                        {
+                            Dictionary<string, string> dic = new Dictionary<string, string>();
+                            dic.Add("nombreInsumo", d.Insumo.Nombre);
+                            dic.Add("insumoFaltante", Convert.ToString((d.Cantidad - d.Insumo.ContenidoTot)));
+                            data.Add(dic);
+                        }
+                        ViewBag.validateInsumoText = data;
+                    } else
+                    {
+                        productos.Existencias = existToGenerate;
+                        db.Entry(productos).State = EntityState.Modified;
+                    }
+                }
+            }
+
+            //if (ModelState.IsValid)
+            //{
+            //    int id = productos.ProductoId;
+            //    Productos prod = db.Productos.Find(productos.ProductoId);
+            //}
+
+            //ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Productos productos = db.Productos.Find(id);
+            //if (productos == null)
+            //{
+            //    return HttpNotFound();
+            //}
+
+            List<DetProducto> detPr = db.DetProductos.Where(m => m.Productos.ProductoId == id).Include(nameof(DetProducto.Insumo)).ToList();
+            ViewBag.listP = detPr;
+            return View(productos);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
