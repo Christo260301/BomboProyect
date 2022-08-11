@@ -292,6 +292,7 @@
     <Content Include="Views\Productos\_ListaInsumoProducto.cshtml" />
     <Content Include="Views\Productos\_ListaInsumoProductoEdit.cshtml" />
     <Content Include="Views\Compras\Cancelar.cshtml" />
+    <Content Include="Views\Productos\EditorTemplates\HttpPostedFileBase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

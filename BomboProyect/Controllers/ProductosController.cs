@@ -115,6 +115,23 @@ namespace BomboProyect.Controllers
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            } else
+            {
+                if (insumos.Count > 0)
+                {
+                    for (int i = 0; i < insumos.Count; i++)
+                    {
+                        if (ModelState.IsValidField($"[{i}].CantProduc"))
+                        {
+                            ViewBag.validInsumoList = false;
+                            break;
+                        }
+                    }
+                } else
+                {
+                    ViewBag.validInsumoList = false;
+                }
+                
             }
 
             return View(productos);

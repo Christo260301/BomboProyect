@@ -31,7 +31,7 @@ namespace BomboProyect.Models
         public double CantidadNeta { get; set; }
 
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
-        [Range(0.0, 9999.0, ErrorMessage = "Valor numerico")]
+        [Range(0.0, 9999.0, ErrorMessage = "El campo debe ser mayor a 0")]
         public double ContenidoTot { get; set; }
 
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
@@ -44,6 +44,7 @@ namespace BomboProyect.Models
         //public List<DetProducto> DetProductos { get; set; }
 
         [NotMapped]
+        [Range(0.0, Double.MaxValue, ErrorMessage = "El campo debe ser mayor a 0")]
         public double CantProduc { get; set; }
     }
 }

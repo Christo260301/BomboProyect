@@ -39,6 +39,7 @@ namespace BomboProyect.Models
         //public List<DetProducto> DetProducto { get; set; }
 
         [NotMapped]
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public HttpPostedFileBase Fotografia { get; set; }
 
         public void EliminarFoto(string ruta)
