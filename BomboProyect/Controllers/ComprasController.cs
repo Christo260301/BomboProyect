@@ -19,31 +19,67 @@ namespace BomboProyect.Controllers
         // GET: Compras
         public ActionResult Index()
         {
-            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
-            return View(db.Compras.ToList());
+
+            if (Session["Usuario"] != null)
+            {
+                Usuarios user = Session["Usuario"] as Usuarios;
+                if (user.Rol.RolId == 1)
+                {
+                    ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+                    return View(db.Compras.ToList());
+
+                }
+                else
+                {
+                    return RedirectToAction("SinPermisos", "Home");
+
+                }
+            }
+            else
+            {
+                return RedirectToAction("SinPermisos", "Home");
+
+            }
         }
 
         // GET: Compras/Details/5
         public ActionResult Details(int? id)
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var compras = db.Compras.Include(m => m.Usuario).Include(m => m.Proveedor).Where(m => m.ComprasId == id).ToList();
-            Compras compra = compras[0];
 
-            if (compra != null)
+            if (Session["Usuario"] != null)
             {
-                List<DetCompra> detCom = db.DetCompra.Where(m => m.Compra.ComprasId == id).ToList();
-                ViewBag.listC = detCom;
-                return View(compra);
+                Usuarios user = Session["Usuario"] as Usuarios;
+                if (user.Rol.RolId == 1)
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    var compras = db.Compras.Include(m => m.Usuario).Include(m => m.Proveedor).Where(m => m.ComprasId == id).ToList();
+                    Compras compra = compras[0];
+
+                    if (compra != null)
+                    {
+                        List<DetCompra> detCom = db.DetCompra.Include(m => m.Insumos).Where(m => m.Compra.ComprasId == id).ToList();
+                        ViewBag.listC = detCom;
+                        return View(compra);
+                    }
+                    else
+                    {
+                        return HttpNotFound();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("SinPermisos", "Home");
+                }
             }
             else
             {
-                return HttpNotFound();
+                return RedirectToAction("SinPermisos", "Home");
             }
+                    
         }
 
         public ActionResult _ListInsumos()
@@ -59,7 +95,7 @@ namespace BomboProyect.Controllers
             if (Session["Usuario"] != null)
             {
                 Usuarios user = Session["Usuario"] as Usuarios;
-                if (user.Rol.RolId == 1 || user.Rol.RolId == 2)
+                if (user.Rol.RolId == 1)
                 {
                     ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
                     ViewBag.Usuario = user.Nombre + " " + user.ApePat;
@@ -84,10 +120,15 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ComprasId,FechaCompra,HoraCompra,Status")] Compras compras, 
+        public ActionResult Create([Bind(Include = "ComprasId,FechaCompra,HoraCompra,Status")] Compras compras,
                                     string usuarioId, string Prov, List<Insumos> insumos)
         {
-            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+            var sess = HttpContext.Session["Usuario"] as Usuarios;
+            ViewBag.ssUsuario = sess;
+            ViewBag.Usuario = sess.Nombre + " " + sess.ApePat;
+            ViewBag.Id = sess.UsuarioId;
+            ViewBag.Prov = new SelectList(db.Proveedor, "ProveedorId", "RazonSocial");
+
             try
             {
                 var user = new Usuarios();
@@ -100,59 +141,68 @@ namespace BomboProyect.Controllers
                 compras.Proveedor = prov;
                 compras.Usuario = user;
 
-                db.Compras.Add(compras);
-                int contador = 0;
-                
-                foreach (var item in insumos)
+                if (insumos != null)
                 {
-                    if (Convert.ToInt32(item.Existencias) > 0)
+                    db.Compras.Add(compras);
+                    int contador = 0;
+                    using (BomboDBContext du = new BomboDBContext())
                     {
-                        DateTime hoy = DateTime.Now;
-                        contador = contador + 1;
-
-                        var detCompra = new DetCompra();
-                        var insumo = new Insumos();
-
-                        insumo.InsumoId = Convert.ToInt32(item.InsumoId);
-                        
-                        db.Insumos.Attach(insumo);
-                        
-                        detCompra.Costo = Convert.ToInt32(item.Existencias) * item.Precio;
-                        detCompra.Cantidad = Convert.ToInt32(item.Existencias);
-                        detCompra.FechaCaduca = hoy.AddMonths(1);
-                        detCompra.Unidad = item.Unidad;
-                        detCompra.Compra = compras;
-                        detCompra.Insumos = insumo;
-
-                        db.DetCompra.Add(detCompra);
-
-                        using (BomboDBContext du = new BomboDBContext())
+                        foreach (var item in insumos)
                         {
-                            Insumos insu = du.Insumos.Find(item.InsumoId);
-                            double existencia = Convert.ToInt32(insu.Existencias) + Convert.ToInt32(item.Existencias);
-                            insu.Existencias = existencia;
-                            insu.ContenidoTot = insu.ContenidoTot + (Convert.ToInt32(item.Existencias) * insu.CantidadNeta);
-                            du.Insumos.Attach(insu);
-                            du.Entry(insu).Property(x => x.Existencias).IsModified = true;
-                            du.Entry(insu).Property(x => x.ContenidoTot).IsModified = true;
-                            du.SaveChanges();
+                            if (Convert.ToInt32(item.CantProduc) > 0)
+                            {
+                                contador = contador + 1;
 
+                                var detCompra = new DetCompra();
+                                //var insumo = new Insumos();
+                                var insumo = item;
+
+                                //insumo.InsumoId = Convert.ToInt32(item.InsumoId);
+
+                                db.Insumos.Attach(insumo);
+
+                                detCompra.Costo = Convert.ToInt32(item.CantProduc) * item.Precio;
+                                detCompra.Cantidad = Convert.ToInt32(item.CantProduc);
+                                detCompra.FechaCaduca = item.FechaCad;
+                                detCompra.Unidad = item.Unidad;
+                                detCompra.Compra = compras;
+                                detCompra.Insumos = insumo;
+
+                                db.DetCompra.Add(detCompra);
+
+                                Insumos insu = du.Insumos.Find(item.InsumoId);
+                                double existencia = Convert.ToInt32(insu.Existencias) + Convert.ToInt32(item.CantProduc);
+                                insu.Existencias = existencia;
+                                insu.ContenidoTot = insu.ContenidoTot + (Convert.ToInt32(item.CantProduc) * insu.CantidadNeta);
+                                du.Insumos.Attach(insu);
+                                du.Entry(insu).Property(x => x.Existencias).IsModified = true;
+                                du.Entry(insu).Property(x => x.ContenidoTot).IsModified = true;
+
+                            }
                         }
+                        if (contador == 0)
+                        {
+                            ViewBag.notif = "No se puede registrar una compra sin insumos";
+                            return View(compras);
+                        }
+
+                        db.SaveChanges();
+                        du.SaveChanges();
+                        return RedirectToAction("Index");
                     }
                 }
-
-                if (contador == 0)
+                else
                 {
-                    return RedirectToAction("Index");
+                    ViewBag.notif = "No se puede registrar una compra sin insumos";
+                    return View(compras);
+
                 }
 
-                db.SaveChanges();
-                return RedirectToAction("Index");
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 ViewBag.Prov = new SelectList(db.Proveedor, "ProveedorId", "RazonSocial");
+                ViewBag.notif = "Error";
                 return View(compras);
             }
         }

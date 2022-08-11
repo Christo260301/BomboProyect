@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    double total = 0;
 }
 
 
@@ -64,6 +65,7 @@
     <table class="table mt-2 text-center">
         <thead class="table-dark">
             <tr>
+                <th>Nombre del Insumo</th>
                 <th>Fecha de Caducidad</th>
                 <th>Precio</th>
                 <th>Cantidad Comprada</th>
@@ -74,16 +76,18 @@
             @foreach (DetCompra pr in ViewBag.listC)
             {
                 <tr>
-                    <td>@pr.FechaCaduca</td>
+                    <td>@pr.Insumos.Nombre</td>
+                    <td>@pr.FechaCaduca.ToString().Substring(0, 10)</td>
                     <td>@pr.Costo</td>
                     <td>@pr.Cantidad</td>
                     <td>@pr.Unidad</td>
 
                 </tr>
-
+                total = total + pr.Costo;
             }
         </tbody>
     </table>
+    <h1>Total: $@total</h1>
     <a href="@Url.Action("Index", "Compras")" class="btn btn-secondary">
         <i class="fa-solid fa-arrow-left"></i>
         <span>Regresar</span>

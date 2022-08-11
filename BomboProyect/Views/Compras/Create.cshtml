@@ -5,76 +5,92 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Compra de Insumos</h2>
+<div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-6">
+            <h2>Alta de Compras</h2>
+        </div>
+        <div class="col-6">
+            <div class="d-flex justify-content-end">
+                <a href="@Url.Action("Index", "Compras")" class="btn btn-secondary">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Regresar al listado</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
+    <div class="row justify-content-center mt-3">
+        <div class="col-10 shadow p-3 mb-5 bg-body rounded">
+            <h4 class="mb-3">Datos Generales</h4>
+            @if (ViewBag.notif != null) {
+            <h4 class="text-danger">@ViewBag.notif</h4>
+            }
+            @using (Html.BeginForm("Create", "Compras", FormMethod.Post, new { enctype = "multipart/form-data", @class = "row justify-content-between g-4" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    <hr />
-    <div class="row" style="padding-right: 20px; padding-left: 20px;">
-        <div class="col-md-4">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <input type="hidden" name="usuarioId" value="@ViewBag.Id" readonly />
-            <div class="form-group">
-                @Html.Label("Empleado", htmlAttributes: new { @class = "form-label col-md-4" })
-                <div class="col-md-8">
+                <div class="col-auto">
+                    <input type="hidden" name="usuarioId" value="@ViewBag.Id" readonly />
+                    @Html.Label("Empleado", htmlAttributes: new { @class = "form-label" })
                     <input type="text" name="name" value="@ViewBag.Usuario" readonly class="form-control" />
                 </div>
-            </div>
-            <br />
-            <div class="form-group">
-                @Html.Label("Proveedor", htmlAttributes: new { @class = "form-label col-md-4" })
-
-                <div class="col-md-8">
+                <div class="col-auto">
+                    @Html.Label("Proveedor", htmlAttributes: new { @class = "form-label" })
                     @Html.DropDownList("Prov", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Proveedor.ProveedorId, "", new { @class = "text-danger" })
                 </div>
-            </div>
-            <br />
-            <div class="form-group">
-                @Html.LabelFor(model => model.FechaCompra, htmlAttributes: new { @class = "form-label col-md-4" })
-                <div class="col-md-8">
-                    <input type="date" name="FechaCompra" class="form-control" value=""/>
+                <div class="col-auto">
+                    @Html.LabelFor(model => model.FechaCompra, htmlAttributes: new { @class = "form-label" })
+                    <input type="date" name="FechaCompra" class="form-control" value="" />
                     @Html.ValidationMessageFor(model => model.FechaCompra, "", new { @class = "text-danger" })
                 </div>
-            </div>
-            <br />
-            <div class="form-group">
-                @Html.LabelFor(model => model.HoraCompra, htmlAttributes: new { @class = "form-label col-md-4" })
-                <div class="col-md-8">
-                    <input type="time" name="HoraCompra" class="form-control" />
+                <div class="col-auto">
+                    @Html.LabelFor(model => model.HoraCompra, htmlAttributes: new { @class = "form-label" })
+                    <input type="time" name="HoraCompra" class="form-control" value="" />
                     @Html.ValidationMessageFor(model => model.HoraCompra, "", new { @class = "text-danger" })
+                    <input type="hidden" name="Status" value="true" />
                 </div>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="hidden" name="Status" value="true" />
-            </div>
-            <br />
-        </div>
-        <div class="col-md-8">
-            <div id="divProductos"></div>
+
+                <h4 class="mb-3">Insumos</h4>
+                <div class="row justify-content-between">
+                    <div class="col-5">
+                        <h5>Insumos Disponibles</h5>
+                        <div id="divProductos"></div>
+                    </div>
+                    <div class="col-5 table-scroll">
+                        <input type="hidden" value="0" name="ContElement" id="ContElement" />
+                        <input type="hidden" value="" name="ContElmeJson" id="ContElmeJson" />
+                        <h5>Insumos Seleccionados</h5>
+                        <table class="table">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Fecha de Caducidad</th>
+                                    <th>Existencias a Comprar</th>
+                                    <th>Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbContainer">
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+                <div class="d-grid">
+                    <button class="btn btn-success" type="submit">Registrar</button>
+                </div>
+            }
+
         </div>
     </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Comprar" class="btn btn-primary" />
-        </div>
-    </div>
-</div>
-}
-
-<br />
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/scripts/compras.js")
 
     <script>
         $(document).ready(function () {

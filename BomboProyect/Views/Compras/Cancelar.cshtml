@@ -5,6 +5,7 @@
     ViewBag.Title = "Cancelar";
     var insumos = ViewBag.listC;
     var i = 0;
+    double total = 0;
 }
 
 <div class="container">
@@ -63,18 +64,20 @@
                         <td>@item.Costo</td>
                         <td>@item.Cantidad</td>
                         <td>@item.Unidad</td>
-                        
+
                     </tr>
+                    total = total + item.Costo;
                     i++;
                 }
             </tbody>
         </table>
+        <h1>Total: $@total</h1>
 
 
         if (Model.Status)
         {
             <div class="form-group">
-                <div  style="float:right; padding-right: 150px;">
+                <div style="float:right; padding-right: 150px;">
                     <input type="submit" value="Cancelar" class="btn btn-danger" />
                 </div>
             </div>

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 0;
 }
 
 <div class="container">
@@ -39,7 +40,8 @@
                 <tr>
                     <td class="text-center">
                         <b>
-                            @Html.DisplayFor(modelItem => item.ComprasId)
+                            @{ i++;}
+                            @i
                         </b>
                     </td>
                     <td>
