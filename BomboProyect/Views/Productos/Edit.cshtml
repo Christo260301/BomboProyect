@@ -101,7 +101,7 @@
                                         <td>@ins.Existencias</td>
                                         <td>
                                             <div class="d-flex justify-content-center">
-                                                <button type="button" onclick="addInsumo(@Json.Encode(ins))" class="btn btn-secondary">
+                                                <button type="button" onclick="addInsumo(@Json.Encode(ins), true)" class="btn btn-secondary">
                                                     <i class="fa-solid fa-plus"></i>
                                                 </button>
                                             </div>
@@ -112,7 +112,7 @@
                         </table>
                     </div>
                     <div class="col-5 table-scroll" id="divInsumos">
-                        @Html.Partial("_ListaInsumoProducto", (List<DetProducto>) ViewBag.detPro)
+                        @Html.Partial("_ListaInsumoProductoEdit", (List<DetProducto>) ViewBag.detPro)
                     </div>
                 </div>
 

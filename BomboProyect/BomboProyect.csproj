@@ -222,6 +222,7 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
+    <Content Include="Scripts\compras.js" />
     <Content Include="Scripts\productos.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -290,6 +291,8 @@
     <Content Include="Views\Insumos\Edit.cshtml" />
     <Content Include="Views\Insumos\Index.cshtml" />
     <Content Include="Views\Productos\_ListaInsumoProducto.cshtml" />
+    <Content Include="Views\Productos\_ListaInsumoProductoEdit.cshtml" />
+    <Content Include="Views\Compras\Cancelar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

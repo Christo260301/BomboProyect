@@ -49,7 +49,7 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "InsumoId,Nombre,Descripcion,Precio,CantidadNeta,ContenidoTot,Existencias,Status")] Insumos insumos)
+        public ActionResult Create([Bind(Include = "InsumoId,Nombre,Descripcion,Precio,Unidad,CantidadNeta,ContenidoTot,Existencias,Status")] Insumos insumos)
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             if (ModelState.IsValid)

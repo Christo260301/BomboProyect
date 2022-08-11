@@ -1,21 +1,23 @@
-﻿@model BomboProyect.Models.Compras 
+﻿@model BomboProyect.Models.Compras
 @using BomboProyect.Models
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    double total = 0;
 }
 
 
-<div>
-    <h4>Detalle de la compra</h4>
+<div class="container">
+    <h2 class="mt-5">Detalle de la compra</h2>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal mt-3">
         <dt>
-            Nombre
+            Nombre del Empleado
         </dt>
 
         <dd>
+            @Model.Usuario.Nombre @Model.Usuario.ApePat
         </dd>
 
         <dt>
@@ -31,7 +33,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FechaCompra)
+            @Html.DisplayFor(model => model.FechaCompra).ToString().Substring(0, 10)
         </dd>
 
         <dt>
@@ -39,42 +41,55 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.HoraCompra)
+            @Html.DisplayFor(model => model.HoraCompra).ToString().Substring(11)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Status)
+            Estatus
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Status)
+            @if (Model.Status)
+            {
+                <p><span class="badge bg-success">Activo</span></p>
+            }
+            else
+            {
+                <p><span class="badge bg-danger">Cancelada</span></p>
+            }
         </dd>
 
     </dl>
     <hr />
-    <h4>Insumos Comprados</h4>
-    <table class="table table-bordered text-center">
-        <tr>
-            <th>Fecha de Caducidad</th>
-            <th>Precio</th>
-            <th>Cantidad Vendida</th>
-            <th>Unidad de Medida</th>
-        </tr>
-        @foreach (DetCompra pr in ViewBag.listC)
-        {
+    <h4 class="mt-3">Insumos Comprados</h4>
+    <table class="table mt-2 text-center">
+        <thead class="table-dark">
             <tr>
-                <td>@pr.FechaCaduca</td>
-                <td>@pr.Costo</td>
-                <td>@pr.Cantidad</td>
-                <td>@pr.Unidad</td>
-
+                <th>Nombre del Insumo</th>
+                <th>Fecha de Caducidad</th>
+                <th>Precio</th>
+                <th>Cantidad Comprada</th>
+                <th>Unidad de Medida</th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (DetCompra pr in ViewBag.listC)
+            {
+                <tr>
+                    <td>@pr.Insumos.Nombre</td>
+                    <td>@pr.FechaCaduca.ToString().Substring(0, 10)</td>
+                    <td>@pr.Costo</td>
+                    <td>@pr.Cantidad</td>
+                    <td>@pr.Unidad</td>
 
-        }
-
+                </tr>
+                total = total + pr.Costo;
+            }
+        </tbody>
     </table>
+    <h1>Total: $@total</h1>
+    <a href="@Url.Action("Index", "Compras")" class="btn btn-secondary">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Regresar</span>
+    </a>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ComprasId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

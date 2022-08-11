@@ -1,58 +1,12 @@
-﻿const fileInput = document.querySelector("#Fotografia")
-const iEliminarImg = document.querySelector("#i-eliminar-img")
-
-let listJsonInsumos = []
-let listJsonDetRemove = []
-
-if (fileInput !== null) {
-    fileInput.addEventListener("change", e => {
-        const img = document.querySelector("#img-preview")
-        //const input = document.querySelector("#input-imagen")
-
-        const reader = new FileReader();
-        reader.onload = () => {
-            fileInput.classList.add("hidden")
-            img.setAttribute("src", reader.result)
-            img.setAttribute("height", 200)
-            //input.setAttribute("value", reader.result)
-            iEliminarImg.classList.remove("hidden")
-            iEliminarImg.addEventListener("click", e => {
-                img.removeAttribute("src")
-                img.removeAttribute("height")
-                fileInput.value = null
-                fileInput.classList.remove("hidden")
-                e.target.classList.add("hidden")
-            })
-        }
-
-        reader.readAsDataURL(e.target.files[0]);
-    })
-}
-
-// ------------------ * CREATE PRODUCTO * ---------------------- //
-
-const removeImage = () => {
-    const img = document.querySelector("#img-preview")
-    img.removeAttribute("src")
-    img.removeAttribute("style")
-    fileInput.value = null
-    fileInput.classList.remove("hidden")
-    iEliminarImg.classList.add("hidden")
-}
+﻿let listJsonInsumos = []
 
 const addInsumo = (jsonInsumo, isEdit) => {
     console.log(jsonInsumo)
-    //VALIDAR INSUMO YA SELECCIONADO
+
     if (listJsonInsumos.find(x => x == jsonInsumo.InsumoId) == undefined) {
         listJsonInsumos.push(jsonInsumo.InsumoId)
 
-        // VALIDACION DE LISTA DE REMOVIDOS
-        const idxR = listJsonDetRemove.findIndex(x => x == jsonInsumo.InsumoId)
-        if (idxR != -1) {
-            listJsonDetRemove.splice(idxR, 1)
-            const InsumosRemovidos = document.querySelector("#InsumosRemovidos")
-            InsumosRemovidos.value = JSON.stringify(listJsonDetRemove)
-        }
+        
 
         console.log(jsonInsumo);
         const ContElement = document.querySelector("#ContElement")
@@ -62,12 +16,11 @@ const addInsumo = (jsonInsumo, isEdit) => {
         let NumRow = parseInt(ContElement.value)
 
         console.log(ContElement)
-        // TROW
+
         const trow = document.createElement("tr")
-        // Campos completos de insumo
         const tdDataIsumo = document.createElement("td")
         tdDataIsumo.setAttribute("hidden", true)
-        
+
         const intId = document.createElement("input")
         const intNombre = document.createElement("input")
         const intDescripcion = document.createElement("input")
@@ -78,14 +31,6 @@ const addInsumo = (jsonInsumo, isEdit) => {
         const intExistencias = document.createElement("input")
         const intStatus = document.createElement("input")
 
-        //DET PRODUCTO ID
-        //if (isEdit) {
-        //    const intDetProducto = document.createElement("input")
-        //    intDetProducto.setAttribute("name", `[${0}].Insumo.Status`)
-        //    intDetProducto.setAttribute("value", jsonInsumo.Status)
-        //    intDetProducto.setAttribute("type", "hidden")
-        //    tdDataIsumo.insertAdjacentElement("afterbegin", intStatus)
-        //}
 
         // STATUS DEL INSUMO
         intStatus.setAttribute("name", !isEdit ? `[${NumRow}].Status` : `[${NumRow}].Insumo.Status`)
@@ -143,6 +88,7 @@ const addInsumo = (jsonInsumo, isEdit) => {
 
         const tdNom = document.createElement("td")
         tdNom.innerText = jsonInsumo.Nombre
+    
         const tdCant = document.createElement("td")
         const intCant = document.createElement("input")
         intCant.setAttribute("type", "number")
@@ -152,6 +98,15 @@ const addInsumo = (jsonInsumo, isEdit) => {
         intCant.setAttribute("step", "any")
         intCant.setAttribute("class", "form-control")
         tdCant.insertAdjacentElement("afterbegin", intCant)
+
+        const tdFecha = document.createElement("td")
+        const intFecha = document.createElement("input")
+        intFecha.setAttribute("type", "date")
+        intFecha.setAttribute("name", `[${NumRow}].FechaCad`)
+        intFecha.setAttribute("value", "")
+        intFecha.setAttribute("class", "form-control")
+        tdFecha.insertAdjacentElement("afterbegin", intFecha)
+
         const tdAccion = document.createElement("td")
         tdAccion.innerHTML = `
         <div class="d-flex justify-content-start">
@@ -165,17 +120,21 @@ const addInsumo = (jsonInsumo, isEdit) => {
 
         trow.insertAdjacentElement("afterbegin", tdAccion)
         trow.insertAdjacentElement("afterbegin", tdCant)
+        trow.insertAdjacentElement("afterbegin", tdFecha)
         trow.insertAdjacentElement("afterbegin", tdNom)
         trow.insertAdjacentElement("afterbegin", tdDataIsumo)
 
         tBodyContainer.insertAdjacentElement("beforeend", trow)
         ContElement.value = (NumRow + 1)
+        
     }
 }
 
 const removeInsumo = (jsonInsumo, isEdit) => {
     // ELIMINACION DEL INSUMO DE LA LISTA JSON
     // console.log(JSON.parse(jsonInsumo.replace(/#/g, '\"')))
+
+
     let jsInsu = {}
     try {
         jsInsu = JSON.parse(jsonInsumo.replace(/#/g, '\"'))
@@ -183,14 +142,10 @@ const removeInsumo = (jsonInsumo, isEdit) => {
         console.log("ERR => ", e)
         jsInsu = jsonInsumo
     }
-    
+
     const idx = listJsonInsumos.findIndex(x => x == jsInsu.InsumoId);
     if (idx != -1) {
 
-        // AGREGA DETALLE A LA LISTA DE REMOVIDOS
-        listJsonDetRemove.push(jsonInsumo.InsumoId)
-        const InsumosRemovidos = document.querySelector("#InsumosRemovidos")
-        InsumosRemovidos.value = JSON.stringify(listJsonDetRemove)
 
         listJsonInsumos.splice(idx, 1)
         const row = document.querySelector(`#ID_${jsInsu.InsumoId}_${jsInsu.Nombre}`)
@@ -216,7 +171,8 @@ const removeInsumo = (jsonInsumo, isEdit) => {
                 listRow[i].children[0].children[7].setAttribute("name", `[${i}].ContenidoTot`)
                 listRow[i].children[0].children[8].setAttribute("name", `[${i}].Status`)
 
-                listRow[i].children[2].children[0].setAttribute("name", `[${i}].CantProduc`)
+                listRow[i].children[2].children[0].setAttribute("name", `[${i}].FechaCad`)
+                listRow[i].children[3].children[0].setAttribute("name", `[${i}].CantProduc`)
             }
         } else {
             for (let i = 0; i < listRow.length; i++) {
@@ -234,7 +190,7 @@ const removeInsumo = (jsonInsumo, isEdit) => {
                 listRow[i].children[2].children[0].setAttribute("name", `[${i}].Insumo.CantProduc`)
             }
         }
-        
+
 
         const ContElementNum = document.querySelector("#ContElement")
         ContElementNum.value = listRow.length
@@ -242,30 +198,4 @@ const removeInsumo = (jsonInsumo, isEdit) => {
         const CntElementJson = document.querySelector("#ContElmeJson")
         CntElementJson.value = JSON.stringify(listJsonInsumos)
     }
-}
-
-// ------------------ * FIN CREATE PRODUCTO * ---------------------- //
-
-// ------------------ * EDIT PRODUCTO * ---------------------- //
-
-const DataElement = document.querySelector("#tbContainer")
-
-if (DataElement !== null) {
-    const DataTr = DataElement.children
-    console.log('DATATR => ', DataTr)
-    const ContElementNum = document.querySelector("#ContElement")
-    ContElementNum.value = DataTr.length
-    for (let i = 0; i < DataTr.length; i++) {
-        let td = DataTr[i].children
-        let infoTd = td[0].children
-        let inputId = infoTd[0].value
-        listJsonInsumos.push(parseInt(inputId))
-    }
-}
-
-
-const ContElmeJson = document.querySelector("#ContElmeJson")
-
-if (ContElmeJson !== null) {
-    ContElmeJson.value = JSON.stringify(listJsonInsumos)
 }

@@ -45,5 +45,8 @@ namespace BomboProyect.Models
 
         [NotMapped]
         public double CantProduc { get; set; }
+        
+        [NotMapped]
+        public DateTime FechaCad { get; set; }
     }
 }

@@ -35,8 +35,8 @@ namespace BomboProyect.Models
 
         public List<DetVenta> DetVenta { get; set; }
 
-        public List<DetProducto> DetProducto { get; set; }
-        
+        //public List<DetProducto> DetProducto { get; set; }
+
         [NotMapped]
         public HttpPostedFileBase Fotografia { get; set; }
 

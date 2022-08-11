@@ -44,10 +44,10 @@ namespace BomboProyect.Controllers
             {
 
                 List<DetVenta> detVen = db.DetVenta.Where(m => m.Venta.VentaId == id).ToList();
-                List<Productos> prods = db.Productos.SqlQuery("SELECT * FROM Productos INNER JOIN DetVentas ON Productos.ProductoId = DetVentas.Producto_ProductoId").ToList();
+                List<Productos> prods = db.Productos.SqlQuery("SELECT * FROM Productos INNER JOIN DetVentas ON Productos.ProductoId = DetVentas.Producto_ProductoId WHERE DetVentas.Venta_VentaId =" + id).ToList();
                 ViewBag.listV = detVen;
                 ViewBag.listP = prods;
-                Usuarios usr = db.Usuarios.SqlQuery("SELECT * FROM Usuarios INNER JOIN Ventas ON Usuarios.UsuarioId = Ventas.Usuarios_UsuarioId").First();                
+                Usuarios usr = db.Usuarios.SqlQuery("SELECT * FROM Usuarios INNER JOIN Ventas ON Usuarios.UsuarioId = Ventas.Usuarios_UsuarioId WHERE Ventas.VentaId ="+id).First();                
                 ViewBag.nombreUser = usr.Nombre;
                 return View(ventas);
             }

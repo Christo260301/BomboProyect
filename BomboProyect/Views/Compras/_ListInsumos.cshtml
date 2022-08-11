@@ -3,41 +3,39 @@
 
 @{ Layout = null; }
 
-<table class="table table-bordered text-center">
-    <tr>
-        <th>Nombre</th>
-        <th>Descripcion</th>
-        <th>Precio C/U</th>
-        <th>Cantidad Neta</th>
-        <th>Existencias</th>
-        <th>Contenido Total</th>
-        <th>Cantidad de Existencias a Comprar</th>
-        <th>Unidad</th>
-    </tr>
-
-    @for (var i = 0; i < Model.Count(); i++)
-    {
+<table class="table text-center">
+    <thead class="table-secondary">
         <tr>
-            <td hidden><input value="@Model[i].InsumoId" name="[@i].InsumoId" type="hidden" /></td>
-            <td>@Model[i].Nombre</td>
-            <td>@Model[i].Descripcion</td>
-            <td>@Model[i].Precio</td>
-            <td>@Model[i].CantidadNeta</td>
-            <td>@Model[i].Existencias</td>
-            <td>@Model[i].ContenidoTot</td>
-            <td hidden><input type="hidden" name="[@i].Precio" value="@Model[i].Precio" /></td>
-            <td><input name="[@i].Existencias" type="number" min="0" value=0 class="form-control" /></td>
-            <td><input type="text" name="[@i].Descripcion" value="" /></td>
+            <th>Nombre</th>
+            <th>Precio C/U</th>
+            <th>Unidad</th>
+            <th>Cantidad Neta</th>
+            <th>Accion</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td>@Model[i].Nombre</td>
+                <td>@Model[i].Precio</td>
+                <td>@Model[i].Unidad</td>
+                <td>@Model[i].CantidadNeta</td>
+                <td>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" onclick="addInsumo(@Json.Encode(Model[i]))" class="btn btn-secondary">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>
 
-
-@section Scripts {
-    <script>
-        function calcTotal() {
-
-        }
-    </script>
-}
+<!--<td>Model[i].Descripcion</td>-->
+<!--<td hidden><input value="Model[i].InsumoId" name="[i].InsumoId" type="hidden" /></td>-->
+<!--<td hidden><input type="hidden" name="[i].Precio" value="Model[i].Precio" /></td>-->
+<!--<td hidden><input type="hidden" name="[i].Unidad" value="Model[i].Unidad" /></td>-->
+<!--<td><input name="[ i].Existencias" type="number" min="0" value=0 class="form-control" /></td>-->
