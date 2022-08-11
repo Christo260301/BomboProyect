@@ -1,5 +1,4 @@
 ﻿let listJsonInsumos = []
-let listJsonDetRemove = []
 
 const addInsumo = (jsonInsumo, isEdit) => {
     console.log(jsonInsumo)
@@ -7,12 +6,7 @@ const addInsumo = (jsonInsumo, isEdit) => {
     if (listJsonInsumos.find(x => x == jsonInsumo.InsumoId) == undefined) {
         listJsonInsumos.push(jsonInsumo.InsumoId)
 
-        const idxR = listJsonDetRemove.findIndex(x => x == jsonInsumo.InsumoID)
-        if (idxR != -1) {
-            listJsonDetRemove.splice(idxR, 1)
-            const InsumosRemovidos = document.querySelector('#InsumosRemovidos')
-            InsumosRemovidos.value = JSON.stringify(listJsonDetRemove)
-        }
+        
 
         console.log(jsonInsumo);
         const ContElement = document.querySelector("#ContElement")
@@ -140,10 +134,10 @@ const removeInsumo = (jsonInsumo, isEdit) => {
     // ELIMINACION DEL INSUMO DE LA LISTA JSON
     // console.log(JSON.parse(jsonInsumo.replace(/#/g, '\"')))
 
+
     let jsInsu = {}
     try {
         jsInsu = JSON.parse(jsonInsumo.replace(/#/g, '\"'))
-        console.log(jsInsu)
     } catch (e) {
         console.log("ERR => ", e)
         jsInsu = jsonInsumo
@@ -152,11 +146,6 @@ const removeInsumo = (jsonInsumo, isEdit) => {
     const idx = listJsonInsumos.findIndex(x => x == jsInsu.InsumoId);
     if (idx != -1) {
 
-        // AGREGA DETALLE A LA LISTA DE REMOVIDOS
-        listJsonDetRemove.push(jsonInsumo.InsumoId)
-        const InsumosRemovidos = document.querySelector("#InsumosRemovidos")
-        InsumosRemovidos.value = JSON.stringify(listJsonDetRemove)
-        console.log(listJsonDetRemove)
 
         listJsonInsumos.splice(idx, 1)
         const row = document.querySelector(`#ID_${jsInsu.InsumoId}_${jsInsu.Nombre}`)
@@ -182,8 +171,8 @@ const removeInsumo = (jsonInsumo, isEdit) => {
                 listRow[i].children[0].children[7].setAttribute("name", `[${i}].ContenidoTot`)
                 listRow[i].children[0].children[8].setAttribute("name", `[${i}].Status`)
 
-                listRow[i].children[2].children[0].setAttribute("name", `[${i}].CantProduc`)
                 listRow[i].children[2].children[0].setAttribute("name", `[${i}].FechaCad`)
+                listRow[i].children[3].children[0].setAttribute("name", `[${i}].CantProduc`)
             }
         } else {
             for (let i = 0; i < listRow.length; i++) {
