@@ -46,17 +46,18 @@
                     @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "form-text text-danger" })
                 </div>
 
-                <div class="col-auto">
+                @*<div class="col-auto" hidden>
                     @Html.LabelFor(model => model.Existencias, htmlAttributes: new { @class = "form-label" })
-                    @Html.EditorFor(model => model.Existencias, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Existencias, new { htmlAttributes = new { @class = "form-control", type = "hidden", value = "0" } })
                     @Html.ValidationMessageFor(model => model.Existencias, "", new { @class = "form-text text-danger" })
-                </div>
+                </div>*@
 
                 <input type="hidden" name="Foto" value="Foto" />
 
                 <div class="col-auto">
                     @Html.LabelFor(model => model.Fotografia, htmlAttributes: new { @class = "form-label" })
-                    <input class="form-control" type="file" name="Fotografia" id="Fotografia" required />
+                    @Html.EditorFor(model => model.Fotografia, new { htmlAttributes = new { @class = "form-control", id = "Fotografia" } })
+                    @*<input class="form-control" type="file" name="Fotografia" id="Fotografia" required />*@
                     @Html.ValidationMessageFor(model => model.Fotografia, "", new { @class = "form-text text-danger" })
                 </div>
 
@@ -76,7 +77,7 @@
                                     <th>Nombre</th>
                                     <th>Cantidad Neta</th>
                                     <th>Unidad de Medida</th>
-                                    <th>Acction</th>
+                                    <th>Accion</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -98,10 +99,22 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div class="col-5  table-scroll" id="divInsumos">
-                        
+
                     </div>
+
+                    @if (ViewBag.validInsumoList != null)
+                    {
+                        if (ViewBag.validInsumoList == true)
+                        {
+                            <div class="d-flex justify-content-end">
+                                <span class="text-danger">La cantidad de los insumos debe ser mayor a 0</span>
+                            </div>
+                        }
+
+                    }
+
                 </div>
 
                 <div class="d-grid">

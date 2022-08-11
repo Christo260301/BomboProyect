@@ -188,7 +188,7 @@ const removeInsumo = (jsonInsumo, isEdit) => {
     if (idx != -1) {
 
         // AGREGA DETALLE A LA LISTA DE REMOVIDOS
-        listJsonDetRemove.push(jsonInsumo.InsumoId)
+        listJsonDetRemove.push(jsInsu.InsumoId)
         const InsumosRemovidos = document.querySelector("#InsumosRemovidos")
         InsumosRemovidos.value = JSON.stringify(listJsonDetRemove)
 
