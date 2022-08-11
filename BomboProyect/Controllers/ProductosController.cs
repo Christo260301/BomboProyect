@@ -362,7 +362,12 @@ namespace BomboProyect.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult GenerarExistencias([Bind(Include = "ProductoId,Existencias")] Productos productos)
         {
-            
+
+            ModelState.Remove("Nombre");
+            ModelState.Remove("Descripcion");
+            ModelState.Remove("Foto");
+            ModelState.Remove("Fotografia");
+
             if (ModelState.IsValid)
             {
                 int id = productos.ProductoId;
@@ -370,71 +375,101 @@ namespace BomboProyect.Controllers
 
                 Productos prod = db.Productos.Find(id);
 
-                List<DetProducto> detProductos = db.DetProductos.Where(m => m.Productos.ProductoId == id).ToList();
+                List<DetProducto> ingredientes = db.DetProductos.Where(m => m.Productos.ProductoId == id).Include(nameof(DetProducto.Insumo)).ToList();
 
-                if (detProductos.Count < 0)
+                ViewBag.listP = ingredientes;
+
+                if (ingredientes.Count > 0)
                 {
                     int existToGenerate = productos.Existencias;
 
-                    List<DetProducto> insumoNecesario = new List<DetProducto>();
+                    int contProductComp = 0;
+                    int contProductFail = 0;
 
-                    int contParaGenerar = 0;
-                    int contNoGenerados = 0;
+                    //Lista de insumos para calcular las restas de cantidad total (sin alterar BD)
+                    List<Insumos> insumosListTemp = new List<Insumos>();
+                    foreach(DetProducto prt in ingredientes) { insumosListTemp.Add(prt.Insumo);  }
 
-                    foreach (DetProducto dtp in detProductos)
+                    //Lista para la validacion de las cantidades resultantes
+                    List<double> listValidacion = new List<double>();
+
+                    // CICLO DE CALCULO POR CANTIDAD DE EXISTENCIAS PEDIDAS
+                    foreach (int i in Enumerable.Range(0, existToGenerate))
                     {
-                        dtp.Cantidad = dtp.Cantidad * existToGenerate;
-                        if (dtp.Cantidad > dtp.Insumo.ContenidoTot)
+                        // CICLO DE INGREDIENTES (INSUMOS) POR EXISTENCIA
+                        foreach (DetProducto ingre in ingredientes)
                         {
-                            contParaGenerar++;
-                        } else
-                        {
-                            contNoGenerados++;
-                            insumoNecesario.Add(dtp)
+                            // CANTIDAD TOTAL DEL INSUMO
+                            double cont_tot = getContenidoTotal(insumosListTemp, ingre.Insumo);
+                            double cont_act = cont_tot - ingre.Cantidad;
+
+                            listValidacion.Add(cont_act);
+
+                            actualizarListaInsumosLocal(ingre.Insumo, insumosListTemp, cont_act);
+                            if (validarNegativos(listValidacion))
+                            {
+                                contProductComp++;
+                            } else
+                            {
+                                contProductFail++;
+                            }
+
+                            listValidacion = new List<double>();
                         }
                     }
 
-                    if (contParaGenerar < existToGenerate)
+                    if (contProductFail <= 0)
                     {
-                        List<Dictionary<String, String>> data = new List<Dictionary<string, string>>();
-                        foreach(DetProducto d in insumoNecesario)
+                        // ACTUALIZACION DE CANTIDADES
+                        foreach (DetProducto ingre in ingredientes)
+                        {
+                            Insumos insumoToModificar = db.Insumos.Find(ingre.Insumo.InsumoId);
+
+                            if (insumoToModificar != null)
+                            {
+                                insumoToModificar.ContenidoTot = Math.Round((ingre.Insumo.ContenidoTot * existToGenerate), 3);
+                                insumoToModificar.Existencias = calcularExistencia(
+                                    ingre.Insumo.ContenidoTot, 
+                                    ingre.Insumo.Existencias, 
+                                    ingre.Insumo.ContenidoTot);
+
+                                db.Entry(insumoToModificar).State = EntityState.Modified;
+                            }
+                            
+                        }
+
+                        productos.Existencias = existToGenerate;
+                        db.Entry(productos).State = EntityState.Modified;
+
+                        db.SaveChanges();
+
+                        RedirectToAction("Index");
+
+                    } else
+                    {
+                        ViewBag.insumosFaltantes = true;
+                        Dictionary<string, object> data = new Dictionary<string, object>();
+                        
+                        data.Add("puedesProducir", Convert.ToString(contProductComp));
+                        data.Add("productosFaltantes", Convert.ToString(contProductFail));
+                        List<Dictionary<string, string>> dataInsumoList = new List<Dictionary<string, string>>();
+                        foreach (DetProducto d in ingredientes)
                         {
                             Dictionary<string, string> dic = new Dictionary<string, string>();
                             dic.Add("nombreInsumo", d.Insumo.Nombre);
-                            dic.Add("insumoFaltante", Convert.ToString((d.Cantidad - d.Insumo.ContenidoTot)));
-                            data.Add(dic);
+                            dic.Add("cantidadFaltante", Convert.ToString(Math.Round((d.Cantidad * contProductFail), 3) ));
+                            dic.Add("unidad", d.Insumo.Unidad);
+                            dataInsumoList.Add(dic);
                         }
-                        ViewBag.validateInsumoText = data;
-                    } else
-                    {
-                        productos.Existencias = existToGenerate;
-                        db.Entry(productos).State = EntityState.Modified;
+                        ViewBag.estadoGeneracion = data;
+                        ViewBag.listaFaltantes = dataInsumoList;
                     }
                 }
             }
 
-            //if (ModelState.IsValid)
-            //{
-            //    int id = productos.ProductoId;
-            //    Productos prod = db.Productos.Find(productos.ProductoId);
-            //}
-
-            //ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
-
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Productos productos = db.Productos.Find(id);
-            //if (productos == null)
-            //{
-            //    return HttpNotFound();
-            //}
-
-            List<DetProducto> detPr = db.DetProductos.Where(m => m.Productos.ProductoId == id).Include(nameof(DetProducto.Insumo)).ToList();
-            ViewBag.listP = detPr;
             return View(productos);
         }
+
 
         protected override void Dispose(bool disposing)
         {
@@ -455,6 +490,42 @@ namespace BomboProyect.Controllers
                 }
             }
             return true;
+        }
+
+        protected bool validarNegativos(List<double> listV)
+        {
+            bool validate = true;
+            for (int i = 0; i < listV.Count; i++)
+            {
+                if (listV[i] < 0)
+                {
+                    validate = false;
+                    break;
+                }
+            }
+
+            return validate;
+        }
+
+        protected void actualizarListaInsumosLocal(Insumos insumo, List<Insumos> insumoList, double cant_actualizar)
+        {
+            insumoList[insumoList.FindIndex(x => x.InsumoId == insumo.InsumoId)].ContenidoTot = cant_actualizar;
+        }
+
+        protected double getContenidoTotal(List<Insumos> insumoList, Insumos insumo)
+        {
+            int index = insumoList.FindIndex(x => x.InsumoId == insumo.InsumoId);
+            if (index != -1)
+            {
+                return insumoList[index].ContenidoTot;
+            }
+
+            return 0.0;
+        }
+
+        protected double calcularExistencia(double contenidoTotalActual, double existenciaActual, double nuevoContenidoTotal)
+        {
+            return (nuevoContenidoTotal * existenciaActual) / contenidoTotalActual;
         }
     }
 }

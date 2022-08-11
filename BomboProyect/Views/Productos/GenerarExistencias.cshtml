@@ -62,8 +62,9 @@
                     <thead class="table-secondary">
                         <tr>
                             <th>Nombre</th>
-                            <th>Unidad</th>
                             <th>Cantidad</th>
+                            <th>Total de Insumo</th>
+                            <th>Unidad</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,8 +72,9 @@
                         {
                             <tr>
                                 <td>@pr.Insumo.Nombre</td>
-                                <td>@pr.Unidad</td>
                                 <td>@pr.Cantidad</td>
+                                <td>@pr.Insumo.ContenidoTot</td>
+                                <td>@pr.Unidad</td>
                             </tr>
                         }
                     </tbody>
@@ -85,12 +87,13 @@
                 </div>
             </div>
             <div class="row justify-content-center mt-3">
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.HiddenFor(model => model.ProductoId)
+                <div class="col-2">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.ProductoId)
 
-                    <div class="col-2">
+
                         <div class="col-auto">
                             @{ Model.Existencias = 0;}
                             @Html.LabelFor(model => model.Existencias, htmlAttributes: new { @class = "form-label" })
@@ -100,15 +103,28 @@
                         <div class="d-grid mt-3">
                             <button class="btn btn-success" type="submit">Generar</button>
                         </div>
-                    </div>
-                }
+
+                    }
+                </div>
             </div>
             <div class="row justify-content-center mt-3">
-                <div class="col-4">
-                    <!-- MENSAJE DE ERRORES -->
+                @if (ViewBag.insumosFaltantes != null)
+                {
+                    <div class="col-4">
+                        <!-- MENSAJE DE ERRORES -->
+                        <h3 class="text-center">Te faltan Insumos para generar las existencias ingresadas</h3>
+                        <p>Cantidad de productos posibles: <span class="text-danger fw-bold">@ViewBag.estadoGeneracion["puedesProducir"]</span></p>
+                        <p>Cantidad de productos faltantes: <span class="text-danger fw-bold">@ViewBag.estadoGeneracion["productosFaltantes"]</span></p>
+                        <h3 class="text-center">Lista de insumos necesarios</h3>
+                        <ul>
+                            @foreach (var dataDic in ViewBag.listaFaltantes)
+                            {
+                                <li>@dataDic["nombreInsumo"] - <span class="text-danger">@dataDic["cantidadFaltante"]</span>@dataDic["unidad"]</li>
+                            }
+                        </ul>
+                    </div>
+                }
 
-                    <span>Solo puedes generar las existencias laslaslaslaslalalalalaslaslasl</span>
-                </div>
             </div>
         </div>
     </div>
