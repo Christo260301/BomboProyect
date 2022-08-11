@@ -135,3 +135,78 @@ const addInsumo = (jsonInsumo, isEdit) => {
         
     }
 }
+
+const removeInsumo = (jsonInsumo, isEdit) => {
+    // ELIMINACION DEL INSUMO DE LA LISTA JSON
+    // console.log(JSON.parse(jsonInsumo.replace(/#/g, '\"')))
+
+    let jsInsu = {}
+    try {
+        jsInsu = JSON.parse(jsonInsumo.replace(/#/g, '\"'))
+        console.log(jsInsu)
+    } catch (e) {
+        console.log("ERR => ", e)
+        jsInsu = jsonInsumo
+    }
+
+    const idx = listJsonInsumos.findIndex(x => x == jsInsu.InsumoId);
+    if (idx != -1) {
+
+        // AGREGA DETALLE A LA LISTA DE REMOVIDOS
+        listJsonDetRemove.push(jsonInsumo.InsumoId)
+        const InsumosRemovidos = document.querySelector("#InsumosRemovidos")
+        InsumosRemovidos.value = JSON.stringify(listJsonDetRemove)
+        console.log(listJsonDetRemove)
+
+        listJsonInsumos.splice(idx, 1)
+        const row = document.querySelector(`#ID_${jsInsu.InsumoId}_${jsInsu.Nombre}`)
+        row.remove()
+        // ELIMINA EL ROW DE LA LISTA
+
+        // ESTABLECIMIENTO DE INDICES
+        const tBodyContainer = document.querySelector("#tbContainer")
+        console.log(tBodyContainer)
+        const listRow = tBodyContainer.children
+        console.log(listRow)
+        console.log(listRow.length)
+        if (!isEdit) {
+            for (let i = 0; i < listRow.length; i++) {
+                console.log('ITEM => ', listRow[i])
+                listRow[i].children[0].children[0].setAttribute("name", `[${i}].InsumoId`)
+                listRow[i].children[0].children[1].setAttribute("name", `[${i}].Nombre`)
+                listRow[i].children[0].children[2].setAttribute("name", `[${i}].Descripcion`)
+                listRow[i].children[0].children[3].setAttribute("name", `[${i}].Precio`)
+                listRow[i].children[0].children[4].setAttribute("name", `[${i}].Unidad`)
+                listRow[i].children[0].children[5].setAttribute("name", `[${i}].CantidadNeta`)
+                listRow[i].children[0].children[6].setAttribute("name", `[${i}].Existencias`)
+                listRow[i].children[0].children[7].setAttribute("name", `[${i}].ContenidoTot`)
+                listRow[i].children[0].children[8].setAttribute("name", `[${i}].Status`)
+
+                listRow[i].children[2].children[0].setAttribute("name", `[${i}].CantProduc`)
+                listRow[i].children[2].children[0].setAttribute("name", `[${i}].FechaCad`)
+            }
+        } else {
+            for (let i = 0; i < listRow.length; i++) {
+                console.log('ITEM => ', listRow[i])
+                listRow[i].children[0].children[0].setAttribute("name", `[${i}].Insumo.InsumoId`)
+                listRow[i].children[0].children[1].setAttribute("name", `[${i}].Insumo.Nombre`)
+                listRow[i].children[0].children[2].setAttribute("name", `[${i}].Insumo.Descripcion`)
+                listRow[i].children[0].children[3].setAttribute("name", `[${i}].Insumo.Precio`)
+                listRow[i].children[0].children[4].setAttribute("name", `[${i}].Insumo.Unidad`)
+                listRow[i].children[0].children[5].setAttribute("name", `[${i}].Insumo.CantidadNeta`)
+                listRow[i].children[0].children[6].setAttribute("name", `[${i}].Insumo.Existencias`)
+                listRow[i].children[0].children[7].setAttribute("name", `[${i}].Insumo.ContenidoTot`)
+                listRow[i].children[0].children[8].setAttribute("name", `[${i}].Insumo.Status`)
+
+                listRow[i].children[2].children[0].setAttribute("name", `[${i}].Insumo.CantProduc`)
+            }
+        }
+
+
+        const ContElementNum = document.querySelector("#ContElement")
+        ContElementNum.value = listRow.length
+
+        const CntElementJson = document.querySelector("#ContElmeJson")
+        CntElementJson.value = JSON.stringify(listJsonInsumos)
+    }
+}

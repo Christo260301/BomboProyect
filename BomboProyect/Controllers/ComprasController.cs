@@ -19,31 +19,67 @@ namespace BomboProyect.Controllers
         // GET: Compras
         public ActionResult Index()
         {
-            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
-            return View(db.Compras.ToList());
+
+            if (Session["Usuario"] != null)
+            {
+                Usuarios user = Session["Usuario"] as Usuarios;
+                if (user.Rol.RolId == 1)
+                {
+                    ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+                    return View(db.Compras.ToList());
+
+                }
+                else
+                {
+                    return RedirectToAction("SinPermisos", "Home");
+
+                }
+            }
+            else
+            {
+                return RedirectToAction("SinPermisos", "Home");
+
+            }
         }
 
         // GET: Compras/Details/5
         public ActionResult Details(int? id)
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var compras = db.Compras.Include(m => m.Usuario).Include(m => m.Proveedor).Where(m => m.ComprasId == id).ToList();
-            Compras compra = compras[0];
 
-            if (compra != null)
+            if (Session["Usuario"] != null)
             {
-                List<DetCompra> detCom = db.DetCompra.Include(m => m.Insumos).Where(m => m.Compra.ComprasId == id).ToList();
-                ViewBag.listC = detCom;
-                return View(compra);
+                Usuarios user = Session["Usuario"] as Usuarios;
+                if (user.Rol.RolId == 1)
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    var compras = db.Compras.Include(m => m.Usuario).Include(m => m.Proveedor).Where(m => m.ComprasId == id).ToList();
+                    Compras compra = compras[0];
+
+                    if (compra != null)
+                    {
+                        List<DetCompra> detCom = db.DetCompra.Include(m => m.Insumos).Where(m => m.Compra.ComprasId == id).ToList();
+                        ViewBag.listC = detCom;
+                        return View(compra);
+                    }
+                    else
+                    {
+                        return HttpNotFound();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("SinPermisos", "Home");
+                }
             }
             else
             {
-                return HttpNotFound();
+                return RedirectToAction("SinPermisos", "Home");
             }
+                    
         }
 
         public ActionResult _ListInsumos()
@@ -59,7 +95,7 @@ namespace BomboProyect.Controllers
             if (Session["Usuario"] != null)
             {
                 Usuarios user = Session["Usuario"] as Usuarios;
-                if (user.Rol.RolId == 1 || user.Rol.RolId == 2)
+                if (user.Rol.RolId == 1)
                 {
                     ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
                     ViewBag.Usuario = user.Nombre + " " + user.ApePat;
