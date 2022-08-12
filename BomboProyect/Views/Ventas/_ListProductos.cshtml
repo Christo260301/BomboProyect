@@ -2,30 +2,32 @@
 
 @{ Layout = null; }
 
-<table class="table table-bordered text-center">
-    <tr>
-        <th>Foto</th>
-        <th>Nombre</th>
-        <th>Descripcion</th>
-        <th>Precio C/U</th>
-        <th>Existencias</th>
-        <th>Cantidad a Vender</th>
-    </tr>
-
-    @for (var pr = 0; pr < Model.Count(); pr++)
-    {
+<table class="table text-center">
+    <thead class="table-dark">
         <tr>
-            <td hidden><input value="@Model[pr].ProductoId" name="[@pr].ProductoId" type="hidden" /></td>
-            <td><img src="@Url.Content(@Model[pr].Foto)" style="height: 200px;"/></td>
-            <td>@Model[pr].Nombre</td>
-            <td>@Model[pr].Descripcion</td>
-            <td>@Model[pr].Precio</td>
-            <td hidden><input value="@Model[pr].Precio" name="[@pr].Precio" type="hidden" /></td>
-            <td>@Model[pr].Existencias</td>
-            <td><input type="number" name="[@pr].Existencias" value="0" min="0" max="@Model[pr].Existencias" /></td>
-
+            <th>Foto</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Precio C/U</th>
+            <th>Existencias</th>
+            <th>Cantidad a Vender</th>
         </tr>
+    </thead>
+    <tbody>
+        @for (var pr = 0; pr < Model.Count(); pr++)
+        {
+            <tr>
+                <td hidden><input value="@Model[pr].ProductoId" name="[@pr].ProductoId" type="hidden" /></td>
+                <td><img src="@Url.Content(@Model[pr].Foto)" style="height: 200px;" /></td>
+                <td>@Model[pr].Nombre</td>
+                <td>@Model[pr].Descripcion</td>
+                <td>@Model[pr].Precio</td>
+                <td hidden><input value="@Model[pr].Precio" name="[@pr].Precio" type="hidden" /></td>
+                <td>@Model[pr].Existencias</td>
+                <td><input type="number" name="[@pr].Existencias" value="0" min="0" max="@Model[pr].Existencias" /></td>
 
-    }
+            </tr>
 
+        }
+    </tbody>
 </table>

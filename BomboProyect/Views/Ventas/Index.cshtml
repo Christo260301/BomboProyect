@@ -4,43 +4,61 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Ventas</h2>
+<div class="container">
+    <h2 class="mt-5">Ventas</h2>
 
-<p>
-    @Html.ActionLink("Registrar Nueva Venta", "Create", null, null, new { @class = "btn btn-primary" })
-</p>
-<table class="table" style="padding-left: 25px; padding-right: 25px">
-    <tr>
-        <th>
-            Fecha Venta
-        </th>
-        <th>
-            Hora Venta
-        </th>
-        <th>
-            Estatus
-        </th>
-        <th></th>
-    </tr>
+    <div class="mt-3">
+        <a href="@Url.Action("Create", "Ventas")" class="btn btn-secondary">
+            <i class="fa-solid fa-plus"></i>
+            <span>Nueva Venta</span>
+        </a>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaVenta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HoraVenta)
-        </td>
-        <td>
-            @if (item.Status == 1)
+    <table class="table mt-2">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    Fecha Venta
+                </th>
+                <th>
+                    Hora Venta
+                </th>
+                <th>
+                    Estatus
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
-               <div style="background-color:green; width:70px; text-align:center; border-radius:10px;">Activo</div>              }
-            else {<div style="background-color:red; width:70px; text-align:center;">Inactivo</div>}
-        </td>
-        <td>            
-            <a href="/Ventas/Details/@item.VentaId" class="btn btn-info">Detalle de Venta</a>
-        </td>
-    </tr>
-}
-
-</table>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaVenta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HoraVenta)
+                    </td>
+                    <td>
+                        @if (item.Status == 1)
+                        {
+                            <p><span class="badge bg-success">Activo</span></p>
+                        }
+                        else
+                        {
+                            <p><span class="badge bg-danger">Inactivo</span></p>
+                        }
+                    </td>
+                    <td>
+                        <div>
+                            <a href="@Url.Action("Details", "Ventas", new { id = item.VentaId })" class="btn btn-warning">
+                                <i class="fa-solid fa-info"></i>
+                                <span class="ms-2">Detalle de Venta</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

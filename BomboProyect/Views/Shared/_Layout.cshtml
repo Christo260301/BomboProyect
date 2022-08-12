@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <title>@ViewBag.Title - Bombo</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -191,9 +191,9 @@
 
                             <li class="nav-item">
                                 <h5>
-                                    <a class="nav-link px-1 text-muted" href="@Url.Action("Details", new {})">
+                                    <a class="nav-link px-1 text-muted" href="@Url.Action("Details", "Usuarios", new { id = ViewBag.ssUsuario.UsuarioId })">
                                         <img src="~/app/img/gestion-web.png" width="30" height="30" />
-                                        <span>Configuración</span>
+                                        <span>Perfil</span>
                                     </a>
                                 </h5>
                             </li>
