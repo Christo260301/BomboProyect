@@ -22,7 +22,29 @@ namespace BomboProyect.Controllers
         public ActionResult Index()
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
-            return View(db.Productos.ToList());
+            ViewBag.activos = true;
+            return View(db.Productos.Where(p => p.Status == true).ToList());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(string actInac)
+        {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+            List<Productos> productos = new List<Productos>();
+            if (actInac.Equals("INACTIVOS"))
+            {
+                ViewBag.activos = false;
+                productos = db.Productos.Where(i => i.Status == false).ToList();
+            }
+            else
+            {
+                ViewBag.activos = true;
+                productos = db.Productos.Where(i => i.Status == true).ToList();
+            }
+
+
+            return View(productos);
         }
 
         // GET: Productos/Details/5
@@ -334,7 +356,17 @@ namespace BomboProyect.Controllers
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             Productos productos = db.Productos.Find(id);
-            db.Productos.Remove(productos);
+            productos.Status = false;
+
+            // ESTO ES NECESARIO PARA CONSERVAR LA MISMA FOTO
+            string nombre = productos.Foto.Split('/')[2];
+            byte[] bytes = System.IO.File.ReadAllBytes(Server.MapPath(productos.Foto));
+            var contentTypeFile = "image/jpeg";
+            var filename = nombre;
+            productos.Fotografia = (HttpPostedFileBase)new MemoryPostedFile(new MemoryStream(bytes), contentTypeFile, filename);
+
+            db.Entry(productos).State = EntityState.Modified;
+            //db.Productos.Remove(productos);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

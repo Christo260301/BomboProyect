@@ -18,7 +18,28 @@ namespace BomboProyect.Controllers
         public ActionResult Index()
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+            ViewBag.activos = true;
             return View(db.Insumos.Where(i => i.Status == true).ToList());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(string actInac)
+        {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+            List<Insumos> insumos = new List<Insumos>();
+            if (actInac.Equals("INACTIVOS"))
+            {
+                ViewBag.activos = false;
+                insumos = db.Insumos.Where(i => i.Status == false).ToList();
+            } else
+            {
+                ViewBag.activos = true;
+                insumos = db.Insumos.Where(i => i.Status == true).ToList();
+            }
+
+            
+            return View(insumos);
         }
 
         // GET: Insumos/Details/5

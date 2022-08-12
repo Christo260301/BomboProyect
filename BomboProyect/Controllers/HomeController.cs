@@ -18,8 +18,8 @@ namespace IDGS902_EXAM_BD.Controllers
         public ActionResult Index()
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
-            ViewBag.productos = db.Productos.ToList();
-            return View(db.Productos.ToList());
+            ViewBag.productos = db.Productos.Where(p => p.Status == true).ToList();
+            return View(db.Productos.Where(p => p.Status == true).ToList());
         }
          
         public ActionResult About()
