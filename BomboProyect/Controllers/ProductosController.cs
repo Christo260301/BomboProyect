@@ -77,7 +77,7 @@ namespace BomboProyect.Controllers
             ViewBag.insumos = db.Insumos.ToList();
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
 
-            
+
             if (insumos != null)
             {
                 if (ModelState.IsValid)
@@ -147,7 +147,8 @@ namespace BomboProyect.Controllers
                         ViewBag.validInsumoList = true;
                     }
                 }
-            } else
+            }
+            else
             {
                 ViewBag.validInsumoList = true;
             }
@@ -360,7 +361,7 @@ namespace BomboProyect.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult GenerarExistencias([Bind(Include = "ProductoId,Existencias")] Productos productos)
+        public ActionResult GenerarExistencias([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Foto,Status,Existencias")] Productos productos)
         {
 
             ModelState.Remove("Nombre");
@@ -368,16 +369,17 @@ namespace BomboProyect.Controllers
             ModelState.Remove("Foto");
             ModelState.Remove("Fotografia");
 
+            List<DetProducto> ingredientes = new List<DetProducto>();
+
             if (ModelState.IsValid)
             {
                 int id = productos.ProductoId;
-                List<String> lstMensajes = new List<String>();
 
                 Productos prod = db.Productos.Find(id);
 
-                List<DetProducto> ingredientes = db.DetProductos.Where(m => m.Productos.ProductoId == id).Include(nameof(DetProducto.Insumo)).ToList();
+                ingredientes = db.DetProductos.Where(m => m.Productos.ProductoId == id).Include(nameof(DetProducto.Insumo)).ToList();
 
-                ViewBag.listP = ingredientes;
+
 
                 if (ingredientes.Count > 0)
                 {
@@ -388,7 +390,7 @@ namespace BomboProyect.Controllers
 
                     //Lista de insumos para calcular las restas de cantidad total (sin alterar BD)
                     List<Insumos> insumosListTemp = new List<Insumos>();
-                    foreach(DetProducto prt in ingredientes) { insumosListTemp.Add(prt.Insumo);  }
+                    foreach (DetProducto prt in ingredientes) { insumosListTemp.Add(prt.Insumo); }
 
                     //Lista para la validacion de las cantidades resultantes
                     List<double> listValidacion = new List<double>();
@@ -406,16 +408,19 @@ namespace BomboProyect.Controllers
                             listValidacion.Add(cont_act);
 
                             actualizarListaInsumosLocal(ingre.Insumo, insumosListTemp, cont_act);
-                            if (validarNegativos(listValidacion))
-                            {
-                                contProductComp++;
-                            } else
-                            {
-                                contProductFail++;
-                            }
 
-                            listValidacion = new List<double>();
                         }
+
+                        if (validarNegativos(listValidacion))
+                        {
+                            contProductComp++;
+                        }
+                        else
+                        {
+                            contProductFail++;
+                        }
+
+                        listValidacion = new List<double>();
                     }
 
                     if (contProductFail <= 0)
@@ -426,30 +431,42 @@ namespace BomboProyect.Controllers
                             Insumos insumoToModificar = db.Insumos.Find(ingre.Insumo.InsumoId);
 
                             if (insumoToModificar != null)
+
+                                db.Entry(insumoToModificar).State = EntityState.Unchanged;
                             {
-                                insumoToModificar.ContenidoTot = Math.Round((ingre.Insumo.ContenidoTot * existToGenerate), 3);
+                                double nuevoContTot = insumoToModificar.ContenidoTot - Math.Round((ingre.Cantidad * existToGenerate), 3);
+
                                 insumoToModificar.Existencias = calcularExistencia(
-                                    ingre.Insumo.ContenidoTot, 
-                                    ingre.Insumo.Existencias, 
-                                    ingre.Insumo.ContenidoTot);
+                                    ingre.Insumo.ContenidoTot,
+                                    ingre.Insumo.Existencias,
+                                    nuevoContTot);
+
+                                insumoToModificar.ContenidoTot = nuevoContTot;
 
                                 db.Entry(insumoToModificar).State = EntityState.Modified;
                             }
-                            
+
                         }
 
-                        productos.Existencias = existToGenerate;
-                        db.Entry(productos).State = EntityState.Modified;
+                        prod.Existencias = existToGenerate;
+                        // ESTO ES NECESARIO PARA CONSERVAR LA MISMA FOTO
+                        string nombre = prod.Foto.Split('/')[2];
+                        byte[] bytes = System.IO.File.ReadAllBytes(Server.MapPath(prod.Foto));
+                        var contentTypeFile = "image/jpeg";
+                        var filename = nombre;
+                        prod.Fotografia = (HttpPostedFileBase)new MemoryPostedFile(new MemoryStream(bytes), contentTypeFile, filename);
+                        db.Entry(prod).State = EntityState.Modified;
 
                         db.SaveChanges();
 
-                        RedirectToAction("Index");
+                        RedirectToAction("Index", "Productos");
 
-                    } else
+                    }
+                    else
                     {
                         ViewBag.insumosFaltantes = true;
                         Dictionary<string, object> data = new Dictionary<string, object>();
-                        
+
                         data.Add("puedesProducir", Convert.ToString(contProductComp));
                         data.Add("productosFaltantes", Convert.ToString(contProductFail));
                         List<Dictionary<string, string>> dataInsumoList = new List<Dictionary<string, string>>();
@@ -457,7 +474,7 @@ namespace BomboProyect.Controllers
                         {
                             Dictionary<string, string> dic = new Dictionary<string, string>();
                             dic.Add("nombreInsumo", d.Insumo.Nombre);
-                            dic.Add("cantidadFaltante", Convert.ToString(Math.Round((d.Cantidad * contProductFail), 3) ));
+                            dic.Add("cantidadFaltante", Convert.ToString(Math.Round((d.Cantidad * contProductFail), 3)));
                             dic.Add("unidad", d.Insumo.Unidad);
                             dataInsumoList.Add(dic);
                         }
@@ -466,6 +483,15 @@ namespace BomboProyect.Controllers
                     }
                 }
             }
+
+            //RESET DE INSUMOS
+            foreach (DetProducto dtIn in ingredientes)
+            {
+                db.Entry(dtIn.Insumo).State = EntityState.Unchanged;
+            }
+            ViewBag.listP = ingredientes;
+
+            productos = db.Productos.Find(productos.ProductoId);
 
             return View(productos);
         }

@@ -2,7 +2,7 @@
 @using BomboProyect.Models
 
 @{
-    ViewBag.Title = "GenerarExistencias";
+    ViewBag.Title = "Generar Existencias";
 }
 
 <div class="container-fluid">
@@ -92,6 +92,11 @@
                     {
                         @Html.AntiForgeryToken()
                         @Html.HiddenFor(model => model.ProductoId)
+                        @Html.HiddenFor(model => model.Nombre)
+                        @Html.HiddenFor(model => model.Descripcion)
+                        @Html.HiddenFor(model => model.Precio)
+                        @Html.HiddenFor(model => model.Foto)
+                        @Html.HiddenFor(model => model.Status)
 
 
                         <div class="col-auto">
@@ -119,7 +124,7 @@
                         <ul>
                             @foreach (var dataDic in ViewBag.listaFaltantes)
                             {
-                                <li>@dataDic["nombreInsumo"] - <span class="text-danger">@dataDic["cantidadFaltante"]</span>@dataDic["unidad"]</li>
+                                <li>@dataDic["nombreInsumo"] - <span class="text-danger">@dataDic["cantidadFaltante"]</span> @dataDic["unidad"]</li>
                             }
                         </ul>
                     </div>
