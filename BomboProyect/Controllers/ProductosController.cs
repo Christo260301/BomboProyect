@@ -244,7 +244,7 @@ namespace BomboProyect.Controllers
 
                 // ############ MODIFICACION DE DETALLE DE PRODUCTOS
                 // Insumos removidos del producto
-                if (InsumosRemovidos != null)
+                if (InsumosRemovidos != null && InsumosRemovidos != "")
                 {
                     string idInsumosRemoved = InsumosRemovidos.Substring(1, InsumosRemovidos.Length - 2);
                     string[] lstIdInsumosRemoved = idInsumosRemoved.Split(',');
@@ -291,7 +291,7 @@ namespace BomboProyect.Controllers
                         }
                         else
                         {
-
+                            contador++;
                             detPro[0].Cantidad = item.Insumo.CantProduc;
                             db.Entry(detPro[0]).State = EntityState.Modified;
                         }
