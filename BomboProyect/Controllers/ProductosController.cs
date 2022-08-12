@@ -360,7 +360,7 @@ namespace BomboProyect.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult GenerarExistencias([Bind(Include = "ProductoId,Existencias")] Productos productos)
+        public ActionResult GenerarExistencias([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Existencias,Foto,Status")] Productos productos)
         {
 
             ModelState.Remove("Nombre");
@@ -406,16 +406,19 @@ namespace BomboProyect.Controllers
                             listValidacion.Add(cont_act);
 
                             actualizarListaInsumosLocal(ingre.Insumo, insumosListTemp, cont_act);
-                            if (validarNegativos(listValidacion))
-                            {
-                                contProductComp++;
-                            } else
-                            {
-                                contProductFail++;
-                            }
-
-                            listValidacion = new List<double>();
+                            
                         }
+
+                        if (validarNegativos(listValidacion))
+                        {
+                            contProductComp++;
+                        }
+                        else
+                        {
+                            contProductFail++;
+                        }
+
+                        listValidacion = new List<double>();
                     }
 
                     if (contProductFail <= 0)
@@ -439,9 +442,9 @@ namespace BomboProyect.Controllers
                         }
 
                         productos.Existencias = existToGenerate;
-                        db.Entry(productos).State = EntityState.Modified;
+                        //db.Entry(productos).State = EntityState.Modified;
 
-                        db.SaveChanges();
+                        //db.SaveChanges();
 
                         RedirectToAction("Index");
 
@@ -466,6 +469,8 @@ namespace BomboProyect.Controllers
                     }
                 }
             }
+
+            productos = db.Productos.Find(productos.ProductoId);
 
             return View(productos);
         }
