@@ -8,7 +8,7 @@
                 <center>
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <div class="card">
-                            <div class="card-body py-5 px-md-5">
+                            <div class="card-body py-5 px-md-1">
                                 <center>
                                     <form action="@Url.Action("Index","Acceso")" style="padding:10px" method="post">
 
@@ -31,12 +31,6 @@
                                         <div class="pt-1 mb-4">
                                             <button type="submit" class="btn btn-success">Ingresar</button>
                                         </div>
-
-                                        <p class="mb-5 pb-lg-2" style="color: #393f81;">
-                                            ¿No tienes una cuenta?
-                                            @Html.ActionLink("Registrate", "Create", "Usuarios", null,
-                                            new { @class = "nav-link" })
-                                        </p>
                                     </form>
                                 </center>   
                             </div>

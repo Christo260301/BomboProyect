@@ -4,71 +4,107 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<br />
+<div class="container-fluid">
+    <div class="row justify-content-center mt-3">
+        <div class="col-4">
+            <h2>Información del insumo</h2>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-10 shadow p-3 mb-5 bg-body rounded">
+            <div class="row mb-10">
+                <div class="col">
+                    <div class="row mb-9">
+                        <div class="col">
+                            <div class="form-outline">
+                                <h5>
+                                    <label class="form-label" for="form6Example1">Nombre del insumo:</label>
+                                </h5>
+                                @Html.DisplayFor(model => model.Nombre)
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <h5>
+                                    <label class="form-label" for="form6Example1">Descripción:</label>
+                                </h5>
+                                @Html.DisplayFor(model => model.Descripcion)
+                            </div>
+                        </div>
+                    </div>
 
-<div>
-    <h4>Insumos</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
+                    <hr />
 
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
+                    <div class="row mb-9">
+                        <div class="col">
+                            <div class="form-outline">
+                                <h5>
+                                    <label class="form-label" for="form6Example1">Precio de compra:</label>
+                                </h5>
+                                @Html.DisplayFor(model => model.Precio)
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <h5>
+                                    <label class="form-label" for="form6Example1">Existencias en stock:</label>
+                                </h5>
+                                @Html.DisplayFor(model => model.Existencias)
+                            </div>
+                        </div>
+                    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
+                    <hr />
 
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
+                    <div class="row mb-9">
+                        <div class="col">
+                            <div class="form-outline">
+                                <h5>
+                                    <label class="form-label" for="form6Example1">Cantidad neta:</label>
+                                </h5>
+                                @Html.DisplayFor(model => model.CantidadNeta)
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <h5>
+                                    <label class="form-label" for="form6Example1">Contenido total:</label>
+                                </h5>
+                                @Html.DisplayFor(model => model.ContenidoTot)
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <h5>
+                                    <label class="form-label" for="form6Example2">Estatus:</label>
+                                </h5>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Precio)
-        </dt>
+                                @if (Model.Status)
+                                {
+                                    <p><span class="badge bg-success">Activo</span></p>
+                                    <span class="text-success"></span>
+                                }
+                                else
+                                {
+                                    <p><span class="badge bg-danger">Inactivo</span></p>
+                                }
 
-        <dd>
-            @Html.DisplayFor(model => model.Precio)
-        </dd>
+                            </div>
+                        </div>
+                    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CantidadNeta)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CantidadNeta)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ContenidoTot)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ContenidoTot)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Existencias)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Existencias)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.InsumoId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="col-lg-12" style="margin-bottom:30px;">
+    <div style="float: right; padding-right: 10px;">
+        @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+    <div style="float: right; padding-right: 10px;">
+        @Html.ActionLink("Editar información", "Edit", new { id = Model.InsumoId }, new { @class = "btn btn-dark" })
+    </div>
+</div>
+<br />

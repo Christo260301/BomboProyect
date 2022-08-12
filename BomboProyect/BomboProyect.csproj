@@ -163,10 +163,12 @@
     <Content Include="app\img\facebook.png" />
     <Content Include="app\img\gestion-web.png" />
     <Content Include="app\img\home.png" />
+    <Content Include="app\img\informacion.png" />
     <Content Include="app\img\instagram.png" />
     <Content Include="app\img\LogoBombo.png" />
     <Content Include="app\img\logotipo-de-twitter.png" />
     <Content Include="app\img\mapa.png" />
+    <Content Include="app\img\mision.png" />
     <Content Include="app\img\panaderia.png" />
     <Content Include="app\img\panaderiaBonbo.png" />
     <Content Include="app\img\sale.png" />
@@ -174,6 +176,8 @@
     <Content Include="app\img\supply.png" />
     <Content Include="app\img\teamwork.png" />
     <Content Include="app\img\user.png" />
+    <Content Include="app\img\valores.png" />
+    <Content Include="app\img\vision.png" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />

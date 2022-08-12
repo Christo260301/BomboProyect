@@ -67,6 +67,16 @@
                             </li>
 
                             <!---------------------------------------------------------------------->
+                            <li class="nav-item">
+                                <h5>
+                                    <a class="nav-link px-1 text-muted" href="@Url.Action("About", "Home")">
+                                        <img src="~/app/img/informacion.png" width="30" height="30" />
+                                        <span>Nosotros</span>
+                                    </a>
+                                </h5>
+                            </li>
+
+                            <!---------------------------------------------------------------------->
                             if (ViewBag.ssUsuario.Rol.RolId == 1)
                             {
                                 <li class="nav-item">
@@ -179,14 +189,14 @@
                             <!---------------------------------------------------------------------->
 
 
-                                <li class="nav-item">
-                                    <h5>
-                                        <a class="nav-link px-1 text-muted" href="@Url.Action("Details", new {})">
-                                            <img src="~/app/img/gestion-web.png" width="30" height="30" />
-                                            <span>Configuración</span>
-                                        </a>
-                                    </h5>
-                                </li>
+                            <li class="nav-item">
+                                <h5>
+                                    <a class="nav-link px-1 text-muted" href="@Url.Action("Details", new {})">
+                                        <img src="~/app/img/gestion-web.png" width="30" height="30" />
+                                        <span>Configuración</span>
+                                    </a>
+                                </h5>
+                            </li>
 
                             <!---------------------------------------------------------------------->
                             <li class="nav-item">
