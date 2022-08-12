@@ -12,6 +12,27 @@
     </a>
 </div>
 
+<div class="row justify-content-start">
+    <div class="row">
+        @using (Html.BeginForm("Index", "Usuarios", FormMethod.Post, new { @class = "" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="actInac" id="flexRadioDefault1" value="ACTIVOS" @(ViewBag.activos == true ? "checked" : "")>
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Activos
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="actInac" id="flexRadioDefault2" value="INACTIVOS" @(ViewBag.activos == false ? "checked" : "")>
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Inactivos
+                </label>
+            </div>
+            <button class="btn btn-dark" type="submit">Cargar</button>
+        }
+    </div>
+</div>
 <table class="table mt-2 text-center">
     <thead class="table-dark">
         <tr>
@@ -65,23 +86,27 @@
 
                 <td>
                     <div class="d-flex justify-content-center">
-                        
-                            <div>
-                                <a href="@Url.Action("Edit", new { id = item.UsuarioId })" class="btn btn-dark btn-icon">
-                                    <i class="fa-solid fa-pen"></i>
-                                </a>
-                            </div>
-                        
+
+                        <div>
+                            <a href="@Url.Action("Edit", new { id = item.UsuarioId })" class="btn btn-dark btn-icon">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+                        </div>
+
                         <div>
                             <a href="@Url.Action("Details", new { id = item.UsuarioId })" class="btn btn-warning btn-icon">
                                 <i class="fa-solid fa-info"></i>
                             </a>
                         </div>
-                        <div>
-                            <a href="@Url.Action("Delete", new { id = item.UsuarioId })" class="btn btn-danger btn-icon">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
+                        @if (item.Status == true)
+                        {
+                            <div>
+                                <a href="@Url.Action("Delete", new { id = item.UsuarioId })" class="btn btn-danger btn-icon">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </div>
+                        }
+
                     </div>
                     <!--
                     Html.ActionLink("Edit", "Edit", new { id = item.UsuarioId }) |

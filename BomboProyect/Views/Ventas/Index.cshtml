@@ -42,20 +42,44 @@
                     <td>
                         @if (item.Status == 1)
                         {
-                            <p><span class="badge bg-success">Activo</span></p>
+                            <p><span class="badge bg-success">Activa</span></p>
+                        }
+                        else if (item.Status == 2)
+                        {
+                            <p><span class="badge bg-danger">Cancelada</span></p>
                         }
                         else
                         {
-                            <p><span class="badge bg-danger">Inactivo</span></p>
+                            <p><span class="badge bg-info">Terminada</span></p>
                         }
                     </td>
                     <td>
-                        <div>
+                        <div class="mb-2">
                             <a href="@Url.Action("Details", "Ventas", new { id = item.VentaId })" class="btn btn-warning">
                                 <i class="fa-solid fa-info"></i>
                                 <span class="ms-2">Detalle de Venta</span>
                             </a>
                         </div>
+                        @if (item.Status != 3 && item.Status != 2)
+                        {
+                            <div class="mb-2">
+                                <a href="@Url.Action("Cancelar", "Ventas", new { id = item.VentaId })" class="btn btn-danger">
+                                    <i class="fa-solid fa-ban"></i>
+                                    <span class="ms-2">Cancelar venta</span>
+                                </a>
+                            </div>
+                        }
+
+                        @if (item.Status == 1)
+                        {
+                            <div class="mb-2">
+                                <a href="@Url.Action("Terminar", "Ventas", new { id = item.VentaId })" class="btn btn-info">
+                                    <i class="fa-solid fa-check"></i>
+                                    <span class="ms-2">Terminar venta</span>
+                                </a>
+                            </div>
+                        }
+
                     </td>
                 </tr>
             }
