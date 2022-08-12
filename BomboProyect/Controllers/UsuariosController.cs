@@ -93,11 +93,13 @@ namespace BomboProyect.Controllers
                     usuarios.Rol = roles;
                     db.Usuarios.Add(usuarios);
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Acceso");
+                    return RedirectToAction("Index", "Usuarios");
                 }
             }
             catch (Exception)
             {
+                ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+                ViewBag.Roless = new SelectList(db.RolesUsers, "RolId", "NombreRol");
                 return View();
             }
 

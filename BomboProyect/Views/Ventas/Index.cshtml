@@ -34,10 +34,10 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FechaVenta)
+                        @Html.DisplayFor(modelItem => item.FechaVenta).ToString().Substring(0, 10)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoraVenta)
+                        @Html.DisplayFor(modelItem => item.HoraVenta).ToString().Substring(11)
                     </td>
                     <td>
                         @if (item.Status == 1)
