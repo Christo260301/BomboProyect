@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BomboProyect.Logica;
 using BomboProyect.Models;
 
 namespace BomboProyect.Controllers
@@ -74,8 +76,22 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "VentaId,Fechaventa,HoraVenta,Status")] Ventas ventas,List<Productos> productos)
+        public ActionResult Create([Bind(Include = "VentaId,Fechaventa,HoraVenta")] Ventas ventas,List<Productos> productos)
         {
+
+            ModelState.Remove("Usuarios");
+            
+            if (productos.Count > 0)
+            {
+                for(int i = 0; i < productos.Count; i++)
+                {
+                    ModelState.Remove($"[{i}].Nombre");
+                    ModelState.Remove($"[{i}].Descripcion");
+                    ModelState.Remove($"[{i}].Foto");
+                    ModelState.Remove($"[{i}].Fotografia");
+                }
+            }
+
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             try {
                 if (Session["Usuario"] != null)
@@ -85,6 +101,7 @@ namespace BomboProyect.Controllers
                     user.UsuarioId = usuario.UsuarioId;
                     db.Usuarios.Attach(user);
                     ventas.Usuarios = user;
+                    ventas.Status = 1; // ACTIVADA
                     db.Ventas.Add(ventas);
 
                     int contador = 0;
@@ -111,6 +128,14 @@ namespace BomboProyect.Controllers
                                 Productos prod = dp.Productos.Find(item.ProductoId);
                                 int exist = prod.Existencias - item.Existencias;
                                 prod.Existencias = exist;
+
+                                // ESTO ES NECESARIO PARA CONSERVAR LA MISMA FOTO
+                                string nombre = prod.Foto.Split('/')[2];
+                                byte[] bytes = System.IO.File.ReadAllBytes(Server.MapPath(prod.Foto));
+                                var contentTypeFile = "image/jpeg";
+                                var filename = nombre;
+                                prod.Fotografia = (HttpPostedFileBase)new MemoryPostedFile(new MemoryStream(bytes), contentTypeFile, filename);
+
                                 dp.Productos.Attach(prod);
                                 dp.Entry(prod).Property(x => x.Existencias).IsModified = true;
                                 dp.SaveChanges();
@@ -138,6 +163,66 @@ namespace BomboProyect.Controllers
             }
 
 
+        }
+
+        public ActionResult Cancelar(int? id)
+        {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var venta = db.Ventas.Include(m => m.Usuarios).Include(m => m.DetVenta).Where(m => m.VentaId == id).ToList();
+            Ventas ventas = venta[0];
+
+            if (ventas != null)
+            {
+                ventas.Status = 2;
+                db.Entry(ventas).State = EntityState.Modified;
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        public ActionResult Terminar(int? id)
+        {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var venta = db.Ventas.Include(m => m.Usuarios).Include(m => m.DetVenta).Where(m => m.VentaId == id).ToList();
+            Ventas ventas = venta[0];
+
+            if (ventas != null)
+            {
+                ventas.Status = 3;
+                db.Entry(ventas).State = EntityState.Modified;
+
+                db.SaveChanges();
+
+                Usuarios usr = new Usuarios();
+                usr = Session["Usuario"] as Usuarios;
+                if (usr.Rol.RolId == 3 || usr.Rol.RolId == 2)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult _ListProductos() 
