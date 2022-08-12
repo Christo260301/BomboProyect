@@ -18,7 +18,29 @@ namespace BomboProyect.Controllers
         public ActionResult Index()
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
-            return View(db.Usuarios.ToList());
+            ViewBag.activos = true;
+            return View(db.Usuarios.Where(u => u.Status == true).ToList());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(string actInac)
+        {
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+            List<Usuarios> usuarios = new List<Usuarios>();
+            if (actInac.Equals("INACTIVOS"))
+            {
+                ViewBag.activos = false;
+                usuarios = db.Usuarios.Where(i => i.Status == false).ToList();
+            }
+            else
+            {
+                ViewBag.activos = true;
+                usuarios = db.Usuarios.Where(i => i.Status == true).ToList();
+            }
+
+
+            return View(usuarios);
         }
 
         // GET: Usuarios/Details/5
@@ -137,7 +159,9 @@ namespace BomboProyect.Controllers
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             Usuarios usuarios = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuarios);
+            usuarios.Status = false;
+            db.Entry(usuarios).State = EntityState.Modified;
+            //db.Usuarios.Remove(usuarios);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

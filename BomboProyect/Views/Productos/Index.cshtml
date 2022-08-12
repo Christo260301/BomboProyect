@@ -15,6 +15,28 @@
         </a>
     </div>
 
+    <div class="row justify-content-start">
+        <div class="row">
+            @using (Html.BeginForm("Index", "Productos", FormMethod.Post, new { @class = "" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="actInac" id="flexRadioDefault1" value="ACTIVOS" @(ViewBag.activos == true ? "checked" : "")>
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Activos
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="actInac" id="flexRadioDefault2" value="INACTIVOS" @(ViewBag.activos == false ? "checked" : "")>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Inactivos
+                    </label>
+                </div>
+                <button class="btn btn-dark" type="submit">Cargar</button>
+            }
+        </div>
+    </div>
+
     <table class="table mt-2">
         <thead class="table-dark">
             <tr>
@@ -72,11 +94,15 @@
                     </td>
                     <td>
                         <div class="d-flex justify-content-center">
-                            <div>
-                                <a href="@Url.Action("GenerarExistencias", "Productos", new { id = item.ProductoId })" class="btn btn-secondary btn-icon">
-                                    <i class="fa-solid fa-plus"></i>
-                                </a>
-                            </div>
+                                @if (item.Status == true)
+                                {
+                                    <div>
+                                        <a href="@Url.Action("GenerarExistencias", "Productos", new { id = item.ProductoId })" class="btn btn-secondary btn-icon">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </a>
+                                    </div>
+                                }
+
                             <div>
                                 <a href="@Url.Action("Edit", "Productos", new { id = item.ProductoId })" class="btn btn-dark btn-icon">
                                     <i class="fa-solid fa-pen"></i>
@@ -87,15 +113,19 @@
                                     <i class="fa-solid fa-info"></i>
                                 </a>
                             </div>
-                            <div>
-                                <a href="@Url.Action("Delete", "Productos", new { id = item.ProductoId })" class="btn btn-danger btn-icon">
-                                    <i class="fa-solid fa-trash"></i>
-                                </a>
-                            </div>
+                            @if (item.Status == true)
+                            {
+                                <div>
+                                    <a href="@Url.Action("Delete", "Productos", new { id = item.ProductoId })" class="btn btn-danger btn-icon">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </div>
+                            }
+
                         </div>
-                        
-                        
-                        
+
+
+
                         <!--
                         Html.ActionLink("Edit", "Edit", new { id = item.ProductoId }) |
                         Html.ActionLink("Details", "Details", new { id = item.ProductoId }) |
@@ -107,7 +137,7 @@
             }
         </tbody>
 
-        
+
 
     </table>
 
