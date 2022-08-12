@@ -2,80 +2,83 @@
 @model BomboProyect.Models.Ventas
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalle";
 }
 
-<h2>Detalles de la venta</h2>
+<div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-6">
+            <h2>Información del venta</h2>
+        </div>
+        <div class="col-6">
+            <div class="d-flex justify-content-end">
+                <a href="@Url.Action("Index", "Ventas")" class="btn btn-secondary">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Regresar al listado</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
-<div>
-    <h4>Ventas</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Nombre del Cliente
-        </dt>
-
-        <dd>
-            @ViewBag.nombreUser
-        </dd>
-        
-        <dt>
-            Fecha Venta
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FechaVenta)
-        </dd>
-
-        <dt>
-            Hora Venta
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HoraVenta)
-        </dd>
-
-        <dt>
-            Estatus
-        </dt>
-
-        <dd>
-           @if (Model.Status == 1)
-           {
-              <div style="background-color:green; width:70px; text-align:center; border-radius:10px;">Activo</div>
-           }
-           else {<div style="background-color:red; width:70px; text-align:center;">Inactivo</div>}
-        </dd>
-    </dl>
-    <hr />
-    <h4>Productos de la venta</h4>
-    <table class="table table-bordered text-center">
-        <tr>
-            <th>Nombre del Producto</th>
-            <th>Descripcion</th>
-            <th>Precio C/U</th>
-            <th>Cantidad Vendida</th>
-            <th>Sub Total</th>
-        </tr>
-        @{int cont = 0;}
-        @foreach (DetVenta pr in ViewBag.listV)
-        {   
-            <tr>
-
-
-                <td>@ViewBag.listP[cont].Nombre</td>
-                <td>@ViewBag.listP[cont].Descripcion</td>
-                <td>@ViewBag.listP[cont].Precio</td>
+    <div class="row justify-content-center mt-3">
+        <div class="col-10 shadow p-3 mb-5 bg-body rounded">
+            <div class="row mb-10">
+                    <div class="col-3">
+                        <label class="fw-bold">Nombre de Usuario</label>
+                        <p>@ViewBag.nombreUser</p>
+                    </div>
+                    <div class="col-3">
+                        <label class="fw-bold">Fecha de venta</label>
+                        <p>@Html.DisplayFor(model => model.FechaVenta)</p>
+                    </div>
+                    <div class="col-3">
+                        <label class="fw-bold">Hora de venta</label>
+                        <p>@Html.DisplayFor(model => model.HoraVenta)</p>
+                    </div>
+                    <div class="col-3">
+                        <label class="fw-bold">Status</label>
+                        @if (Model.Status == 1)
+                        {
+                            <p><span class="badge bg-success">Activo</span></p>
+                        }
+                        else
+                        {
+                            <p><span class="badge bg-danger">Inactivo</span></p>
+                        }
+                    </div>
+            </div>
+            <div class="row p-2">
+                <h4>Productos de la venta</h4>
+                <table class="table text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nombre del Producto</th>
+                            <th>Descripcion</th>
+                            <th>Precio C/U</th>
+                            <th>Cantidad Vendida</th>
+                            <th>Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int cont = 0;}
+                        @foreach (DetVenta pr in ViewBag.listV)
+                        {
+                            <tr>
 
 
-                <td>@pr.Cantidad</td>
-                <td>@pr.PrecioVenta</td>
-            </tr>
-            cont=cont+1;
-        }
+                                <td>@ViewBag.listP[cont].Nombre</td>
+                                <td>@ViewBag.listP[cont].Descripcion</td>
+                                <td>@ViewBag.listP[cont].Precio</td>
 
-    </table>
+
+                                <td>@pr.Cantidad</td>
+                                <td>@pr.PrecioVenta</td>
+                            </tr>
+                            cont = cont + 1;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-<p>    
-    <a href="/Ventas/Index" class="btn btn-info">Regresar a la lista</a>
-</p>

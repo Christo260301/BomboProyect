@@ -18,7 +18,7 @@ namespace BomboProyect.Controllers
         public ActionResult Index()
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
-            return View(db.Insumos.ToList());
+            return View(db.Insumos.Where(i => i.Status == true).ToList());
         }
 
         // GET: Insumos/Details/5
@@ -52,11 +52,14 @@ namespace BomboProyect.Controllers
         public ActionResult Create([Bind(Include = "InsumoId,Nombre,Descripcion,Precio,Unidad,CantidadNeta,ContenidoTot,Existencias,Status")] Insumos insumos)
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+            insumos.Status = true;
+            insumos.ContenidoTot = 0;
+            insumos.Existencias = 0;
             if (ModelState.IsValid)
             {
                 db.Insumos.Add(insumos);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Insumos");
             }
 
             return View(insumos);
@@ -83,9 +86,12 @@ namespace BomboProyect.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "InsumoId,Nombre,Descripcion,Precio,CantidadNeta,ContenidoTot,Existencias,Status")] Insumos insumos)
+        public ActionResult Edit([Bind(Include = "InsumoId,Unidad,Nombre,Descripcion,Precio,CantidadNeta,ContenidoTot,Existencias,Status")] Insumos insumos)
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+
+            //ModelState.Remove("Unidad");
+
             if (ModelState.IsValid)
             {
                 db.Entry(insumos).State = EntityState.Modified;
@@ -118,7 +124,9 @@ namespace BomboProyect.Controllers
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
             Insumos insumos = db.Insumos.Find(id);
-            db.Insumos.Remove(insumos);
+            insumos.Status = false;
+            db.Entry(insumos).State = EntityState.Modified;
+            //db.Insumos.Remove(insumos);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
