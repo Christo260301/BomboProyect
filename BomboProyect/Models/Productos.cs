@@ -28,6 +28,7 @@ namespace BomboProyect.Models
         public String Foto { get; set; }
 
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
+        [Range(0, Int32.MaxValue, ErrorMessage = "El valor minino es 0")]
         public int Existencias { get; set; }
 
         [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
@@ -38,6 +39,7 @@ namespace BomboProyect.Models
         //public List<DetProducto> DetProducto { get; set; }
 
         [NotMapped]
+        [Required(ErrorMessage = "El campo '{0}' es obligatorio")]
         public HttpPostedFileBase Fotografia { get; set; }
 
         public void EliminarFoto(string ruta)
