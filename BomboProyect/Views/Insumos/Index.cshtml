@@ -34,10 +34,12 @@
             }
         </div>
     </div>
+    <br />
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar insumos" />
     <div class="table-scroll">
-        <table class="table mt-2 text-center">
+        <table class="table mt-2 text-center" id="myTable">
             <thead class="table-dark">
-                <tr>
+                <tr class="header">
                     <th>
                         @Html.DisplayNameFor(model => model.Nombre)
                     </th>
@@ -111,10 +113,10 @@
 
                             </div>
                             <!--
-                        Html.ActionLink("Edit", "Edit", new { id = item.InsumoId }) |
-                        Html.ActionLink("Details", "Details", new { id = item.InsumoId }) |
-                        Html.ActionLink("Delete", "Delete", new { id = item.InsumoId })
-                        -->
+                            Html.ActionLink("Edit", "Edit", new { id = item.InsumoId }) |
+                            Html.ActionLink("Details", "Details", new { id = item.InsumoId }) |
+                            Html.ActionLink("Delete", "Delete", new { id = item.InsumoId })
+                            -->
                         </td>
 
                     </tr>

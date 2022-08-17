@@ -35,11 +35,12 @@
                 <button class="btn btn-dark" type="submit">Cargar</button>
             }
         </div>
-    </div>
+    </div><br />
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar Productos" />
     <div class="table-scroll">
-        <table class="table mt-2">
+        <table class="table mt-2" id="myTable">
             <thead class="table-dark">
-                <tr>
+                <tr class="header">
                     <th>
                         @Html.DisplayNameFor(model => model.Nombre)
                     </th>
@@ -127,10 +128,10 @@
 
 
                             <!--
-                        Html.ActionLink("Edit", "Edit", new { id = item.ProductoId }) |
-                        Html.ActionLink("Details", "Details", new { id = item.ProductoId }) |
-                        Html.ActionLink("Delete", "Delete", new { id = item.ProductoId })
-                        -->
+                            Html.ActionLink("Edit", "Edit", new { id = item.ProductoId }) |
+                            Html.ActionLink("Details", "Details", new { id = item.ProductoId }) |
+                            Html.ActionLink("Delete", "Delete", new { id = item.ProductoId })
+                            -->
 
                         </td>
                     </tr>
