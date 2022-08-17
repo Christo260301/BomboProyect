@@ -36,64 +36,64 @@
             }
         </div>
     </div>
-
-    <table class="table mt-2">
-        <thead class="table-dark">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Nombre)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Descripcion)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Precio)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Foto)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Existencias)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <div class="table-scroll">
+        <table class="table mt-2">
+            <thead class="table-dark">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descripcion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Precio)
-                    </td>
-                    <td>
-                        <img src="@Url.Content(item.Foto)" style="height: 100px; width: 100px" />
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Existencias)
-                    </td>
-                    <td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Precio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Foto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Existencias)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio)
+                        </td>
+                        <td>
+                            <img src="@Url.Content(item.Foto)" style="height: 100px; width: 100px" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Existencias)
+                        </td>
+                        <td>
 
-                        @if (item.Status)
-                        {
-                            <p><span class="badge bg-success">Activo</span></p>
-                        }
-                        else
-                        {
-                            <p><span class="badge bg-danger">Inactivo</span></p>
-                        }
+                            @if (item.Status)
+                            {
+                                <p><span class="badge bg-success">Activo</span></p>
+                            }
+                            else
+                            {
+                                <p><span class="badge bg-danger">Inactivo</span></p>
+                            }
 
-                    </td>
-                    <td>
-                        <div class="d-flex justify-content-center">
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center">
                                 @if (item.Status == true)
                                 {
                                     <div>
@@ -103,42 +103,43 @@
                                     </div>
                                 }
 
-                            <div>
-                                <a href="@Url.Action("Edit", "Productos", new { id = item.ProductoId })" class="btn btn-dark btn-icon">
-                                    <i class="fa-solid fa-pen"></i>
-                                </a>
-                            </div>
-                            <div>
-                                <a href="@Url.Action("Details", "Productos", new { id = item.ProductoId })" class="btn btn-warning btn-icon">
-                                    <i class="fa-solid fa-info"></i>
-                                </a>
-                            </div>
-                            @if (item.Status == true)
-                            {
                                 <div>
-                                    <a href="@Url.Action("Delete", "Productos", new { id = item.ProductoId })" class="btn btn-danger btn-icon">
-                                        <i class="fa-solid fa-trash"></i>
+                                    <a href="@Url.Action("Edit", "Productos", new { id = item.ProductoId })" class="btn btn-dark btn-icon">
+                                        <i class="fa-solid fa-pen"></i>
                                     </a>
                                 </div>
-                            }
+                                <div>
+                                    <a href="@Url.Action("Details", "Productos", new { id = item.ProductoId })" class="btn btn-warning btn-icon">
+                                        <i class="fa-solid fa-info"></i>
+                                    </a>
+                                </div>
+                                @if (item.Status == true)
+                                {
+                                    <div>
+                                        <a href="@Url.Action("Delete", "Productos", new { id = item.ProductoId })" class="btn btn-danger btn-icon">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    </div>
+                                }
 
-                        </div>
+                            </div>
 
 
 
-                        <!--
+                            <!--
                         Html.ActionLink("Edit", "Edit", new { id = item.ProductoId }) |
                         Html.ActionLink("Details", "Details", new { id = item.ProductoId }) |
                         Html.ActionLink("Delete", "Delete", new { id = item.ProductoId })
                         -->
 
-                    </td>
-                </tr>
-            }
-        </tbody>
+                        </td>
+                    </tr>
+                }
+            </tbody>
 
 
 
-    </table>
+        </table>
+    </div>
 
 </div>
