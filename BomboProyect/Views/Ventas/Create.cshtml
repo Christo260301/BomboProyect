@@ -24,7 +24,7 @@
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
-                <div class="row" style="padding-right: 20px; padding-left: 20px;">
+                <div class="row" style="padding-right: 20px; padding-left: 20px; margin-bottom:10px">
                     <div class="col-md-4">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
@@ -62,8 +62,8 @@
                             </div>
                         </div> <br />*@
                     </div>
-                    <div class="col-md-8">
-                        <div id="divProductos"></div>
+                    <div class="col-md-8" >
+                        <div id="divProductos" class="table-scroll"></div>
                     </div>
                 </div>
 
