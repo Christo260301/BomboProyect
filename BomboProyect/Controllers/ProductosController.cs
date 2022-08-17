@@ -402,6 +402,7 @@ namespace BomboProyect.Controllers
             ModelState.Remove("Fotografia");
 
             List<DetProducto> ingredientes = new List<DetProducto>();
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
 
             if (ModelState.IsValid)
             {
