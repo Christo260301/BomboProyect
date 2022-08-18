@@ -393,7 +393,7 @@ namespace BomboProyect.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult GenerarExistencias([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Foto,Status,Existencias")] Productos productos)
+        public ActionResult GenerarExistencias([Bind(Include = "ProductoId,Nombre,Descripcion,Precio,Foto,Status,Existencias")] Productos productos, string existAct)
         {
 
             ModelState.Remove("Nombre");
@@ -402,6 +402,7 @@ namespace BomboProyect.Controllers
             ModelState.Remove("Fotografia");
 
             List<DetProducto> ingredientes = new List<DetProducto>();
+            ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
 
             if (ModelState.IsValid)
             {
@@ -475,12 +476,19 @@ namespace BomboProyect.Controllers
 
                                 insumoToModificar.ContenidoTot = nuevoContTot;
 
+                                //**//
+                                insumoToModificar.Status = true;
+                                //**//
+
                                 db.Entry(insumoToModificar).State = EntityState.Modified;
                             }
 
                         }
 
-                        prod.Existencias = existToGenerate;
+                        //**//
+                        prod.Existencias = Int32.Parse(existAct) + existToGenerate;
+                        //**//
+
                         // ESTO ES NECESARIO PARA CONSERVAR LA MISMA FOTO
                         string nombre = prod.Foto.Split('/')[2];
                         byte[] bytes = System.IO.File.ReadAllBytes(Server.MapPath(prod.Foto));

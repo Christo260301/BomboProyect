@@ -69,11 +69,12 @@
                 <!-- SELECCION DE MATERIAS PRIMAS -->
                 <h4 class="mb-3">Materiales</h4>
                 <div class="row justify-content-between">
-                    <div class="col-5">
+                    <div class="col-5 table-scroll">
                         <h5>Insumos Disponibles</h5>
-                        <table class="table">
+                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar insumos" />
+                        <table class="table" id="myTable">
                             <thead class="table-secondary">
-                                <tr>
+                                <tr class="header">
                                     <th>Nombre</th>
                                     <th>Cantidad Neta</th>
                                     <th>Unidad de Medida</th>
