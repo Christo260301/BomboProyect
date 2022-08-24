@@ -482,7 +482,8 @@ namespace BomboProyect.Controllers
                         {
                             // CANTIDAD TOTAL DEL INSUMO
                             double cont_tot = getContenidoTotal(insumosListTemp, ingre.Insumo);
-                            double cont_act = cont_tot - ingre.Cantidad;
+                            //double cont_act = cont_tot - ingre.Cantidad;
+                            double cont_act = cont_tot - ConvertUnidad(ingre.Cantidad, ingre.Unidad, ingre.Insumo.Unidad);
 
                             listValidacion.Add(cont_act);
 
@@ -513,7 +514,7 @@ namespace BomboProyect.Controllers
 
                                 db.Entry(insumoToModificar).State = EntityState.Unchanged;
                             {
-                                double nuevoContTot = insumoToModificar.ContenidoTot - Math.Round((ingre.Cantidad * existToGenerate), 3);
+                                double nuevoContTot = insumoToModificar.ContenidoTot - Math.Round((ConvertUnidad(ingre.Cantidad, ingre.Unidad, insumoToModificar.Unidad) * existToGenerate), 3);
 
                                 insumoToModificar.Existencias = calcularExistencia(
                                     ingre.Insumo.ContenidoTot,
@@ -545,7 +546,8 @@ namespace BomboProyect.Controllers
 
                         db.SaveChanges();
 
-                        RedirectToAction("Index", "Productos");
+                        //RedirectToAction("Index", "Productos");
+                        return RedirectToAction("Index", "Productos");
 
                     }
                     else
@@ -561,7 +563,8 @@ namespace BomboProyect.Controllers
                             Dictionary<string, string> dic = new Dictionary<string, string>();
                             dic.Add("nombreInsumo", d.Insumo.Nombre);
                             dic.Add("cantidadFaltante", Convert.ToString(Math.Round((d.Cantidad * contProductFail), 3)));
-                            dic.Add("unidad", d.Insumo.Unidad);
+                            //dic.Add("cantidadFaltante", Convert.ToString(Math.Round((ConvertUnidad(d.Cantidad, d.Unidad, d.Insumo.Unidad) * contProductFail), 3)));
+                            dic.Add("unidad", d.Unidad);
                             dataInsumoList.Add(dic);
                         }
                         ViewBag.estadoGeneracion = data;
@@ -638,6 +641,106 @@ namespace BomboProyect.Controllers
         protected double calcularExistencia(double contenidoTotalActual, double existenciaActual, double nuevoContenidoTotal)
         {
             return (nuevoContenidoTotal * existenciaActual) / contenidoTotalActual;
+        }
+
+        protected double ConvertUnidad(double cantOrignal, string unidadOriginal, string unidadAConvertir)
+        {
+            double resultado = 0.0;
+
+            if (unidadOriginal != null)
+            {
+                switch (unidadOriginal)
+                {
+                    case "KG":
+                        switch (unidadAConvertir)
+                        {
+                            case "KG":
+                                resultado = cantOrignal;
+                                break;
+                            case "GR":
+                                resultado = cantOrignal * 1000;
+                                break;
+                            case "LT":
+                                resultado = cantOrignal;
+                                break;
+                            case "ML":
+                                resultado = cantOrignal * 1000;
+                                break;
+                            case "PZ":
+                                // NO SE PUEDE CONVERTIR KG A PZ
+                                resultado = cantOrignal;
+                                break;
+                        }
+                        break;
+                    case "GR":
+                        switch (unidadAConvertir)
+                        {
+                            case "KG":
+                                resultado = cantOrignal * 0.001;
+                                break;
+                            case "GR":
+                                resultado = cantOrignal;
+                                break;
+                            case "LT":
+                                resultado = cantOrignal * 0.001;
+                                break;
+                            case "ML":
+                                resultado = cantOrignal;
+                                break;
+                            case "PZ":
+                                // NO SE PUEDE CONVERTIR KG A PZ
+                                resultado = cantOrignal;
+                                break;
+                        }
+                        break;
+                    case "LT":
+                        switch (unidadAConvertir)
+                        {
+                            case "KG":
+                                resultado = cantOrignal;
+                                break;
+                            case "GR":
+                                resultado = cantOrignal * 1000;
+                                break;
+                            case "LT":
+                                resultado = cantOrignal;
+                                break;
+                            case "ML":
+                                resultado = cantOrignal * 1000;
+                                break;
+                            case "PZ":
+                                // NO SE PUEDE CONVERTIR KG A PZ
+                                resultado = cantOrignal;
+                                break;
+                        }
+                        break;
+                    case "ML":
+                        switch (unidadAConvertir)
+                        {
+                            case "KG":
+                                resultado = cantOrignal * 0.001;
+                                break;
+                            case "GR":
+                                resultado = cantOrignal;
+                                break;
+                            case "LT":
+                                resultado = cantOrignal * 0.001;
+                                break;
+                            case "ML":
+                                resultado = cantOrignal;
+                                break;
+                            case "PZ":
+                                // NO SE PUEDE CONVERTIR KG A PZ
+                                resultado = cantOrignal;
+                                break;
+                        }
+                        break;
+                    case "PZ":
+                        resultado = cantOrignal;
+                        break;
+                }
+            }
+            return resultado;
         }
     }
 }

@@ -57,14 +57,15 @@
                 </div>
             </div>
             <div class="row">
-                <h4>Insumos</h4>
+                <h4>Ingrediente</h4>
                 <table class="table">
                     <thead class="table-secondary">
                         <tr>
                             <th>Nombre</th>
                             <th>Cantidad</th>
+                            <th>Unidad de ingrediente</th>
                             <th>Total de Insumo</th>
-                            <th>Unidad</th>
+                            <th>Unidad del Insumo</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,8 +74,9 @@
                             <tr>
                                 <td>@pr.Insumo.Nombre</td>
                                 <td>@pr.Cantidad</td>
-                                <td>@pr.Insumo.ContenidoTot</td>
                                 <td>@pr.Unidad</td>
+                                <td>@pr.Insumo.ContenidoTot</td>
+                                <td>@pr.Insumo.Unidad</td>
                             </tr>
                         }
                     </tbody>

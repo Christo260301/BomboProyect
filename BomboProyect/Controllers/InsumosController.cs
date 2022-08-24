@@ -62,6 +62,9 @@ namespace BomboProyect.Controllers
         public ActionResult Create()
         {
             ViewBag.ssUsuario = HttpContext.Session["Usuario"] as Usuarios;
+            ViewBag.Unidad = new SelectList(new List<string>() {
+            "KG", "GR", "LT", "ML", "PZ"
+            });
             return View();
         }
 
