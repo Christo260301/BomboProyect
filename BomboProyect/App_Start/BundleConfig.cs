@@ -26,6 +26,7 @@ namespace BomboProyect
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/scripts/productos").Include("~/Scripts/productos.js"));
+            bundles.Add(new ScriptBundle("~/scripts/producto2").Include("~/Scripts/producto2.js"));
         }
     }
 }

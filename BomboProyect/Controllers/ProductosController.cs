@@ -9,6 +9,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Windows.Media.Animation;
 using BomboProyect.Logica;
 using BomboProyect.Models;
 
@@ -102,64 +103,86 @@ namespace BomboProyect.Controllers
 
             if (insumos != null)
             {
+                for (int i = 0; i < insumos.Count; i++)
+                {
+                    ModelState.Remove($"[{i}].Nombre");
+                    ModelState.Remove($"[{i}].Descripcion");
+
+                }
                 if (ModelState.IsValid)
                 {
-                    //Validacion de fotografia
-                    if (validImageTypes.Any(productos.Fotografia.ContentType.Contains))
+
+                    bool insumosDuplicadosError = false;
+                    foreach(var insmGrop in insumos.GroupBy(i => i.InsumoId))
                     {
-                        //Almacenamiento de imagenes
-                        string NombreArchivo = Path.GetFileNameWithoutExtension(productos.Fotografia.FileName);
-                        //Obtener la extencion del archivo
-                        string ExtencionArchivo = Path.GetExtension(productos.Fotografia.FileName);
-                        //Agregar la fecha actual al nombre del archivo
-                        NombreArchivo = DateTime.Now.ToString("dd_MM_yyyy") + "-" + NombreArchivo.Trim() + "-" + productos.Nombre + "-" + ExtencionArchivo;
-                        //Obtener ruta de almacenamiento de las fotografias
-                        //string updatePath = ConfigurationManager.AppSettings["ProductosImagePath"].ToString();
-                        productos.Foto = "~/ProductosImages/" + NombreArchivo;
-                        NombreArchivo = Path.Combine(Server.MapPath("~/ProductosImages/"), NombreArchivo);
-                        productos.Fotografia.SaveAs(NombreArchivo);
-
-                        // SET STATUS TRUE | Existencias 0
-                        productos.Status = true;
-                        productos.Existencias = 0;
-
-                        db.Productos.Add(productos);
-                        int contador = 0;
-
-                        foreach (var item in insumos)
+                        if(insmGrop.Count() > 1)
                         {
-                            if (Convert.ToDouble(item.CantProduc) > -1)
-                            {
-                                contador++;
-                                var detProducto = new DetProducto();
-                                var insumo = new Insumos();
-                                //insumo.InsumoId = Convert.ToInt32(item.InsumoId);
-                                insumo = db.Insumos.Find(item.InsumoId);
-                                // db.Insumos.Attach(insumo);
-
-                                detProducto.Insumo = insumo;
-                                detProducto.Cantidad = Convert.ToDouble(item.CantProduc);
-                                detProducto.Unidad = item.Unidad;
-                                detProducto.Productos = productos;
-
-                                db.DetProductos.Add(detProducto);
-
-                            }
+                            insumosDuplicadosError=true;
                         }
+                    }
 
-                        if (contador == 0)
+                    if (!insumosDuplicadosError)
+                    {
+                        //Validacion de fotografia
+                        if (validImageTypes.Any(productos.Fotografia.ContentType.Contains))
                         {
+                            //Almacenamiento de imagenes
+                            string NombreArchivo = Path.GetFileNameWithoutExtension(productos.Fotografia.FileName);
+                            //Obtener la extencion del archivo
+                            string ExtencionArchivo = Path.GetExtension(productos.Fotografia.FileName);
+                            //Agregar la fecha actual al nombre del archivo
+                            NombreArchivo = DateTime.Now.ToString("dd_MM_yyyy") + "-" + NombreArchivo.Trim() + "-" + productos.Nombre + "-" + ExtencionArchivo;
+                            //Obtener ruta de almacenamiento de las fotografias
+                            //string updatePath = ConfigurationManager.AppSettings["ProductosImagePath"].ToString();
+                            productos.Foto = "~/ProductosImages/" + NombreArchivo;
+                            NombreArchivo = Path.Combine(Server.MapPath("~/ProductosImages/"), NombreArchivo);
+                            productos.Fotografia.SaveAs(NombreArchivo);
+
+                            // SET STATUS TRUE | Existencias 0
+                            productos.Status = true;
+                            productos.Existencias = 0;
+
+                            db.Productos.Add(productos);
+                            int contador = 0;
+
+                            foreach (var item in insumos)
+                            {
+                                if (Convert.ToDouble(item.CantProduc) > -1)
+                                {
+                                    contador++;
+                                    var detProducto = new DetProducto();
+                                    var insumo = new Insumos();
+                                    //insumo.InsumoId = Convert.ToInt32(item.InsumoId);
+                                    insumo = db.Insumos.Find(item.InsumoId);
+                                    // db.Insumos.Attach(insumo);
+
+                                    detProducto.Insumo = insumo;
+                                    detProducto.Cantidad = Convert.ToDouble(item.CantProduc);
+                                    detProducto.Unidad = item.Unidad;
+                                    detProducto.Productos = productos;
+
+                                    db.DetProductos.Add(detProducto);
+
+                                }
+                            }
+
+                            if (contador == 0)
+                            {
+                                return RedirectToAction("Index");
+                            }
+
+                            db.SaveChanges();
                             return RedirectToAction("Index");
                         }
+                        else
+                        {
+                            ModelState.AddModelError("Fotografia", "El formato de imagen debe ser jpeg o png");
 
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
-                    }
-                    else
+                            return View(productos);
+                        }
+                    } else
                     {
-                        ModelState.AddModelError("Fotografia", "El formato de imagen debe ser jpeg o png");
-
-                        return View(productos);
+                        ViewBag.insumosDuplicadosError = true;
                     }
                 }
                 else
@@ -215,9 +238,10 @@ namespace BomboProyect.Controllers
             {
                 for (int i = 0; i < insumos.Count; i++)
                 {
-                    ModelState.Remove($"[{i}].Unidad");
+                    ModelState.Remove($"[{i}].Insumo.Nombre");
+                    ModelState.Remove($"[{i}].Insumo.Descripcion");
                     ModelState.Remove($"[{i}].Productos");
-
+                    ModelState.Remove($"[{i}].Unidad");
                 }
             }
 
@@ -265,25 +289,47 @@ namespace BomboProyect.Controllers
                 db.Entry(productos).State = EntityState.Modified;
 
                 // ############ MODIFICACION DE DETALLE DE PRODUCTOS
-                // Insumos removidos del producto
-                if (InsumosRemovidos != null && InsumosRemovidos != "")
+                List<DetProducto> detProdHelperList = db.DetProductos.Where(dp => dp.Productos.ProductoId == productos.ProductoId).ToList();
+                List<DetProducto> detProdToDeleteList = new List<DetProducto>();
+                foreach (DetProducto detProd in detProdHelperList)
                 {
-                    string idInsumosRemoved = InsumosRemovidos.Substring(1, InsumosRemovidos.Length - 2);
-                    string[] lstIdInsumosRemoved = idInsumosRemoved.Split(',');
-
-                    foreach (var id in lstIdInsumosRemoved)
-                    {
-                        int idInsumos = Convert.ToInt32(id);
-
-                        List<DetProducto> detProducto = db.DetProductos.Where(
-                            m => m.Productos.ProductoId == productos.ProductoId && m.Insumo.InsumoId == idInsumos).ToList();
-
-                        if (detProducto.Count > 0)
-                        {
-                            db.DetProductos.Remove(detProducto[0]);
-                        }
+                    if (insumos.Where(i => i.Insumo.InsumoId == detProd.Insumo.InsumoId).ToList().Count() <= 0) {
+                        detProdToDeleteList.Add(detProd);
                     }
                 }
+
+
+                foreach (DetProducto id in detProdToDeleteList)
+                {
+
+                    List<DetProducto> detProducto = db.DetProductos.Where(
+                        m => m.Productos.ProductoId == productos.ProductoId && m.Insumo.InsumoId == id.Insumo.InsumoId).ToList();
+
+                    if (detProducto.Count > 0)
+                    {
+                        db.DetProductos.Remove(detProducto[0]);
+                    }
+                }
+
+                // Insumos removidos del producto
+                //if (InsumosRemovidos != null && InsumosRemovidos != "")
+                //{
+                //    string idInsumosRemoved = InsumosRemovidos.Substring(1, InsumosRemovidos.Length - 2);
+                //    string[] lstIdInsumosRemoved = idInsumosRemoved.Split(',');
+
+                //    foreach (var id in lstIdInsumosRemoved)
+                //    {
+                //        int idInsumos = Convert.ToInt32(id);
+
+                //        List<DetProducto> detProducto = db.DetProductos.Where(
+                //            m => m.Productos.ProductoId == productos.ProductoId && m.Insumo.InsumoId == idInsumos).ToList();
+
+                //        if (detProducto.Count > 0)
+                //        {
+                //            db.DetProductos.Remove(detProducto[0]);
+                //        }
+                //    }
+                //}
 
                 // ############ MODIFICACION Y REGISTRO DE NUEVOS DETPRODUCTOS
                 int contador = 0;
@@ -436,7 +482,8 @@ namespace BomboProyect.Controllers
                         {
                             // CANTIDAD TOTAL DEL INSUMO
                             double cont_tot = getContenidoTotal(insumosListTemp, ingre.Insumo);
-                            double cont_act = cont_tot - ingre.Cantidad;
+                            //double cont_act = cont_tot - ingre.Cantidad;
+                            double cont_act = cont_tot - ConvertUnidad(ingre.Cantidad, ingre.Unidad, ingre.Insumo.Unidad);
 
                             listValidacion.Add(cont_act);
 
@@ -467,7 +514,7 @@ namespace BomboProyect.Controllers
 
                                 db.Entry(insumoToModificar).State = EntityState.Unchanged;
                             {
-                                double nuevoContTot = insumoToModificar.ContenidoTot - Math.Round((ingre.Cantidad * existToGenerate), 3);
+                                double nuevoContTot = insumoToModificar.ContenidoTot - Math.Round((ConvertUnidad(ingre.Cantidad, ingre.Unidad, insumoToModificar.Unidad) * existToGenerate), 3);
 
                                 insumoToModificar.Existencias = calcularExistencia(
                                     ingre.Insumo.ContenidoTot,
@@ -499,7 +546,8 @@ namespace BomboProyect.Controllers
 
                         db.SaveChanges();
 
-                        RedirectToAction("Index", "Productos");
+                        //RedirectToAction("Index", "Productos");
+                        return RedirectToAction("Index", "Productos");
 
                     }
                     else
@@ -515,7 +563,8 @@ namespace BomboProyect.Controllers
                             Dictionary<string, string> dic = new Dictionary<string, string>();
                             dic.Add("nombreInsumo", d.Insumo.Nombre);
                             dic.Add("cantidadFaltante", Convert.ToString(Math.Round((d.Cantidad * contProductFail), 3)));
-                            dic.Add("unidad", d.Insumo.Unidad);
+                            //dic.Add("cantidadFaltante", Convert.ToString(Math.Round((ConvertUnidad(d.Cantidad, d.Unidad, d.Insumo.Unidad) * contProductFail), 3)));
+                            dic.Add("unidad", d.Unidad);
                             dataInsumoList.Add(dic);
                         }
                         ViewBag.estadoGeneracion = data;
@@ -592,6 +641,106 @@ namespace BomboProyect.Controllers
         protected double calcularExistencia(double contenidoTotalActual, double existenciaActual, double nuevoContenidoTotal)
         {
             return (nuevoContenidoTotal * existenciaActual) / contenidoTotalActual;
+        }
+
+        protected double ConvertUnidad(double cantOrignal, string unidadOriginal, string unidadAConvertir)
+        {
+            double resultado = 0.0;
+
+            if (unidadOriginal != null)
+            {
+                switch (unidadOriginal)
+                {
+                    case "KG":
+                        switch (unidadAConvertir)
+                        {
+                            case "KG":
+                                resultado = cantOrignal;
+                                break;
+                            case "GR":
+                                resultado = cantOrignal * 1000;
+                                break;
+                            case "LT":
+                                resultado = cantOrignal;
+                                break;
+                            case "ML":
+                                resultado = cantOrignal * 1000;
+                                break;
+                            case "PZ":
+                                // NO SE PUEDE CONVERTIR KG A PZ
+                                resultado = cantOrignal;
+                                break;
+                        }
+                        break;
+                    case "GR":
+                        switch (unidadAConvertir)
+                        {
+                            case "KG":
+                                resultado = cantOrignal * 0.001;
+                                break;
+                            case "GR":
+                                resultado = cantOrignal;
+                                break;
+                            case "LT":
+                                resultado = cantOrignal * 0.001;
+                                break;
+                            case "ML":
+                                resultado = cantOrignal;
+                                break;
+                            case "PZ":
+                                // NO SE PUEDE CONVERTIR KG A PZ
+                                resultado = cantOrignal;
+                                break;
+                        }
+                        break;
+                    case "LT":
+                        switch (unidadAConvertir)
+                        {
+                            case "KG":
+                                resultado = cantOrignal;
+                                break;
+                            case "GR":
+                                resultado = cantOrignal * 1000;
+                                break;
+                            case "LT":
+                                resultado = cantOrignal;
+                                break;
+                            case "ML":
+                                resultado = cantOrignal * 1000;
+                                break;
+                            case "PZ":
+                                // NO SE PUEDE CONVERTIR KG A PZ
+                                resultado = cantOrignal;
+                                break;
+                        }
+                        break;
+                    case "ML":
+                        switch (unidadAConvertir)
+                        {
+                            case "KG":
+                                resultado = cantOrignal * 0.001;
+                                break;
+                            case "GR":
+                                resultado = cantOrignal;
+                                break;
+                            case "LT":
+                                resultado = cantOrignal * 0.001;
+                                break;
+                            case "ML":
+                                resultado = cantOrignal;
+                                break;
+                            case "PZ":
+                                // NO SE PUEDE CONVERTIR KG A PZ
+                                resultado = cantOrignal;
+                                break;
+                        }
+                        break;
+                    case "PZ":
+                        resultado = cantOrignal;
+                        break;
+                }
+            }
+            return resultado;
         }
     }
 }

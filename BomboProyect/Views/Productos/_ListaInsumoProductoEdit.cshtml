@@ -14,7 +14,8 @@
             <th>Accion</th>
         </tr>
     </thead>
-    <tbody id="tbContainer">
+    <tbod>
+    @*<tbody id="tbContainer">*@
         @for (var i = 0; i < Model.Count(); i++)
         {
             <tr id="ID_@(Model[i].Insumo.InsumoId + "_" + Model[i].Insumo.Nombre)">
@@ -40,5 +41,5 @@
                 </td>
             </tr>
         }
-    </tbody>
+    </tbod>
 </table>

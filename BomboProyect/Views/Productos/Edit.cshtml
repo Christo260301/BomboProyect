@@ -22,103 +22,149 @@
     </div>
 
     <div class="row justify-content-center mt-3">
-        <div class="col-10 shadow p-3 mb-5 bg-body rounded">
-            <h4 class="mb-3">Datos Generales</h4>
+        <div class="col-11 shadow p-3 mb-5 bg-body rounded">
+            <h4 class="mb-1">Datos Generales</h4>
             <!-- FORMULARIO DE PRODUCTO -->
-            @using (Html.BeginForm("Edit", "Productos", FormMethod.Post, new { enctype = "multipart/form-data", @class = "row justify-content-between g-4" }))
+            @using (Html.BeginForm("Edit", "Productos", FormMethod.Post, new { enctype = "multipart/form-data", @class = "row justify-content-between" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.ProductoId)
 
-                <div class="col-auto">
-                    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "form-label" })
-                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="col-auto">
-                    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "form-label" })
-                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="col-auto">
-                    @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "form-label" })
-                    @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="col-auto">
-                    @Html.LabelFor(model => model.Existencias, htmlAttributes: new { @class = "form-label" })
-                    @Html.EditorFor(model => model.Existencias, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Existencias, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="">
-                    <div class="form-check">
-                        @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-check-input", @id = "Status" } })
-                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "form-check-label", @for = "Status" })
+                <div class="col-4">
+                    <div class="mb-1">
+                        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+
+                    <div class="mb-1">
+                        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-1">
+                        @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-1">
+                        @Html.LabelFor(model => model.Existencias, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Existencias, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Existencias, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="">
+                        <div class="form-check">
+                            @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-check-input", @id = "Status" } })
+                            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "form-check-label", @for = "Status" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <input type="hidden" name="Foto" value="Foto" />
+                    <input type="hidden" name="rutaFotoAnterior" value="@Model.Foto" />
+                    <input type="hidden" id="notEditFoto" value="@Url.Content(Model.Foto)" />
+
+                    <div class="mb-1">
+                        @Html.LabelFor(model => model.Fotografia, htmlAttributes: new { @class = "form-label" })
+                        <input class="form-control hidden" type="file" name="Fotografia" id="Fotografia" required />
+                        @Html.ValidationMessageFor(model => model.Fotografia, "", new { @class = "form-text text-danger" })
+                    </div>
+
+                    <div class="col-12 d-flex justify-content-center px-3">
+                        <img id="img-preview" style="height: 200px;" src="@Url.Content(Model.Foto)">
+                        <i id="i-eliminar-img" class="bi bi-x-circle-fill ms-2 text-danger fs-5" onclick="removeImage()"></i>
+                    </div>
                 </div>
 
-
-                <input type="hidden" name="Foto" value="Foto" />
-                <input type="hidden" name="rutaFotoAnterior" value="@Model.Foto" />
-                <input type="hidden" id="notEditFoto" value="@Url.Content(Model.Foto)" />
-
-                <div class="col-auto">
-                    @Html.LabelFor(model => model.Fotografia, htmlAttributes: new { @class = "form-label" })
-                    <input class="form-control hidden" type="file" name="Fotografia" id="Fotografia" required />
-                    @Html.ValidationMessageFor(model => model.Fotografia, "", new { @class = "form-text text-danger" })
-                </div>
-
-                <div class="col-12 d-flex justify-content-center px-3">
-                    <img id="img-preview" style="height: 200px;" src="@Url.Content(Model.Foto)">
-                    <i id="i-eliminar-img" class="bi bi-x-circle-fill ms-2 text-danger fs-5" onclick="removeImage()"></i>
-                </div>
-
-                <h4 class="mb-3">Materiales</h4>
-                <div class="row justify-content-between">
-                    <div class="col-5 table-scroll">
-                        <h5>Insumos Disponibles</h5>
-                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar insumos" />
-                        <table class="table " id="myTable">
-                            <thead class="table-secondary">
-                                <tr class="header">
-                                    <th>Nombre</th>
-                                    <th>Cantidad Total</th>
-                                    <th>Existencias</th>
-                                    <th>Acction</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var ins in ViewBag.insumos)
-                                {
-                                    <tr>
-                                        <td>@ins.Nombre</td>
-                                        <td>@ins.ContenidoTot</td>
-                                        <td>@ins.Existencias</td>
-                                        <td>
-                                            <div class="d-flex justify-content-center">
-                                                <button type="button" onclick="addInsumo(@Json.Encode(ins), true)" class="btn btn-secondary">
-                                                    <i class="fa-solid fa-plus"></i>
-                                                </button>
-                                            </div>
-                                        </td>
+                <div class="col-8">
+                    <div class="row justify-content-between">
+                        <div class="col border">
+                            <input type="hidden" value="0" name="ContElement" id="ContElement" />
+                            <input type="hidden" value="" name="ContElmeJson" id="ContElmeJson" />
+                            <input type="hidden" name="InsumosRemovidos" id="InsumosRemovidos" value="" />
+                            @*<h5>Insumos Disponibles</h5>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar insumos" />*@
+                            <table class="table " id="myTable">
+                                <thead class="table-secondary">
+                                    <tr class="header">
+                                        <th>Insumo</th>
+                                        <th>Cantidad Indumo</th>
+                                        <th>Unidad de Medida</th>
+                                        <th>Acction</th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-5 table-scroll" id="divInsumos">
-                        @Html.Partial("_ListaInsumoProductoEdit", (List<DetProducto>) ViewBag.detPro)
+                                </thead>
+                                <tbody id="tbContainer">
+                                    @{List<DetProducto> dt = (List<DetProducto>)ViewBag.detPro;}
+                                    @for (var i = 0; i < dt.Count(); i++)
+                                    {
+                                        <tr id="ID_@(i)">
+                                            <td>
+                                                <select name="[@i].Insumo.InsumoId" class="form-select">
+                                                    @foreach (var ins in ViewBag.insumos)
+                                                    {
+                                                        if (ins.InsumoId == (dt[i].Insumo.InsumoId))
+                                                        {
+                                                            <option value="@ins.InsumoId" selected>@ins.Nombre</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@ins.InsumoId">@ins.Nombre</option>
+                                                        }
+
+                                                    }
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input name="[@i].Insumo.CantProduc" type="number" min="0" value=@dt[i].Cantidad class="form-control" />
+                                            </td>
+                                            <td>
+                                                <select name="[0].Unidad" class="form-select" aria-label="Default select example">
+                                                    <option value="KG" @(dt[i].Unidad == "KG" ? "selected" : "")>KG</option>
+                                                    <option value="GR" @(dt[i].Unidad == "GR" ? "selected" : "")>GR</option>
+                                                    <option value="LT" @(dt[i].Unidad == "LT" ? "selected" : "")>LT</option>
+                                                    <option value="ML" @(dt[i].Unidad == "ML" ? "selected" : "")>ML</option>
+                                                    <option value="PZ" @(dt[i].Unidad == "PZ" ? "selected" : "")>PZ</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex justify-content-start">
+                                                    <button type="button" onclick="removeInsumo(@(i)  ,true)" class="btn btn-danger">
+                                                        <i class="fa-solid fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                                @*<div class="d-flex justify-content-center">
+                                <button type="button" onclick="addInsumo(@Json.Encode(ins), true)" class="btn btn-secondary">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>*@
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="d-grid">
+                                <button class="btn btn-dark" type="button" onclick='addInsumo(@(Json.Encode(ViewBag.insumos)), true)'>
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
+                <div class="col-5 table-scroll" id="divInsumos">
+                   @* @Html.Partial("_ListaInsumoProductoEdit", (List<DetProducto>)ViewBag.detPro)*@
+                </div>
+                @*<h4 class="mb-3">Materiales</h4>*@
 
-                <div class="d-grid">
+
+
+                <div class="d-grid mt-5">
                     <button class="btn btn-success" type="submit"><i class="fa-solid fa-pen me-2"></i>Editar</button>
                 </div>
             }
@@ -128,11 +174,11 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/scripts/productos")
+    @Scripts.Render("~/scripts/producto2")
 
-<script>
+    <script>
        @*$(document).ready(function () {
             $("#divInsumos").load(`$@Model.ProductoId}_ListaInsumoProducto`)
         })*@
-</script>
+    </script>
 }
